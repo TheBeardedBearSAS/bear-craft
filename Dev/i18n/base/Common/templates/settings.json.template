@@ -33,10 +33,11 @@
       "Bash(chmod 777:*)",
       "Read(**/.env)",
       "Read(**/.env.*)",
-      "Read(**/secrets/*)",
+      "Read(**/secrets/**)",
       "Read(**/*.key)",
       "Read(**/*.pem)",
-      "Read(**/*credentials*)"
+      "Read(**/credentials.json)",
+      "Read(**/.credentials*)"
     ]
   },
 
