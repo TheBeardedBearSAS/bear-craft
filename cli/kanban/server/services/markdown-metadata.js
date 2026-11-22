@@ -128,7 +128,7 @@ function points(value) {
 /** "EPIC-001 — Title", "[EPIC-001](…)" -> "EPIC-001"; anything else is left to the schema. */
 function bareEpicId(value) {
   if (value === undefined) return undefined;
-  return /^[\[(\s]*(EPIC-\d{3,})(?![A-Za-z0-9])/.exec(value)?.[1] ?? value;
+  return /^[[(\s]*(EPIC-\d{3,})(?![A-Za-z0-9])/.exec(value)?.[1] ?? value;
 }
 
 function dropUndefined(obj) {
