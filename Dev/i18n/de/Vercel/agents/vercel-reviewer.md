@@ -435,7 +435,7 @@ Nutzt das Projekt eine Marketplace-Integration (Neon Postgres, Upstash Redis/KV)
 **Hartkodiertes Secret:**
 ```typescript
 // VERBOTEN — Secret im Quellcode hartkodiert, dauerhaft in der Git-Historie
-const STRIPE_SECRET_KEY = 'sk_live_51H...';
+const STRIPE_SECRET_KEY = 'sk_live_<REDACTED>...';
 
 // KORREKT — aus der Umgebung gelesen, kein Literal-Fallback, schlägt laut fehl, wenn unset
 const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY;

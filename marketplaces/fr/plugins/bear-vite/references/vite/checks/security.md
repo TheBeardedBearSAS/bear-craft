@@ -70,7 +70,7 @@ Status: ✅ SECURE | ⚠️ RISKS FOUND | ❌ VULNERABLE
 Findings:
 [⚫ CRITICAL] Secret exposed via VITE_ prefix
     File: .env
-    Code: VITE_STRIPE_SECRET_KEY=sk_live_xxx
+    Code: VITE_STRIPE_SECRET_KEY=sk_live_<REDACTED>
     Fix: Rename without VITE_ prefix and move usage server-side; never reference from src/
 
 🌐 CSP COVERAGE (multi-page)

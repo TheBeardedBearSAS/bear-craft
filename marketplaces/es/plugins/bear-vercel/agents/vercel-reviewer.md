@@ -427,7 +427,7 @@ código o en vercel.json?
 **Secreto hardcodeado:**
 ```typescript
 // PROHIBIDO — secreto hardcodeado en el código fuente, permanentemente en el historial de git
-const STRIPE_SECRET_KEY = 'sk_live_51H...';
+const STRIPE_SECRET_KEY = 'sk_live_<REDACTED>...';
 
 // CORRECTO — leído desde entorno, sin fallback literal, falla ruidosamente si no está fijado
 const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY;

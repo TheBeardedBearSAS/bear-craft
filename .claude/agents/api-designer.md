@@ -237,10 +237,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIs...
 
 ```http
 # Header (recommandé)
-X-API-Key: sk_live_abc123
+X-API-Key: sk_live_<REDACTED>
 
 # Query (éviter si possible)
-?api_key=sk_live_abc123
+?api_key=sk_live_<REDACTED>
 ```
 
 ### OAuth 2.0 Scopes
