@@ -106,6 +106,8 @@ Escribe `project-management/prd.md` y `project-management/personas.md`.
 
 **Fase 4 - Revisión e iteración**: mostrar una checklist de secciones (Executive Summary, Problem Statement, Goals & Metrics, Target Users, Functional Requirements, Non-Functional Requirements, Scope & Constraints, Timeline, Risks & Mitigations), señalar las incompletas y luego ofrecer ampliar una sección, detallar las personas o ajustar la priorización.
 
+**Fase 5 - Puerta PRD (obligatoria)**: terminar ejecutando `/bear-gate:check prd` e informar de su puntuación y hallazgos reales; corregir los defectos señalados (filas FR duplicadas, orden del historial de revisiones, ...) y volver a ejecutarla. Nunca autoevaluar la puerta. Si no se pudo ejecutar, indicar explícitamente `Puerta PRD: NO EJECUTADA` con el motivo en lugar de anunciar una puntuación.
+
 ```
 project-management/
 ├── prd.md                    # PRD generado (FR-xxx / NFR-xxx)

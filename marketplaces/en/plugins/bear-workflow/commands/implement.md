@@ -63,6 +63,8 @@ Quick Flow: a clear understanding of the bug/feature to implement.
 
 > **Plan mode is mandatory.** Before each task, Claude activates plan mode to analyze impacted code, propose an implementation plan, and wait for your validation before making any changes.
 
+> **Headless mode (`claude -p`, no TTY, no human to answer).** The mandatory plan mode and the validation wait of step 3.2 are suspended: do not enter plan mode and do not call `ScheduleWakeup`, `AskUserQuestion` or any tool that waits for an answer. Record the plan of each task in the final result and proceed without waiting for validation.
+
 ## Workflow
 
 ### Step 1: Select the scope

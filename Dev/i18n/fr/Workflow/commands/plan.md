@@ -106,6 +106,8 @@ Agents : **research-assistant** (recherche technique), **product-owner** (contex
 
 **Phase 4 - Relecture et itération** : afficher une checklist des sections (Executive Summary, Problem Statement, Goals & Metrics, Target Users, Functional Requirements, Non-Functional Requirements, Scope & Constraints, Timeline, Risks & Mitigations), signaler les sections incomplètes, puis proposer d'étoffer une section, de détailler les personas ou d'ajuster la priorisation.
 
+**Phase 5 - Porte PRD (obligatoire)** : terminer en lançant `/bear-gate:check prd` et rapporter son score et ses constats réels ; corriger les défauts signalés (lignes FR dupliquées, ordre de l'historique des révisions, ...) puis le relancer. Ne jamais auto-noter la porte. Si elle n'a pas pu être exécutée, indiquer explicitement `Porte PRD : NON EXÉCUTÉE` avec la raison au lieu d'annoncer un score.
+
 ```
 project-management/
 ├── prd.md                    # PRD généré (FR-xxx / NFR-xxx)

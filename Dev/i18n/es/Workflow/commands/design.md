@@ -36,11 +36,13 @@ Orden canónico de los documentos: PRD → spec técnica → backlog → sprint.
 ## Requisitos previos
 
 - El PRD existe en `project-management/prd.md` (`--constitution`: solo fuentes opcionales, ver más abajo)
-- Stack tecnológico identificado (se pregunta de forma interactiva en proyectos nuevos)
+- Stack tecnológico identificado (se pregunta de forma interactiva en proyectos nuevos; en headless, leerlo de `CLAUDE.md` o del PRD y fallar con un error claro si falta)
 
 ## Plan Mode
 
-> **El plan mode es obligatorio.** Claude activa el plan mode para analizar el código afectado, proponer una estrategia de generación y esperar su validación antes de crear artefactos.
+> **El plan mode es obligatorio en sesiones interactivas.** Claude activa el plan mode para analizar el código afectado, proponer una estrategia de generación y esperar su validación antes de crear artefactos. Se suspende en ejecuciones headless (`claude -p`, sin TTY, nadie que responda): ver más abajo.
+
+> **Modo headless (`claude -p`, sin TTY, nadie que responda).** El plan mode se suspende: no entrar en él ni llamar a `ScheduleWakeup`, `AskUserQuestion` ni a ninguna herramienta que espere una respuesta, de lo contrario la ejecución entra en bucle. Enunciar explícitamente las hipótesis, escribir el plan en `project-management/design-plan.md`, incluirlo en el resultado final, y luego continuar con la generación y terminar el turno.
 
 ## Workflow: Spec técnica (por defecto)
 
@@ -125,6 +127,8 @@ Ejemplo de checklist de seguridad:
 - El modelo de datos gestiona todas las entidades; el diseño de API cubre todas las user stories
 - Seguridad, estrategia de tests y enfoque de despliegue documentados
 - ADR completos y justificados
+
+En modo headless, ejecutar `/bear-gate:check spec` e informar de su puntuación y hallazgos reales; corregir los defectos señalados y volver a ejecutarla. Nunca autoevaluar esta puerta. Si no se pudo ejecutar, indicar explícitamente `Puerta de diseño: NO EJECUTADA` con el motivo en lugar de anunciar un resultado.
 
 Ofrecer iteraciones: estrategia de caché, documentación de API ampliada, pipeline de despliegue.
 

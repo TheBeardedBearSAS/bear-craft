@@ -36,11 +36,13 @@ Ordem canônica dos documentos: PRD → spec técnica → backlog → sprint.
 ## Pré-requisitos
 
 - O PRD existe em `project-management/prd.md` (`--constitution`: apenas fontes opcionais, veja abaixo)
-- Stack tecnológica identificada (perguntada de forma interativa em projetos novos)
+- Stack tecnológica identificada (perguntada de forma interativa em projetos novos; em headless, lê-la em `CLAUDE.md` ou no PRD e falhar com um erro claro se faltar)
 
 ## Plan Mode
 
-> **O plan mode é obrigatório.** O Claude ativa o plan mode para analisar o código impactado, propor uma estratégia de geração e aguardar sua validação antes de criar artefatos.
+> **O plan mode é obrigatório em sessões interativas.** O Claude ativa o plan mode para analisar o código impactado, propor uma estratégia de geração e aguardar sua validação antes de criar artefatos. Ele é suspenso em execuções headless (`claude -p`, sem TTY, ninguém para responder): veja abaixo.
+
+> **Modo headless (`claude -p`, sem TTY, ninguém para responder).** O plan mode é suspenso: não entrar nele nem chamar `ScheduleWakeup`, `AskUserQuestion` ou qualquer ferramenta que aguarde uma resposta, caso contrário a execução entra em loop. Declarar explicitamente as hipóteses, escrever o plano em `project-management/design-plan.md`, incluí-lo no resultado final, depois prosseguir com a geração e encerrar o turno.
 
 ## Workflow: Spec técnica (padrão)
 
@@ -125,6 +127,8 @@ Exemplo de checklist de segurança:
 - O modelo de dados trata todas as entidades; o design de API cobre todas as user stories
 - Segurança, estratégia de testes e abordagem de deploy documentados
 - ADR completos e justificados
+
+Em modo headless, executar `/bear-gate:check spec` e relatar sua pontuação e achados reais; corrigir os defeitos apontados e executá-lo novamente. Nunca autoavaliar este gate. Se não foi possível executá-lo, indicar explicitamente `Gate de design: NÃO EXECUTADO` com o motivo em vez de anunciar um resultado.
 
 Oferecer iterações: estratégia de cache, documentação de API detalhada, pipeline de deploy.
 
