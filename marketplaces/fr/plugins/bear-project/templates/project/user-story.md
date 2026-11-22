@@ -2,7 +2,7 @@
 
 ## Métadonnées
 - **ID**: US-{ID}
-- **EPIC**: {EPIC_ID}
+- **EPIC**: {EPIC_ID} <!-- id seul, ex. EPIC-001 (sans titre) -->
 - **Sprint**: {SPRINT}
 - **Statut**: suivi dans .bmad/sprint-status.yaml
 - **Points**: {POINTS}

@@ -161,7 +161,7 @@ project-management/
 
 **Sprints** (`sprint-{N}-{slug}/`) : `sprint-goal.md` (objectif en une phrase, cérémonies, stories sélectionnées et total de points, ordre d'exécution, graphe de dépendances Mermaid, incrément livrable, directive de rétrospective et format Starfish) et `sprint-dependencies.md`.
 
-**Enregistrement dans `.bmad/sprint-status.yaml`** : pour chaque story, ajouter une entrée avec `status: backlog` (schéma : `Project/templates/sprint-status.yaml.template`) : `title`, `story_points`, `epic_id`, `tasks` (total 0), `acceptance_criteria.total`, et une entrée `history` « Story created ». `.bmad/sprint-status.yaml` est la source unique de vérité pour le statut ; les fichiers markdown ne contiennent que le contenu, jamais de statut. Créer le fichier depuis le template s'il manque, ne jamais écraser les entrées existantes.
+**Enregistrement dans `.bmad/sprint-status.yaml`** : pour chaque story, ajouter une entrée avec `status: backlog` (schéma : `Project/templates/sprint-status.yaml.template`) : `title`, `story_points`, `epic_id`, `tasks` (total 0), `acceptance_criteria.total`, et une entrée `history` « Story created ». `.bmad/sprint-status.yaml` est la source unique de vérité pour le statut ; les fichiers markdown ne contiennent que le contenu, jamais de statut. Créer le fichier depuis le template s'il manque, ne jamais écraser les entrées existantes. Entrée de création : `from: "none"`, `to: "backlog"`, horodatage = heure UTC réelle (`date -u +%Y-%m-%dT%H:%M:%SZ`).
 
 **Règles Scrum** : sprints de 2 semaines, vélocité 20-40 points, 8 points max par story (sinon découper), échelle de Fibonacci (1, 2, 3, 5, 8, 13, 21), Sprint 1 = Walking Skeleton (infrastructure + un flux complet).
 

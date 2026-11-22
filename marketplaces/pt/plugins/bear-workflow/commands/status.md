@@ -312,7 +312,7 @@ O status do workflow é lido de, e gravado em, `project-management/workflow-stat
 ```yaml
 project: my-awesome-app
 track: standard  # quick | standard | enterprise
-initialized_at: 2026-01-07T10:00:00Z
+initialized_at: 2026-01-07T10:00:00Z  # horário UTC real da inicialização: `date -u +%Y-%m-%dT%H:%M:%SZ`, nunca T00:00:00Z
 updated_at: 2026-01-07T15:30:00Z
 current_phase: design
 

@@ -194,7 +194,7 @@ Créer le fichier de statut du workflow :
 # project-management/workflow-status.yaml
 project: my-awesome-app
 track: standard
-initialized_at: 2026-01-07T10:00:00Z
+initialized_at: 2026-01-07T10:00:00Z  # heure UTC réelle de l'initialisation : `date -u +%Y-%m-%dT%H:%M:%SZ`, jamais T00:00:00Z
 current_phase: planning
 
 phases:

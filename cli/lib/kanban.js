@@ -32,6 +32,22 @@ function openBrowser(url) {
   }
 }
 
+/** Usage text of `bear-craft kanban --help` (printed without starting the server). */
+export function printKanbanHelp() {
+  console.log(`${c.bold}Usage:${c.reset} bear-craft kanban [path] [options]
+
+Launch the local Kanban UI for the project-management/ directory of [path] (default: current directory).
+
+${c.bold}Options:${c.reset}
+  ${c.green}--port=<n>${c.reset}       Port to listen on, 1024-65535 (default: 3737)
+  ${c.green}--open${c.reset}           Open the board in the default browser
+  ${c.green}--readonly${c.reset}       Disable every write (transitions, edits, creation)
+  ${c.green}--no-watch${c.reset}       Do not reload when files change on disk
+  ${c.green}--user=<name>${c.reset}    Author recorded in history entries (default: git user.name)
+  ${c.green}-h, --help${c.reset}       Show this help and exit
+`);
+}
+
 /**
  * @param {object} opts
  * @param {string} opts.targetPath

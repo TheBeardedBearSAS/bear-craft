@@ -192,7 +192,7 @@ Crear archivo de estado del flujo de trabajo:
 # project-management/workflow-status.yaml
 project: mi-aplicacion
 track: standard
-initialized_at: 2026-01-07T10:00:00Z
+initialized_at: 2026-01-07T10:00:00Z  # hora UTC real de la inicialización: `date -u +%Y-%m-%dT%H:%M:%SZ`, nunca T00:00:00Z
 current_phase: planning
 
 phases:

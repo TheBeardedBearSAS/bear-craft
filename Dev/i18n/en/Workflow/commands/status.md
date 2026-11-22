@@ -312,7 +312,7 @@ The workflow status is read from, and written to, `project-management/workflow-s
 ```yaml
 project: my-awesome-app
 track: standard  # quick | standard | enterprise
-initialized_at: 2026-01-07T10:00:00Z
+initialized_at: 2026-01-07T10:00:00Z  # real UTC time of initialization: `date -u +%Y-%m-%dT%H:%M:%SZ`, never T00:00:00Z
 updated_at: 2026-01-07T15:30:00Z
 current_phase: design
 
