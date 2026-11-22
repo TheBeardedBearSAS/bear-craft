@@ -239,7 +239,7 @@ class BearCraftCLI {
 
       case 'doctor':
         printBanner(VERSION);
-        runDoctor(this.config.targetPath, { fix: options.fix === true });
+        runDoctor(this.config.targetPath, { fix: options.fix === true || options.fix === 'true' });
         break;
 
       case 'update':

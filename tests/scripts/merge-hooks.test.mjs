@@ -177,6 +177,12 @@ describe('CLI', () => {
   });
 });
 
+describe('removeDenyRules on non-object input', () => {
+  it.each([null, 42, 'x', []])('does not throw on %j', (input) => {
+    expect(removeDenyRules(input, ['a']).removed).toBe(0);
+  });
+});
+
 describe('removeDenyRules', () => {
   it('retire par égalité stricte et compte les règles retirées', () => {
     const input = { permissions: { deny: ['Read(**/.env)', 'Read(**/*credentials*)', 'Read(**/credentials.json)'] } };

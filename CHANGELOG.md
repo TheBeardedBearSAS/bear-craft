@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **`bear-craft doctor --fix`**: migrates the legacy `Read(**/*credentials*)` deny rule of `.claude/settings.json` (backup `settings.json.bak-<timestamp>` with the original file mode, only that rule removed, `Read(**/credentials.json)` and `Read(**/.credentials*)` added when missing; invalid JSON or a failed write leaves the file untouched and exits non-zero).
+
 ## [10.0.0] - 2026-11-17
 
 > **Claude Craft is now Bear Craft.** New npm package `@the-bearded-bear/bear-craft` (the `claude-craft` command stays as an alias in 10.x), commands prefixed `/bear-<ns>:` on every channel, installation through Claude Code plugins in 5 languages. Upgrade guide: [MIGRATION-v10](docs/MIGRATION-v10.md).

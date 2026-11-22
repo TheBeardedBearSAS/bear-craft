@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { mkdtempSync, mkdirSync, writeFileSync, rmSync, chmodSync, readFileSync, readdirSync } from 'fs';
+import { mkdtempSync, mkdirSync, writeFileSync, rmSync, chmodSync, readFileSync, readdirSync, statSync } from 'fs';
 import { join, dirname } from 'path';
 import { tmpdir } from 'os';
 
@@ -457,6 +457,41 @@ describe('runDoctor', () => {
         expect(readFileSync(settingsPath(), 'utf8')).toBe('{ not json');
         expect(baks()).toHaveLength(0);
         expect(output()).toMatch(/invalid JSON/i);
+        expect(output()).toMatch(/1 failed/);
+        expect(process.exitCode).toBe(1);
+      });
+
+      it.each(['null', '[]', '"str"', '42'])('treats non-object JSON (%s) as invalid, no write', (raw) => {
+        seed(raw);
+        doFix();
+        expect(readFileSync(settingsPath(), 'utf8')).toBe(raw);
+        expect(baks()).toHaveLength(0);
+        expect(output()).toMatch(/invalid JSON/i);
+        expect(process.exitCode).toBe(1);
+      });
+
+      it('keeps backup mode equal to the original (0600)', () => {
+        seed(JSON.stringify({ permissions: { deny: [LEGACY] } }));
+        chmodSync(settingsPath(), 0o600);
+        doFix();
+        expect(statSync(join(tempDir, '.claude', baks()[0])).mode & 0o777).toBe(0o600);
+        expect(statSync(settingsPath()).mode & 0o777).toBe(0o600);
+      });
+
+      it.skipIf(process.getuid?.() === 0)('reports a write failure without stack trace, original intact', () => {
+        const raw = JSON.stringify({ permissions: { deny: [LEGACY] } });
+        seed(raw);
+        chmodSync(settingsPath(), 0o444);
+        chmodSync(join(tempDir, '.claude'), 0o555);
+        try {
+          doFix();
+        } finally {
+          chmodSync(join(tempDir, '.claude'), 0o755);
+        }
+        expect(readFileSync(settingsPath(), 'utf8')).toBe(raw);
+        expect(output()).toMatch(/\[FAIL\].*(write|EACCES)/i);
+        expect(output()).not.toMatch(/\n\s+at /);
+        expect(process.exitCode).toBe(1);
       });
 
       it('does nothing without fix option', () => {

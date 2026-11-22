@@ -51,32 +51,52 @@ const LEGACY_CREDENTIALS_DENY = 'Read(**/*credentials*)';
 const REPLACEMENT_CREDENTIALS_DENY = ['Read(**/credentials.json)', 'Read(**/.credentials*)'];
 
 /**
- * Migrate the legacy `Read(**\/*credentials*)` deny rule: back up settings.json, drop only that rule,
- * add the narrower replacements. Invalid JSON is never rewritten.
+ * Migrate the legacy `Read(**\/*credentials*)` deny rule: back up settings.json (same mode), drop only that rule,
+ * add the narrower replacements. Invalid JSON or a failed write never alters the original file.
  * @param {string} targetPath
+ * @returns {'fixed'|'unchanged'|'failed'}
  */
 function fixLegacyCredentialsDeny(targetPath) {
   const file = path.join(targetPath, '.claude', 'settings.json');
-  const raw = fs.readFileSync(file, 'utf8');
+  const fail = (msg) => {
+    console.log(`  ${c.red}[FAIL]${c.reset} ${msg}`);
+    return 'failed';
+  };
+  let raw;
   let settings;
   try {
+    raw = fs.readFileSync(file, 'utf8');
     settings = JSON.parse(raw);
   } catch {
-    console.log(`  ${c.red}[FAIL]${c.reset} .claude/settings.json is invalid JSON — not modified, fix it by hand`);
-    return;
+    return fail('.claude/settings.json is invalid JSON — not modified, fix it by hand');
+  }
+  if (settings === null || typeof settings !== 'object' || Array.isArray(settings)) {
+    return fail('.claude/settings.json is invalid JSON (not an object) — not modified, fix it by hand');
   }
   const { settings: next, removed } = removeDenyRules(settings, [LEGACY_CREDENTIALS_DENY]);
-  if (removed === 0) return;
+  if (removed === 0) return 'unchanged';
   for (const rule of REPLACEMENT_CREDENTIALS_DENY) {
     if (!next.permissions.deny.includes(rule)) next.permissions.deny.push(rule);
   }
   const stamp = new Date().toISOString().replaceAll(/[-:.]/g, '');
   const backup = `${file}.bak-${stamp}`;
-  fs.writeFileSync(backup, raw);
-  fs.writeFileSync(file, `${JSON.stringify(next, null, 2)}\n`);
+  const tmp = `${file}.tmp-${process.pid}`;
+  try {
+    const mode = fs.statSync(file).mode & 0o777;
+    fs.writeFileSync(backup, raw, { mode });
+    fs.chmodSync(backup, mode);
+    fs.writeFileSync(tmp, `${JSON.stringify(next, null, 2)}\n`, { mode });
+    fs.chmodSync(tmp, mode);
+    fs.renameSync(tmp, file);
+  } catch (error) {
+    fs.rmSync(tmp, { force: true });
+    fs.rmSync(backup, { force: true });
+    return fail(`Could not write .claude/settings.json (${error.code || error.message}) — original left intact`);
+  }
   console.log(
     `  ${c.green}[FIXED]${c.reset} Replaced ${LEGACY_CREDENTIALS_DENY} with ${REPLACEMENT_CREDENTIALS_DENY.join(', ')} (backup: ${path.basename(backup)})`
   );
+  return 'fixed';
 }
 
 function readDenyRules(targetPath) {
@@ -275,7 +295,7 @@ function runDoctor(targetPath, deps = {}) {
 
   // 6a'. Legacy deny rule that blocks writing docs/ADR/stories mentioning "credentials" (#275)
   if (deps.fix === true && fs.existsSync(path.join(targetPath, '.claude', 'settings.json'))) {
-    fixLegacyCredentialsDeny(targetPath);
+    if (fixLegacyCredentialsDeny(targetPath) === 'failed') failed++;
   }
   if (readDenyRules(targetPath).includes(LEGACY_CREDENTIALS_DENY)) {
     console.log(
