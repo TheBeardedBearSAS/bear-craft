@@ -37,6 +37,49 @@ function yqInstallHints() {
 }
 
 /**
+ * Read `permissions.allow` of the project's .claude/settings.json (empty when absent or invalid).
+ * @param {string} targetPath
+ * @returns {string[]}
+ */
+function readAllowRules(targetPath) {
+  try {
+    const settings = JSON.parse(fs.readFileSync(path.join(targetPath, '.claude', 'settings.json'), 'utf8'));
+    return Array.isArray(settings?.permissions?.allow) ? settings.permissions.allow : [];
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * Whether Claude Code recorded the workspace (or a parent directory) as trusted in ~/.claude.json.
+ * Headless runs (`claude -p`) skip the trust dialog and silently ignore project permissions on an untrusted workspace.
+ * @param {string} targetPath
+ * @param {string} claudeJsonPath
+ * @returns {boolean}
+ */
+function isWorkspaceTrusted(targetPath, claudeJsonPath) {
+  let projects;
+  try {
+    projects = JSON.parse(fs.readFileSync(claudeJsonPath, 'utf8'))?.projects ?? {};
+  } catch {
+    return false;
+  }
+  const candidates = new Set([path.resolve(targetPath)]);
+  try {
+    candidates.add(fs.realpathSync(targetPath));
+  } catch {
+    // keep the resolved path only
+  }
+  for (const start of candidates) {
+    for (let dir = start; ; dir = path.dirname(dir)) {
+      if (projects[dir]?.hasTrustDialogAccepted === true) return true;
+      if (path.dirname(dir) === dir) break;
+    }
+  }
+  return false;
+}
+
+/**
  * Run a shell command and return the trimmed output, or null on failure.
  * @param {string} cmd - Shell command to execute
  * @returns {string|null}
@@ -170,6 +213,22 @@ function runDoctor(targetPath, deps = {}) {
   } else {
     console.log(`  ${c.yellow}[WARN]${c.reset} .claude/ directory not found (not installed here)`);
     warned++;
+  }
+
+  // 6a. Workspace trust: permissions.allow is ignored by headless runs on an untrusted workspace
+  if (readAllowRules(targetPath).length > 0) {
+    const claudeJsonPath =
+      deps.claudeJsonPath || path.join(process.env.CLAUDE_CONFIG_DIR || os.homedir(), '.claude.json');
+    if (isWorkspaceTrusted(targetPath, claudeJsonPath)) {
+      console.log(`  ${c.green}[OK]${c.reset} Workspace trusted (permissions.allow applies)`);
+      passed++;
+    } else {
+      console.log(
+        `  ${c.yellow}[WARN]${c.reset} Workspace not trusted — permissions.allow in .claude/settings.json is silently ignored by headless runs (claude -p)`
+      );
+      console.log(`         Open ${c.cyan}claude${c.reset} once in this directory and accept the trust dialog`);
+      warned++;
+    }
   }
 
   // 6b. Plugins: marketplace copy, settings.json entries and registration on this machine
