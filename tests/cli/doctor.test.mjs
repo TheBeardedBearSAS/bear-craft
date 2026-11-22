@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { mkdtempSync, mkdirSync, writeFileSync, rmSync, chmodSync } from 'fs';
+import { mkdtempSync, mkdirSync, writeFileSync, rmSync, chmodSync, readFileSync, readdirSync } from 'fs';
 import { join, dirname } from 'path';
 import { tmpdir } from 'os';
 
@@ -400,6 +400,72 @@ describe('runDoctor', () => {
       );
       runDoctor(tempDir, { execFn: allToolsExec, claudeJsonPath: join(tempDir, 'absent.json') });
       expect(output()).not.toContain('*credentials*');
+    });
+
+    describe('--fix legacy credentials deny', () => {
+      const LEGACY = 'Read(**/*credentials*)';
+      const settingsPath = () => join(tempDir, '.claude', 'settings.json');
+      const baks = () => readdirSync(join(tempDir, '.claude')).filter((f) => f.startsWith('settings.json.bak-'));
+      const doFix = () =>
+        runDoctor(tempDir, { execFn: allToolsExec, claudeJsonPath: join(tempDir, 'absent.json'), fix: true });
+      const seed = (raw) => {
+        mkdirSync(join(tempDir, '.claude'));
+        writeFileSync(settingsPath(), raw);
+      };
+
+      it('removes only the legacy rule, adds replacements and keeps the rest', () => {
+        const original = {
+          permissions: { allow: ['Bash(ls)'], deny: ['Read(**/.env)', LEGACY, 'Read(**/credentials.json)'] },
+          hooks: { Stop: [{ matcher: '', hooks: [{ type: 'command', command: 'x' }] }] },
+        };
+        seed(JSON.stringify(original));
+        doFix();
+        const raw = readFileSync(settingsPath(), 'utf8');
+        expect(raw.endsWith('\n')).toBe(true);
+        const fixed = JSON.parse(raw);
+        expect(fixed.permissions.deny).toEqual([
+          'Read(**/.env)',
+          'Read(**/credentials.json)',
+          'Read(**/.credentials*)',
+        ]);
+        expect(fixed.permissions.allow).toEqual(['Bash(ls)']);
+        expect(fixed.hooks).toEqual(original.hooks);
+        expect(output()).toContain('[FIXED]');
+        expect(output()).not.toMatch(/\[WARN\].*\*credentials\*/);
+      });
+
+      it('creates a timestamped backup with the original content', () => {
+        const raw = JSON.stringify({ permissions: { deny: [LEGACY] } });
+        seed(raw);
+        doFix();
+        expect(baks()).toHaveLength(1);
+        expect(readFileSync(join(tempDir, '.claude', baks()[0]), 'utf8')).toBe(raw);
+      });
+
+      it('is idempotent', () => {
+        seed(JSON.stringify({ permissions: { deny: [LEGACY] } }));
+        doFix();
+        const after = readFileSync(settingsPath(), 'utf8');
+        doFix();
+        expect(readFileSync(settingsPath(), 'utf8')).toBe(after);
+        expect(baks()).toHaveLength(1);
+      });
+
+      it('leaves invalid JSON untouched and says so', () => {
+        seed('{ not json');
+        doFix();
+        expect(readFileSync(settingsPath(), 'utf8')).toBe('{ not json');
+        expect(baks()).toHaveLength(0);
+        expect(output()).toMatch(/invalid JSON/i);
+      });
+
+      it('does nothing without fix option', () => {
+        const raw = JSON.stringify({ permissions: { deny: [LEGACY] } });
+        seed(raw);
+        runDoctor(tempDir, { execFn: allToolsExec, claudeJsonPath: join(tempDir, 'absent.json') });
+        expect(readFileSync(settingsPath(), 'utf8')).toBe(raw);
+        expect(output()).toContain('doctor --fix');
+      });
     });
 
     it('says nothing without permissions.allow', () => {

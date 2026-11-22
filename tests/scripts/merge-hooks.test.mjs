@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach, afterAll } from 'vitest';
 import { spawnSync } from 'child_process';
 import fs from 'fs';
 import path from 'path';
-import { addHooks, removeHooks } from '../../Dev/scripts/lib/merge-hooks.mjs';
+import { addHooks, removeHooks, removeDenyRules } from '../../Dev/scripts/lib/merge-hooks.mjs';
 
 const PROJECT_ROOT = path.resolve(import.meta.dirname, '../..');
 const CLI = path.join(PROJECT_ROOT, 'Dev/scripts/lib/merge-hooks.mjs');
@@ -174,5 +174,24 @@ describe('CLI', () => {
 
   it('refuse une commande inconnue', () => {
     expect(cli('bogus').status).toBe(1);
+  });
+});
+
+describe('removeDenyRules', () => {
+  it('retire par égalité stricte et compte les règles retirées', () => {
+    const input = { permissions: { deny: ['Read(**/.env)', 'Read(**/*credentials*)', 'Read(**/credentials.json)'] } };
+    const { settings, removed } = removeDenyRules(input, ['Read(**/*credentials*)']);
+    expect(removed).toBe(1);
+    expect(settings.permissions.deny).toEqual(['Read(**/.env)', 'Read(**/credentials.json)']);
+  });
+
+  it('ne mute pas l’entrée et ignore un settings sans deny', () => {
+    const input = { permissions: { allow: ['Bash(ls)'] } };
+    const { settings, removed } = removeDenyRules(input, ['x']);
+    expect(removed).toBe(0);
+    expect(settings).toEqual(input);
+    const withDeny = { permissions: { deny: ['a', 'b'] } };
+    removeDenyRules(withDeny, ['a']);
+    expect(withDeny.permissions.deny).toEqual(['a', 'b']);
   });
 });

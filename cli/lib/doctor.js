@@ -11,6 +11,7 @@ import c from './colors.js';
 import { listDirs } from './fs-utils.js';
 import { assertSafeTarget } from './path-safety.js';
 import { MIN_CLAUDE_CODE, RECOMMENDED_CLAUDE_CODE, assessClaude } from './claude-code.js';
+import { removeDenyRules } from '../../Dev/scripts/lib/merge-hooks.mjs';
 import { diagnosePlugins, readInstallJson } from './plugin-install.js';
 
 /**
@@ -46,6 +47,37 @@ function readAllowRules(targetPath) {
 }
 
 const LEGACY_CREDENTIALS_DENY = 'Read(**/*credentials*)';
+
+const REPLACEMENT_CREDENTIALS_DENY = ['Read(**/credentials.json)', 'Read(**/.credentials*)'];
+
+/**
+ * Migrate the legacy `Read(**\/*credentials*)` deny rule: back up settings.json, drop only that rule,
+ * add the narrower replacements. Invalid JSON is never rewritten.
+ * @param {string} targetPath
+ */
+function fixLegacyCredentialsDeny(targetPath) {
+  const file = path.join(targetPath, '.claude', 'settings.json');
+  const raw = fs.readFileSync(file, 'utf8');
+  let settings;
+  try {
+    settings = JSON.parse(raw);
+  } catch {
+    console.log(`  ${c.red}[FAIL]${c.reset} .claude/settings.json is invalid JSON — not modified, fix it by hand`);
+    return;
+  }
+  const { settings: next, removed } = removeDenyRules(settings, [LEGACY_CREDENTIALS_DENY]);
+  if (removed === 0) return;
+  for (const rule of REPLACEMENT_CREDENTIALS_DENY) {
+    if (!next.permissions.deny.includes(rule)) next.permissions.deny.push(rule);
+  }
+  const stamp = new Date().toISOString().replaceAll(/[-:.]/g, '');
+  const backup = `${file}.bak-${stamp}`;
+  fs.writeFileSync(backup, raw);
+  fs.writeFileSync(file, `${JSON.stringify(next, null, 2)}\n`);
+  console.log(
+    `  ${c.green}[FIXED]${c.reset} Replaced ${LEGACY_CREDENTIALS_DENY} with ${REPLACEMENT_CREDENTIALS_DENY.join(', ')} (backup: ${path.basename(backup)})`
+  );
+}
 
 function readDenyRules(targetPath) {
   return readPermissionList(targetPath, 'deny');
@@ -242,11 +274,16 @@ function runDoctor(targetPath, deps = {}) {
   }
 
   // 6a'. Legacy deny rule that blocks writing docs/ADR/stories mentioning "credentials" (#275)
+  if (deps.fix === true && fs.existsSync(path.join(targetPath, '.claude', 'settings.json'))) {
+    fixLegacyCredentialsDeny(targetPath);
+  }
   if (readDenyRules(targetPath).includes(LEGACY_CREDENTIALS_DENY)) {
     console.log(
       `  ${c.yellow}[WARN]${c.reset} .claude/settings.json still denies ${LEGACY_CREDENTIALS_DENY} (blocks docs, ADRs and stories whose name contains "credentials")`
     );
-    console.log(`         Replace it with Read(**/credentials.json) and Read(**/.credentials*) in permissions.deny`);
+    console.log(
+      `         Run ${c.cyan}bear-craft doctor --fix${c.reset} (or replace it with Read(**/credentials.json) and Read(**/.credentials*) in permissions.deny)`
+    );
     warned++;
   }
 
