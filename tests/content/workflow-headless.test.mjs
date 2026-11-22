@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import fs from 'fs';
 import path from 'path';
+import { NOT_RUN } from './headless-lint.mjs';
 
 // #266: /bear-workflow:design must not block in plan mode nor loop on ScheduleWakeup under `claude -p`.
 // #267: /bear-workflow:plan --only=prd must run (or explicitly report skipping) /bear-gate:check prd.
@@ -37,7 +38,7 @@ describe.each(layers)('headless-safe workflow commands ($name)', ({ dir }) => {
   it('design: the design review gate invokes /bear-gate:check spec or states NOT RUN', () => {
     const md = read(dir, 'design.md');
     expect(md).toContain('/bear-gate:check spec');
-    expect(md).toMatch(/NOT RUN|NON EXÉCUTÉ|NO EJECUTAD|NICHT AUSGEFÜHRT|NÃO EXECUTAD/i);
+    expect(md).toMatch(NOT_RUN);
   });
 
   it('implement: the mandatory plan mode has the same headless exception', () => {
@@ -50,6 +51,6 @@ describe.each(layers)('headless-safe workflow commands ($name)', ({ dir }) => {
   it('plan: --only=prd ends by invoking the PRD gate or states it was not run', () => {
     const md = read(dir, 'plan.md');
     expect(md).toContain('/bear-gate:check prd');
-    expect(md).toMatch(/NOT RUN|NON EXÉCUTÉ|NO EJECUTAD|NICHT AUSGEFÜHRT|NÃO EXECUTAD/i);
+    expect(md).toMatch(NOT_RUN);
   });
 });
