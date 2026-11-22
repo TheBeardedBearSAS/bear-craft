@@ -93,6 +93,51 @@ describe('linter self-test (positive/negative fixtures)', () => {
     expect(positiveToolMentions('ne pas y entrer et appeler `ScheduleWakeup` pour attendre.')).toHaveLength(1);
     expect(positiveToolMentions('do not enter it and do not call `ScheduleWakeup`.')).toEqual([]);
   });
+  it.each([
+    'Registrar no log, chamar `AskUserQuestion` para confirmar.',
+    'Wenn nicht anders angegeben, `ScheduleWakeup` aufrufen.',
+    'Si no hay respuesta, llamar a `ScheduleWakeup`.',
+    'Si no hay respuesta llamar a `ScheduleWakeup`.',
+    'If no reply, call `ScheduleWakeup`.',
+    'Do not enter plan mode, call `ScheduleWakeup`.',
+    'Do not skip. Call `AskUserQuestion` to confirm.',
+    '`ScheduleWakeup` aufrufen.',
+  ])('false-negative regression: rejects %s', (text) => {
+    expect(positiveToolMentions(text)).toHaveLength(1);
+  });
+  it.each([
+    'do not call `ScheduleWakeup` and `AskUserQuestion`.',
+    'do not call `ScheduleWakeup`, `AskUserQuestion` or any tool.',
+    'Do not call `ScheduleWakeup` or `AskUserQuestion`.',
+    'ne pas appeler `ScheduleWakeup` et `AskUserQuestion`.',
+    "N'appelez pas `ScheduleWakeup` ni `AskUserQuestion`.",
+    'ne jamais appeler `AskUserQuestion`.',
+    'No llamar a `ScheduleWakeup` y `AskUserQuestion`.',
+    'no entrar en él ni llamar a `ScheduleWakeup` ni a `AskUserQuestion`.',
+    'Seguir sin llamar a `AskUserQuestion`.',
+    'Nunca llamar a `ScheduleWakeup`.',
+    'não entrar nele nem chamar `ScheduleWakeup` e `AskUserQuestion`.',
+    'Não chamar `AskUserQuestion` e `ScheduleWakeup`.',
+    '`ScheduleWakeup` und `AskUserQuestion` nicht aufrufen.',
+    'nicht in den Plan Mode wechseln und weder `ScheduleWakeup` noch `AskUserQuestion` aufrufen.',
+    'Niemals `ScheduleWakeup` aufrufen.',
+    '`ScheduleWakeup` must never be called.',
+    '`AskUserQuestion` and `ScheduleWakeup` must not be called.',
+  ])('legitimate prohibition accepted: %s', (text) => {
+    expect(positiveToolMentions(text)).toEqual([]);
+  });
+  it('rejects a positive AskUserQuestion outside the headless block, accepts a prohibited one', () => {
+    const md = `${good}\nUse \`AskUserQuestion\` to ask the stack.\n`;
+    expect(lintHeadlessCommand(md, { name: 'design' }).join()).toContain(
+      'AskUserQuestion mentioned outside a prohibition'
+    );
+    expect(lintHeadlessCommand(`${good}\nNever call \`AskUserQuestion\` here.\n`, { name: 'design' })).toEqual([]);
+  });
+  it('a non-headless blockquote mentioning ScheduleWakeup is not tolerated', () => {
+    expect(lintHeadlessCommand(`${good}\n> **Note** do not use ScheduleWakeup\n`, { name: 'design' }).join()).toContain(
+      'outside the headless block'
+    );
+  });
   it('extracts only headless blockquotes', () => {
     expect(extractHeadlessBlocks('> **Plan mode** x\n\n> **Modo headless (`claude -p`).** a\n> b\n')).toHaveLength(1);
   });
