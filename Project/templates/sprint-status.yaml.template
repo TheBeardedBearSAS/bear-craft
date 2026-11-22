@@ -32,8 +32,8 @@ stories:
       total: 0
       validated: 0
     history:
-      - timestamp: "{TIMESTAMP}"
-        from: ""
+      - timestamp: "{TIMESTAMP}"  # real UTC time: `date -u +%Y-%m-%dT%H:%M:%SZ`, never T00:00:00Z
+        from: "none"
         to: "backlog"
         by: "auto"
         reason: "Story created"

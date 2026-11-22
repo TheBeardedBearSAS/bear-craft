@@ -34,6 +34,11 @@ stories:
         TASK-001: "done"
         TASK-002: "in-progress"
     history:
+      - timestamp: "2026-11-02T08:30:00Z"
+        from: "none"
+        to: "backlog"
+        by: "auto"
+        reason: "Story créée"
       - timestamp: "2026-11-02T09:00:00Z"
         from: "ready-for-dev"
         to: "in-progress"
@@ -56,6 +61,8 @@ routing:
 - Le contenu (titre, description, critères d'acceptation, détail des tâches) s'écrit dans les fichiers markdown ; le statut s'écrit uniquement dans ce fichier.
 - `tasks.completed` est le nombre de tâches dont le statut est `done` ; `tasks.total` est la longueur de `tasks.list`.
 - Chaque transition de story met à jour `status` et `previous_status` et ajoute une entrée `history` (`timestamp`, `from`, `to`, `by`, `reason`).
+- Entrée de création : une nouvelle story n'a pas de statut précédent, sa première entrée `history` utilise donc `from: "none"` (jamais `null`) et `to: "backlog"`.
+- Les horodatages (`history[].timestamp`, `initialized_at`, `updated_at`) sont l'heure UTC réelle de l'événement, au format ISO 8601 : l'obtenir avec `date -u +%Y-%m-%dT%H:%M:%SZ`. Ne jamais écrire un substitut de date seule comme `T00:00:00Z`.
 - Le statut d'un EPIC est calculé depuis ses stories (toutes `backlog` = non démarré, toute autre situation non `done` = en cours, toutes `done` = terminé) ; il n'est écrit nulle part.
 - Si le fichier est absent, le créer à partir du squelette de `/bear-workflow:init` avant d'écrire.
 - `stories.<id>.sprint_id` (optionnel) : absente = comportement historique (la story appartient au sprint actif) ; `null` = backlog ; sinon l'identifiant du sprint propriétaire.

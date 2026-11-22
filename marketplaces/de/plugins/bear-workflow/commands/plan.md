@@ -159,7 +159,7 @@ project-management/
 
 **Sprints** (`sprint-{N}-{slug}/`): `sprint-goal.md` (Ziel in einem Satz, Zeremonien, ausgewählte Stories und Gesamtpunkte, Ausführungsreihenfolge, Mermaid-Abhängigkeitsgraph, auslieferbares Inkrement, Retrospektiven-Leitsatz und Starfish-Format) und `sprint-dependencies.md`.
 
-**Registrierung in `.bmad/sprint-status.yaml`**: für jede Story einen Eintrag mit `status: backlog` hinzufügen (Schema: `Project/templates/sprint-status.yaml.template`): `title`, `story_points`, `epic_id`, `tasks` (total 0), `acceptance_criteria.total` und einen `history`-Eintrag „Story created". `.bmad/sprint-status.yaml` ist die einzige Wahrheitsquelle für den Status; Markdown-Dateien enthalten nur Inhalt, nie einen Status. Die Datei aus dem Template erstellen, falls sie fehlt, vorhandene Einträge nie überschreiben.
+**Registrierung in `.bmad/sprint-status.yaml`**: für jede Story einen Eintrag mit `status: backlog` hinzufügen (Schema: `Project/templates/sprint-status.yaml.template`): `title`, `story_points`, `epic_id`, `tasks` (total 0), `acceptance_criteria.total` und einen `history`-Eintrag „Story created". `.bmad/sprint-status.yaml` ist die einzige Wahrheitsquelle für den Status; Markdown-Dateien enthalten nur Inhalt, nie einen Status. Die Datei aus dem Template erstellen, falls sie fehlt, vorhandene Einträge nie überschreiben. Erstellungseintrag: `from: "none"`, `to: "backlog"`, Zeitstempel = reale UTC-Zeit (`date -u +%Y-%m-%dT%H:%M:%SZ`).
 
 **Scrum-Regeln**: 2-Wochen-Sprints, Velocity 20-40 Punkte, max. 8 Punkte pro Story (sonst teilen), Fibonacci-Skala (1, 2, 3, 5, 8, 13, 21), Sprint 1 = Walking Skeleton (Infrastruktur + ein vollständiger Ablauf).
 

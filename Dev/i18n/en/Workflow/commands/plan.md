@@ -159,7 +159,7 @@ project-management/
 
 **Sprints** (`sprint-{N}-{slug}/`): `sprint-goal.md` (one-sentence goal, ceremonies, selected stories and total points, execution order, Mermaid dependency graph, deliverable increment, retrospective directive and Starfish format) and `sprint-dependencies.md`.
 
-**Register in `.bmad/sprint-status.yaml`**: for each story, add an entry with `status: backlog` (schema: `Project/templates/sprint-status.yaml.template`): `title`, `story_points`, `epic_id`, `tasks` (total 0), `acceptance_criteria.total`, and a `history` entry "Story created". `.bmad/sprint-status.yaml` is the single source of truth for status; markdown files hold content only and never a status. Create the file from the template if missing, never overwrite existing entries.
+**Register in `.bmad/sprint-status.yaml`**: for each story, add an entry with `status: backlog` (schema: `Project/templates/sprint-status.yaml.template`): `title`, `story_points`, `epic_id`, `tasks` (total 0), `acceptance_criteria.total`, and a `history` entry "Story created". `.bmad/sprint-status.yaml` is the single source of truth for status; markdown files hold content only and never a status. Create the file from the template if missing, never overwrite existing entries. Creation entry: `from: "none"`, `to: "backlog"`, timestamp = real UTC time (`date -u +%Y-%m-%dT%H:%M:%SZ`).
 
 **Scrum rules**: 2-week sprints, velocity 20-40 points, 8 points max per story (otherwise split), Fibonacci scale (1, 2, 3, 5, 8, 13, 21), Sprint 1 = Walking Skeleton (infrastructure + one complete flow).
 
