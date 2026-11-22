@@ -14,6 +14,7 @@ import {
 } from '../../shared/schemas.js';
 import { mapBmadPriority } from '../../shared/priority.js';
 import { parseDependencyRefs } from '../../shared/deps.js';
+import { countPlaceholderTimestamps } from '../../shared/timestamps.js';
 
 /**
  * In-memory cache of parsed project-management/ entities.
@@ -272,6 +273,12 @@ function aggregateSprints(sprints, files) {
   }
 }
 
+// Warning only: the status stays 'ok' (midnight sharp can be legitimate).
+function placeholderWarnings(parsed) {
+  const n = countPlaceholderTimestamps(parsed);
+  return n > 0 ? [`${n} history timestamp(s) look like placeholders (T00:00:00Z); use the real current time`] : [];
+}
+
 /**
  * One read of .bmad/sprint-status.yaml: `ss` is the schema-parsed view (defaults applied), `raw` the
  * stories exactly as written (key presence and `_rev` depend on it).
@@ -281,7 +288,9 @@ async function readSprintStatus(projectRoot) {
     const text = await readStatusText(path.join(projectRoot, '.bmad', 'sprint-status.yaml'));
     const parsed = text.trim() === '' ? null : loadYaml(text);
     const result = SprintStatusSchema.safeParse(parsed);
-    if (result.success) return { ss: result.data, raw: parsed.stories ?? {}, diag: { state: 'ok', issues: [] } };
+    if (result.success) {
+      return { ss: result.data, raw: parsed.stories ?? {}, diag: { state: 'ok', issues: placeholderWarnings(parsed) } };
+    }
     const issues = result.error.issues.map(formatIssue);
     return { ss: { ...parsed, _invalid: true }, raw: {}, diag: { state: 'invalid', issues } };
   } catch (err) {
