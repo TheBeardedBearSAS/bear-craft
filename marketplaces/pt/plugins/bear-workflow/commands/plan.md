@@ -106,6 +106,8 @@ Escreve `project-management/prd.md` e `project-management/personas.md`.
 
 **Fase 4 - Revisão e iteração**: mostrar uma checklist de seções (Executive Summary, Problem Statement, Goals & Metrics, Target Users, Functional Requirements, Non-Functional Requirements, Scope & Constraints, Timeline, Risks & Mitigations), sinalizar as incompletas e depois oferecer expandir uma seção, detalhar as personas ou ajustar a priorização.
 
+**Fase 5 - Gate PRD (obrigatório)**: terminar executando `/bear-gate:check prd` e relatar sua pontuação e achados reais; corrigir os defeitos apontados (linhas FR duplicadas, ordem do histórico de revisões, ...) e executá-lo novamente. Nunca autoavaliar o gate. Se não foi possível executá-lo, indicar explicitamente `Gate PRD: NÃO EXECUTADO` com o motivo em vez de anunciar uma pontuação.
+
 ```
 project-management/
 ├── prd.md                    # PRD gerado (FR-xxx / NFR-xxx)

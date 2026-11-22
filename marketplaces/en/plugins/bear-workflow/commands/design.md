@@ -42,6 +42,8 @@ Canonical document order: PRD → tech spec → backlog → sprint.
 
 > **Plan mode is mandatory.** Claude activates plan mode to analyze impacted code, propose a generation strategy and wait for your validation before creating artifacts.
 
+> **Headless mode (`claude -p`, CI, no interactive user).** Do not enter plan mode and do not call `ScheduleWakeup`, `AskUserQuestion` or any tool that waits for an answer: nobody will reply and the run would loop. Instead, state your assumptions explicitly, write the plan to `project-management/design-plan.md`, include it in the final result, proceed with the generation (or stop after the plan when `--continue` is required) and end the turn.
+
 ## Workflow: Tech Spec (default)
 
 ### Step 1: PRD Analysis

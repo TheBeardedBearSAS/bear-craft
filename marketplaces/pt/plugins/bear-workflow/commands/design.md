@@ -42,6 +42,8 @@ Ordem canônica dos documentos: PRD → spec técnica → backlog → sprint.
 
 > **O plan mode é obrigatório.** O Claude ativa o plan mode para analisar o código impactado, propor uma estratégia de geração e aguardar sua validação antes de criar artefatos.
 
+> **Modo headless (`claude -p`, CI, sem usuário interativo).** Não entrar em plan mode nem chamar `ScheduleWakeup`, `AskUserQuestion` ou qualquer ferramenta que aguarde uma resposta: ninguém responderá e a execução entraria em loop. Em vez disso, declarar explicitamente as hipóteses, escrever o plano em `project-management/design-plan.md`, incluí-lo no resultado final, prosseguir com a geração (ou parar após o plano se `--continue` for necessário) e encerrar o turno.
+
 ## Workflow: Spec técnica (padrão)
 
 ### Passo 1: Análise do PRD
