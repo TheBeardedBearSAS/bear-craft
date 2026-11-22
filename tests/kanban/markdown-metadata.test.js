@@ -75,6 +75,13 @@ describe('deriveStoryData', () => {
     expect(deriveStoryData('# TT-20 : Lock\n')).toMatchObject({ id: 'TT-20', title: 'Lock' });
   });
 
+  it('keeps only the bare epic id when the line carries the epic title (#265)', () => {
+    const d = deriveStoryData('# US-001: Walking skeleton\n\n- **EPIC**: EPIC-001 — Walking skeleton\n');
+    expect(d.epic_id).toBe('EPIC-001');
+    expect(deriveStoryData('# US-002: X\n\n- **EPIC**: EPIC-002 - Auth\n').epic_id).toBe('EPIC-002');
+    expect(deriveStoryData('# US-003: X\n\n- **EPIC**: [EPIC-003](../epics/EPIC-003.md)\n').epic_id).toBe('EPIC-003');
+  });
+
   it('returns {} for a body without any metadata', () => {
     expect(deriveStoryData('Just prose.')).toEqual({});
   });
