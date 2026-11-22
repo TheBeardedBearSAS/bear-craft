@@ -36,13 +36,13 @@ Ordre canonique des documents : PRD → spec technique → backlog → sprint.
 ## Prérequis
 
 - Le PRD existe dans `project-management/prd.md` (`--constitution` : uniquement des sources optionnelles, voir ci-dessous)
-- Stack technique identifiée (demandée de façon interactive pour un nouveau projet)
+- Stack technique identifiée (demandée de façon interactive pour un nouveau projet ; en headless, la lire dans `CLAUDE.md` ou le PRD et échouer avec une erreur claire si elle manque)
 
 ## Plan Mode
 
-> **Le plan mode est obligatoire.** Claude active le plan mode pour analyser le code impacté, proposer une stratégie de génération et attendre votre validation avant de créer des artefacts.
+> **Le plan mode est obligatoire en session interactive.** Claude active le plan mode pour analyser le code impacté, proposer une stratégie de génération et attendre votre validation avant de créer des artefacts. Il est suspendu en exécution headless (`claude -p`, pas de TTY, personne pour répondre) : voir ci-dessous.
 
-> **Mode headless (`claude -p`, CI, pas d'utilisateur interactif).** Ne pas entrer en plan mode et ne pas appeler `ScheduleWakeup`, `AskUserQuestion` ni aucun outil qui attend une réponse : personne ne répondra et l'exécution bouclerait. À la place, énoncer explicitement les hypothèses, écrire le plan dans `project-management/design-plan.md`, l'inclure dans le résultat final, poursuivre la génération (ou s'arrêter après le plan si `--continue` est requis) et terminer le tour.
+> **Mode headless (`claude -p`, pas de TTY, personne pour répondre).** Le plan mode est suspendu : ne pas y entrer et ne pas appeler `ScheduleWakeup`, `AskUserQuestion` ni aucun outil qui attend une réponse, sinon l'exécution boucle. Énoncer explicitement les hypothèses, écrire le plan dans `project-management/design-plan.md`, l'inclure dans le résultat final, puis poursuivre la génération et terminer le tour.
 
 ## Workflow : Spec technique (défaut)
 
@@ -127,6 +127,8 @@ Exemple de checklist sécurité :
 - Le modèle de données gère toutes les entités ; la conception d'API couvre toutes les user stories
 - Sécurité, stratégie de tests et approche de déploiement documentées
 - ADR complets et justifiés
+
+En mode headless, lancer `/bear-gate:check spec` et rapporter son score et ses constats réels ; corriger les défauts signalés puis le relancer. Ne jamais auto-noter cette porte. Si elle n'a pas pu être exécutée, indiquer explicitement `Porte de conception : NON EXÉCUTÉE` avec la raison au lieu d'annoncer un résultat.
 
 Proposer des itérations : stratégie de cache, documentation d'API détaillée, pipeline de déploiement.
 

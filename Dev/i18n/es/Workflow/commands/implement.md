@@ -63,6 +63,8 @@ Quick Flow: una comprensión clara del bug/funcionalidad a implementar.
 
 > **El plan mode es obligatorio.** Antes de cada tarea, Claude activa el plan mode para analizar el código afectado, proponer un plan de implementación y esperar tu validación antes de modificar nada.
 
+> **Modo headless (`claude -p`, sin TTY, nadie que responda).** El plan mode obligatorio y la espera de validación del paso 3.2 se suspenden: no entrar en plan mode ni llamar a `ScheduleWakeup`, `AskUserQuestion` ni a ninguna herramienta que espere una respuesta. Registrar el plan de cada tarea en el resultado final y continuar sin esperar validación.
+
 ## Workflow
 
 ### Paso 1: Seleccionar el alcance

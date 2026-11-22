@@ -24,6 +24,29 @@ describe.each(layers)('headless-safe workflow commands ($name)', ({ dir }) => {
     expect(md).toContain('project-management/design-plan.md');
   });
 
+  it('design: the "mandatory plan mode" line carries the headless exception; no --continue ambiguity; no interactive stack question', () => {
+    const lines = read(dir, 'design.md').split('\n');
+    const i = lines.findIndex((l) => l.startsWith('## Plan Mode'));
+    const first = lines.slice(i).find((l) => l.startsWith('> **'));
+    expect(first).toContain('claude -p');
+    const headless = lines.find((l) => l.includes('ScheduleWakeup'));
+    expect(headless).not.toContain('--continue');
+    expect(lines.join('\n')).toContain('CLAUDE.md');
+  });
+
+  it('design: the design review gate invokes /bear-gate:check spec or states NOT RUN', () => {
+    const md = read(dir, 'design.md');
+    expect(md).toContain('/bear-gate:check spec');
+    expect(md).toMatch(/NOT RUN|NON EXÉCUTÉ|NO EJECUTAD|NICHT AUSGEFÜHRT|NÃO EXECUTAD/i);
+  });
+
+  it('implement: the mandatory plan mode has the same headless exception', () => {
+    const md = read(dir, 'implement.md');
+    expect(md).toMatch(/Headless/i);
+    expect(md).toContain('claude -p');
+    expect(md).toContain('ScheduleWakeup');
+  });
+
   it('plan: --only=prd ends by invoking the PRD gate or states it was not run', () => {
     const md = read(dir, 'plan.md');
     expect(md).toContain('/bear-gate:check prd');

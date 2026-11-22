@@ -36,13 +36,13 @@ Canonical document order: PRD → tech spec → backlog → sprint.
 ## Prerequisites
 
 - PRD exists at `project-management/prd.md` (`--constitution`: only optional sources, see below)
-- Technology stack identified (asked interactively for new projects)
+- Technology stack identified (asked interactively for new projects; in headless mode read it from `CLAUDE.md` or the PRD, and fail with a clear error if it is missing)
 
 ## Plan Mode
 
-> **Plan mode is mandatory.** Claude activates plan mode to analyze impacted code, propose a generation strategy and wait for your validation before creating artifacts.
+> **Plan mode is mandatory in interactive sessions.** Claude activates plan mode to analyze impacted code, propose a generation strategy and wait for your validation before creating artifacts. It is suspended in headless runs (`claude -p`, no TTY, nobody to answer): see below.
 
-> **Headless mode (`claude -p`, CI, no interactive user).** Do not enter plan mode and do not call `ScheduleWakeup`, `AskUserQuestion` or any tool that waits for an answer: nobody will reply and the run would loop. Instead, state your assumptions explicitly, write the plan to `project-management/design-plan.md`, include it in the final result, proceed with the generation (or stop after the plan when `--continue` is required) and end the turn.
+> **Headless mode (`claude -p`, no TTY, no human to answer).** Plan mode is suspended: do not enter it and do not call `ScheduleWakeup`, `AskUserQuestion` or any tool that waits for an answer, otherwise the run loops. State your assumptions explicitly, write the plan to `project-management/design-plan.md`, include it in the final result, then proceed with the generation and end the turn.
 
 ## Workflow: Tech Spec (default)
 
@@ -127,6 +127,8 @@ Security checklist example:
 - Data model handles all entities; API design covers all user stories
 - Security, testing strategy and deployment approach documented
 - ADRs complete and justified
+
+In headless mode, run `/bear-gate:check spec` and report its real score and findings; fix the defects it reports and re-run it. Never self-grade this gate. If it could not be run, state explicitly `Design gate: NOT RUN` with the reason instead of claiming a result.
 
 Offer iterations: caching strategy, expanded API documentation, deployment pipeline.
 

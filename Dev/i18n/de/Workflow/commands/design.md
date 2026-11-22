@@ -36,13 +36,13 @@ Kanonische Dokumentenreihenfolge: PRD → Tech-Spec → Backlog → Sprint.
 ## Voraussetzungen
 
 - Das PRD existiert unter `project-management/prd.md` (`--constitution`: nur optionale Quellen, siehe unten)
-- Technologie-Stack identifiziert (bei neuen Projekten interaktiv abgefragt)
+- Technologie-Stack identifiziert (bei neuen Projekten interaktiv abgefragt; im Headless-Modus aus `CLAUDE.md` oder dem PRD lesen und bei Fehlen mit klarer Fehlermeldung abbrechen)
 
 ## Plan Mode
 
-> **Der Plan Mode ist verpflichtend.** Claude aktiviert den Plan Mode, um den betroffenen Code zu analysieren, eine Generierungsstrategie vorzuschlagen und Ihre Freigabe abzuwarten, bevor Artefakte erstellt werden.
+> **Der Plan Mode ist in interaktiven Sitzungen verpflichtend.** Claude aktiviert den Plan Mode, um den betroffenen Code zu analysieren, eine Generierungsstrategie vorzuschlagen und Ihre Freigabe abzuwarten, bevor Artefakte erstellt werden. In Headless-Läufen (`claude -p`, kein TTY, niemand zum Antworten) ist er ausgesetzt: siehe unten.
 
-> **Headless-Modus (`claude -p`, CI, kein interaktiver Benutzer).** Nicht in den Plan Mode wechseln und weder `ScheduleWakeup` noch `AskUserQuestion` oder ein anderes Tool aufrufen, das auf eine Antwort wartet: Niemand antwortet und der Lauf würde in einer Schleife enden. Stattdessen die Annahmen explizit nennen, den Plan in `project-management/design-plan.md` schreiben, ihn in das Endergebnis aufnehmen, mit der Generierung fortfahren (oder nach dem Plan anhalten, wenn `--continue` nötig ist) und den Turn beenden.
+> **Headless-Modus (`claude -p`, kein TTY, niemand zum Antworten).** Der Plan Mode ist ausgesetzt: nicht aktivieren und weder `ScheduleWakeup` noch `AskUserQuestion` oder ein anderes Tool aufrufen, das auf eine Antwort wartet, sonst läuft der Durchlauf in einer Schleife. Die Annahmen explizit nennen, den Plan in `project-management/design-plan.md` schreiben, ihn in das Endergebnis aufnehmen, dann mit der Generierung fortfahren und den Turn beenden.
 
 ## Workflow: Tech-Spec (Standard)
 
@@ -127,6 +127,8 @@ Beispiel einer Sicherheits-Checkliste:
 - Das Datenmodell behandelt alle Entitäten; das API-Design deckt alle User Stories ab
 - Sicherheit, Teststrategie und Deployment-Ansatz sind dokumentiert
 - ADRs vollständig und begründet
+
+Im Headless-Modus `/bear-gate:check spec` ausführen und den echten Score und die Befunde berichten; die gemeldeten Mängel beheben und das Gate erneut ausführen. Dieses Gate niemals selbst bewerten. Konnte es nicht ausgeführt werden, ausdrücklich `Design-Gate: NICHT AUSGEFÜHRT` mit Begründung angeben, statt ein Ergebnis zu behaupten.
 
 Iterationen anbieten: Caching-Strategie, erweiterte API-Dokumentation, Deployment-Pipeline.
 

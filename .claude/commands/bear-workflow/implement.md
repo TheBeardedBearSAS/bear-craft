@@ -63,6 +63,8 @@ Quick Flow : une compréhension claire du bug/de la fonctionnalité à implémen
 
 > **Le plan mode est obligatoire.** Avant chaque tâche, Claude active le plan mode pour analyser le code impacté, proposer un plan d'implémentation et attendre votre validation avant toute modification.
 
+> **Mode headless (`claude -p`, pas de TTY, personne pour répondre).** Le plan mode obligatoire et l'attente de validation de l'étape 3.2 sont suspendus : ne pas entrer en plan mode et ne pas appeler `ScheduleWakeup`, `AskUserQuestion` ni aucun outil qui attend une réponse. Consigner le plan de chaque tâche dans le résultat final et poursuivre sans attendre de validation.
+
 ## Workflow
 
 ### Étape 1 : Sélectionner le périmètre

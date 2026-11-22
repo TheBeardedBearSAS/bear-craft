@@ -63,6 +63,8 @@ Quick Flow: ein klares Verständnis des zu implementierenden Bugs bzw. Features.
 
 > **Der Plan Mode ist verpflichtend.** Vor jedem Task aktiviert Claude den Plan Mode, um den betroffenen Code zu analysieren, einen Implementierungsplan vorzuschlagen und Ihre Freigabe abzuwarten, bevor etwas geändert wird.
 
+> **Headless-Modus (`claude -p`, kein TTY, niemand zum Antworten).** Der verpflichtende Plan Mode und das Warten auf Freigabe in Schritt 3.2 sind ausgesetzt: nicht in den Plan Mode wechseln und weder `ScheduleWakeup` noch `AskUserQuestion` oder ein anderes Tool aufrufen, das auf eine Antwort wartet. Den Plan jeder Aufgabe im Endergebnis festhalten und ohne Freigabe fortfahren.
+
 ## Workflow
 
 ### Schritt 1: Umfang auswählen
