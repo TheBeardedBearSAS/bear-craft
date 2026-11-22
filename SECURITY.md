@@ -4,6 +4,7 @@
 
 | Version | Supported          |
 |---------|--------------------|
+| 10.1.x  | :white_check_mark: |
 | 10.0.x  | :white_check_mark: |
 | 9.4.x   | :white_check_mark: |
 | 9.3.x   | :white_check_mark: |
