@@ -19,7 +19,13 @@ describe('settings.json.template — deny par défaut', () => {
   });
 
   it('cible les fichiers de secrets précis', () => {
-    expect(deny).toContain('Read(**/credentials.json)');
+    expect(deny).toContain('Read(**/*credentials.json)');
+    expect(deny).toContain('Read(**/credentials.tfrc.json)');
+    expect(deny).toContain('Read(**/.aws/credentials)');
+    expect(deny).toContain('Read(**/.git-credentials)');
+    expect(deny).toContain('Read(**/.ssh/**)');
+    expect(deny).toContain('Read(**/id_rsa)');
+    expect(deny).toContain('Read(**/*.tfstate)');
     expect(deny).toContain('Read(**/.credentials*)');
     expect(deny).toContain('Read(**/*.key)');
     expect(deny).toContain('Read(**/*.pem)');
