@@ -24,6 +24,7 @@ vi.mock('../../cli/lib/ralph.js', () => ({
 }));
 vi.mock('../../cli/lib/kanban.js', () => ({
   runKanban: vi.fn().mockResolvedValue(undefined),
+  printKanbanHelp: vi.fn(),
 }));
 vi.mock('../../cli/lib/check.js', () => ({ runCheck: vi.fn() }));
 vi.mock('../../cli/lib/list.js', () => ({ runList: vi.fn() }));

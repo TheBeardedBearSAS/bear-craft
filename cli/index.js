@@ -262,8 +262,12 @@ class BearCraftCLI {
         break;
 
       case 'kanban': {
+        const { runKanban, printKanbanHelp } = await import('./lib/kanban.js');
+        if (options.help || args.includes('-h')) {
+          printKanbanHelp();
+          break;
+        }
         printBanner(VERSION);
-        const { runKanban } = await import('./lib/kanban.js');
         await runKanban({ targetPath: this.config.targetPath, options });
         break;
       }
