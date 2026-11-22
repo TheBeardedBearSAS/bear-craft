@@ -114,7 +114,9 @@ Esta guía cubre los problemas más comunes y sus soluciones al usar Bear-Craft.
 **Causas y soluciones:**
 - **Workspace no confiable.** Las ejecuciones headless omiten el diálogo de confianza e ignoran silenciosamente las reglas `permissions.allow` de `.claude/settings.json` en un workspace nunca aprobado. Ejecute `claude` una vez de forma interactiva en el directorio del proyecto y acepte el diálogo de confianza. `bear-craft doctor` avisa cuando el workspace no es de confianza.
 - **Rutas protegidas.** `.claude/CLAUDE.md`, `.claude/settings.json` y el resto de `.claude/` son rutas protegidas: el modo `acceptEdits` no aprueba automáticamente su edición. Edítelos a mano, apruebe la solicitud, o mantenga la información específica del proyecto (stack, convenciones) en un `CLAUDE.md` en la raíz, fuera de `.claude/`.
-- **Reglas deny.** La lista `deny` por defecto solo apunta a archivos de secretos (`.env*`, `secrets/**`, `*.key`, `*.pem`, `credentials.json`, `.credentials*`). Los archivos de documentación cuyo nombre contiene la palabra «credentials» no se bloquean.
+- **Reglas deny.** La lista `deny` por defecto solo apunta a archivos de secretos (`.env`, `.env.*`, `secrets/**`, `*.key`, `*.pem`, `credentials.json`, `.credentials*`, claves SSH, `*.tfstate`…). Los archivos de documentación cuyo nombre contiene la palabra «credentials» no se bloquean.
+- **Los proyectos ya instalados conservan la regla antigua.** Un `.claude/settings.json` existente nunca se sobrescribe: los proyectos instalados antes de esta corrección aún contienen `Read(**/*credentials*)`, que bloquea docs, ADR e historias con «credentials» en el nombre. Elimine esa entrada de `permissions.deny` (y añada `Read(**/credentials.json)` y `Read(**/.credentials*)` para seguir protegiendo esos archivos), o reinstale con `--force`. `bear-craft doctor` avisa si la regla antigua sigue presente.
+- **Un `deny` sobre `Read` no es una frontera de seguridad.** No impide que `git show HEAD:.env`, `docker compose config` u otro comando muestre un secreto. Es defensa en profundidad: active el sandbox de Bash para un aislamiento real.
 
 ---
 

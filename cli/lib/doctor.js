@@ -42,9 +42,19 @@ function yqInstallHints() {
  * @returns {string[]}
  */
 function readAllowRules(targetPath) {
+  return readPermissionList(targetPath, 'allow');
+}
+
+const LEGACY_CREDENTIALS_DENY = 'Read(**/*credentials*)';
+
+function readDenyRules(targetPath) {
+  return readPermissionList(targetPath, 'deny');
+}
+
+function readPermissionList(targetPath, key) {
   try {
     const settings = JSON.parse(fs.readFileSync(path.join(targetPath, '.claude', 'settings.json'), 'utf8'));
-    return Array.isArray(settings?.permissions?.allow) ? settings.permissions.allow : [];
+    return Array.isArray(settings?.permissions?.[key]) ? settings.permissions[key] : [];
   } catch {
     return [];
   }
@@ -229,6 +239,15 @@ function runDoctor(targetPath, deps = {}) {
       console.log(`         Open ${c.cyan}claude${c.reset} once in this directory and accept the trust dialog`);
       warned++;
     }
+  }
+
+  // 6a'. Legacy deny rule that blocks writing docs/ADR/stories mentioning "credentials" (#275)
+  if (readDenyRules(targetPath).includes(LEGACY_CREDENTIALS_DENY)) {
+    console.log(
+      `  ${c.yellow}[WARN]${c.reset} .claude/settings.json still denies ${LEGACY_CREDENTIALS_DENY} (blocks docs, ADRs and stories whose name contains "credentials")`
+    );
+    console.log(`         Replace it with Read(**/credentials.json) and Read(**/.credentials*) in permissions.deny`);
+    warned++;
   }
 
   // 6b. Plugins: marketplace copy, settings.json entries and registration on this machine

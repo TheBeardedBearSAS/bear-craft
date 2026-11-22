@@ -207,7 +207,7 @@ generate_minimal_claude_md() {
 
 **Stack**: ${tech_stack}
 ${TESTING_STACK:+
-**Tests**: ${TESTING_STACK}
+**Tests**: ${TESTING_STACK#*: }
 }
 ## Quick Reference
 

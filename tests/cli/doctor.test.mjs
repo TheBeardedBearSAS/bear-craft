@@ -382,6 +382,26 @@ describe('runDoctor', () => {
       expect(output()).toMatch(/\[WARN\].*not trusted/);
     });
 
+    it('warns when settings.json still denies Read(**/*credentials*) (#275)', () => {
+      mkdirSync(join(tempDir, '.claude'));
+      writeFileSync(
+        join(tempDir, '.claude', 'settings.json'),
+        JSON.stringify({ permissions: { deny: ['Read(**/.env)', 'Read(**/*credentials*)'] } })
+      );
+      runDoctor(tempDir, { execFn: allToolsExec, claudeJsonPath: join(tempDir, 'absent.json') });
+      expect(output()).toMatch(/\[WARN\].*Read\(\*\*\/\*credentials\*\)/);
+    });
+
+    it('does not warn about the credentials rule when it is absent', () => {
+      mkdirSync(join(tempDir, '.claude'));
+      writeFileSync(
+        join(tempDir, '.claude', 'settings.json'),
+        JSON.stringify({ permissions: { deny: ['Read(**/credentials.json)'] } })
+      );
+      runDoctor(tempDir, { execFn: allToolsExec, claudeJsonPath: join(tempDir, 'absent.json') });
+      expect(output()).not.toContain('*credentials*');
+    });
+
     it('says nothing without permissions.allow', () => {
       mkdirSync(join(tempDir, '.claude'));
       runDoctor(tempDir, { execFn: allToolsExec, claudeJsonPath: join(tempDir, 'absent.json') });

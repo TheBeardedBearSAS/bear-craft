@@ -239,7 +239,7 @@ Link: </api/v2/users>; rel="successor-version"
 ### JWT (recommended)
 
 ```http
-Authorization: Bearer eyJhbGciOiJIUzI1NiIs...
+Authorization: Bearer <ACCESS_TOKEN>
 ```
 
 ### API Keys
