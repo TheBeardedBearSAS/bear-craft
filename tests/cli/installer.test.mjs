@@ -100,6 +100,14 @@ describe('runInstallation', () => {
     });
   });
 
+  it('runs the php base layer before the framework so the framework CLAUDE.md wins (#269)', async () => {
+    await runInstallation(makeCli({ technologies: ['symfony', 'react'] }), ctx);
+    const order = scriptsCalled()
+      .map((p) => /install-(\w+)-rules\.sh$/.exec(p)?.[1])
+      .filter((t) => t && t !== 'common');
+    expect(order.indexOf('php')).toBeLessThan(order.indexOf('symfony'));
+  });
+
   it('keeps the legacy includeInfra boolean as docker, and never runs an Infra script', async () => {
     await runInstallation(makeCli({ includeInfra: true }), ctx);
     expect(installArg().infra).toEqual(['docker']);

@@ -14,7 +14,7 @@ Expert in architecture, technical decomposition and Scrum facilitation.
 
 ## Custom commands
 
-### Backlog Generation & Management (`/project:`)
+### Backlog Generation & Management (`/bear-project:`)
 
 | Command | Description |
 |---------|-------------|
@@ -24,7 +24,7 @@ Expert in architecture, technical decomposition and Scrum facilitation.
 | `/bear-project:migrate` | Migrate an existing backlog |
 | `/bear-project:migrate --resync` | Synchronize the backlog index |
 
-### EPIC Management (`/project:`)
+### EPIC Management (`/bear-project:`)
 
 | Command | Description |
 |---------|-------------|
@@ -32,7 +32,7 @@ Expert in architecture, technical decomposition and Scrum facilitation.
 | `/bear-project:backlog list epic` | List all EPICs |
 | `/bear-project:backlog edit epic EPIC-XXX` | Edit an EPIC |
 
-### User Story Management (`/project:`)
+### User Story Management (`/bear-project:`)
 
 | Command | Description |
 |---------|-------------|
@@ -41,7 +41,7 @@ Expert in architecture, technical decomposition and Scrum facilitation.
 | `/bear-project:backlog edit story US-XXX` | Edit a User Story |
 | `/bear-project:migrate --stories` | Update multiple User Stories |
 
-### Task Management (`/project:`)
+### Task Management (`/bear-project:`)
 
 | Command | Description |
 |---------|-------------|
@@ -49,7 +49,7 @@ Expert in architecture, technical decomposition and Scrum facilitation.
 | `/bear-project:backlog list task` | List tasks |
 | `/bear-project:backlog move task TASK-XXX status` | Change status |
 
-### Visualization & Execution (`/project:`)
+### Visualization & Execution (`/bear-project:`)
 
 | Command | Description |
 |---------|-------------|
@@ -71,7 +71,7 @@ Expert in architecture, technical decomposition and Scrum facilitation.
 | `/bear-project:backlog move story --auto` | Automatic story routing |
 | `/bear-workflow:implement US-XXX` | Develop a story |
 
-### Quality Gates (`/gate:`)
+### Quality Gates (`/bear-gate:`)
 
 | Command | Description |
 |---------|-------------|
