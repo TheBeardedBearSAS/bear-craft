@@ -32,6 +32,15 @@ Plus **11 stack-specific reviewers** (@symfony-reviewer, @react-reviewer, @pytho
 
 A comprehensive framework for AI-assisted development with [Claude Code](https://claude.ai/code). Install standardized rules, agents, and commands for your projects across multiple technology stacks — **33 specialized agents (+39 infra agents on-demand), 82 commands across 18 namespaces, 55 skills**, all token-optimized via `context: fork` and sub-agent model routing.
 
+## What's New in v10.1.0
+
+**Correctifs du dogfooding 10.0.0 (2026-11-23, v10.1.0) :**
+
+- **Kanban** : le backlog généré par `/bear-workflow:plan` est accepté (`from`/`previous_status` nuls, ligne `EPIC` avec titre), `bear-craft kanban --help` affiche l'usage, le tableau ne déborde plus à 1600 px.
+- **Permissions** : la règle `Read(**/*credentials*)` ne bloque plus l'écriture d'ADR et de stories ; elle est remplacée par des règles sur les vrais fichiers de secrets. `bear-craft doctor --fix` migre les projets déjà installés (sauvegarde, seule la règle legacy est retirée).
+- **Commandes headless** : `design` et `implement` fonctionnent en `claude -p` (plan écrit dans `project-management/design-plan.md`), les gates PRD et design sont réellement lancés ou déclarés `NOT RUN`. Un linter statique protège ces consignes ([HEADLESS-COMMANDS](docs/HEADLESS-COMMANDS.md)).
+- **Installation** : exemples de clés factices remplacés par des placeholders (plus d'alerte gitleaks), `CLAUDE.md` du stack Symfony exact, `doctor` signale un workspace non approuvé et les timestamps `T00:00:00Z`. Détails : [CHANGELOG](CHANGELOG.md#1010---2026-11-23).
+
 ## What's New in v10.0.0
 
 **Claude Craft devient Bear Craft (2026-11-17, v10.0.0) :**
