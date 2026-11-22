@@ -12,6 +12,8 @@ import { listDirs } from './fs-utils.js';
 import { assertSafeTarget } from './path-safety.js';
 import { MIN_CLAUDE_CODE, RECOMMENDED_CLAUDE_CODE, assessClaude } from './claude-code.js';
 import { diagnosePlugins, readInstallJson } from './plugin-install.js';
+import * as yaml from 'js-yaml';
+import { countPlaceholderTimestamps } from '../kanban/shared/timestamps.js';
 
 /**
  * OS-specific yq installation hints. Returned as a list of one-liner instructions
@@ -101,6 +103,23 @@ function tryExec(cmd) {
     return null;
   }
 }
+
+// --- Placeholder timestamps check (#272) ---
+const STATUS_FILES = ['sprint-status.yaml', 'workflow-status.yaml'];
+
+function countPlaceholderTimestampsInStatusFiles(targetPath) {
+  let total = 0;
+  for (const name of STATUS_FILES) {
+    try {
+      const text = fs.readFileSync(path.join(targetPath, '.bmad', name), 'utf8');
+      total += countPlaceholderTimestamps(yaml.load(text));
+    } catch {
+      // absent or malformed: nothing to report here
+    }
+  }
+  return total;
+}
+// --- end placeholder timestamps check ---
 
 /**
  * Run the doctor command against a target directory.
@@ -295,6 +314,15 @@ function runDoctor(targetPath, deps = {}) {
     } catch {
       // scriptsDir not readable
     }
+  }
+
+  // 7b. Placeholder timestamps in status files (#272) — warning only
+  const placeholders = countPlaceholderTimestampsInStatusFiles(targetPath);
+  if (placeholders > 0) {
+    console.log(
+      `  ${c.yellow}[WARN]${c.reset} ${placeholders} placeholder timestamp(s) (T00:00:00Z) in .bmad/sprint-status.yaml / workflow-status.yaml — use the real current time`
+    );
+    warned++;
   }
 
   // 8. i18n base dirs
