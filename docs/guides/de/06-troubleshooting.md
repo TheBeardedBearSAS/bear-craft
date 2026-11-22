@@ -105,6 +105,19 @@ Dieser Leitfaden behandelt häufige Probleme und ihre Lösungen bei der Verwendu
    ls -la ~/my-project
    ```
 
+### Berechtigungsabfragen im Headless-Modus (`claude -p`)
+
+**Symptome:**
+- Ein Headless-Lauf (`claude -p`) verweigert Änderungen oder Befehle, die `permissions.allow` abdecken sollte
+- Claude kann `.claude/CLAUDE.md` (oder andere Dateien unter `.claude/`) im Modus `acceptEdits` nicht bearbeiten
+
+**Ursachen und Lösungen:**
+- **Nicht vertrauenswürdiger Workspace.** Headless-Läufe überspringen den Vertrauensdialog und ignorieren die `permissions.allow`-Regeln aus `.claude/settings.json` in einem nie bestätigten Workspace stillschweigend. Starten Sie `claude` einmal interaktiv im Projektverzeichnis und bestätigen Sie den Vertrauensdialog. `bear-craft doctor` warnt, wenn der Workspace nicht vertrauenswürdig ist.
+- **Geschützte Pfade.** `.claude/CLAUDE.md`, `.claude/settings.json` und der Rest von `.claude/` sind geschützte Pfade: Der Modus `acceptEdits` genehmigt Änderungen daran nicht automatisch. Bearbeiten Sie sie von Hand, bestätigen Sie die Abfrage oder halten Sie projektspezifische Angaben (Stack, Konventionen) in einer `CLAUDE.md` im Projektstamm außerhalb von `.claude/`.
+- **Deny-Regeln.** Die Standardliste `deny` zielt nur auf Geheimnisdateien (`.env*`, `secrets/**`, `*.key`, `*.pem`, `credentials.json`, `.credentials*`). Dokumentationsdateien, deren Name das Wort „credentials" enthält, werden nicht blockiert.
+
+---
+
 ### Installation erstellt leeres Verzeichnis
 
 **Symptome:**

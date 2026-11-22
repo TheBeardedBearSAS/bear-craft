@@ -105,6 +105,19 @@ Ce guide couvre les problèmes courants et leurs solutions lors de l'utilisation
    ls -la ~/mon-projet
    ```
 
+### Invites de permission en mode headless (`claude -p`)
+
+**Symptômes :**
+- Une exécution headless (`claude -p`) se voit refuser des modifications ou commandes que `permissions.allow` devrait couvrir
+- Claude ne peut pas modifier `.claude/CLAUDE.md` (ni d'autres fichiers sous `.claude/`) en mode `acceptEdits`
+
+**Causes et solutions :**
+- **Workspace non approuvé.** Les exécutions headless passent outre la boîte de dialogue de confiance et ignorent silencieusement les règles `permissions.allow` de `.claude/settings.json` sur un workspace jamais approuvé. Lancez `claude` une fois en mode interactif dans le répertoire du projet et acceptez la demande de confiance. `bear-craft doctor` signale un workspace non approuvé.
+- **Chemins protégés.** `.claude/CLAUDE.md`, `.claude/settings.json` et le reste de `.claude/` sont des chemins protégés : le mode `acceptEdits` n'approuve pas automatiquement leur modification. Modifiez-les à la main, validez l'invite, ou conservez les informations propres au projet (stack, conventions) dans un `CLAUDE.md` à la racine, hors de `.claude/`.
+- **Règles deny.** La liste `deny` par défaut ne cible que les fichiers de secrets (`.env*`, `secrets/**`, `*.key`, `*.pem`, `credentials.json`, `.credentials*`). Les fichiers de documentation dont le nom contient « credentials » ne sont pas bloqués.
+
+---
+
 ### L'Installation Crée un Répertoire Vide
 
 **Symptômes :**

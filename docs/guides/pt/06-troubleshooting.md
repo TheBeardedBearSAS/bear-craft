@@ -105,6 +105,19 @@ Este guia cobre os problemas mais comuns e suas soluções ao usar o Bear-Craft.
    ls -la ~/my-project
    ```
 
+### Solicitações de permissão em modo headless (`claude -p`)
+
+**Sintomas:**
+- Uma execução headless (`claude -p`) recusa edições ou comandos que `permissions.allow` deveria cobrir
+- Claude não consegue editar `.claude/CLAUDE.md` (nem outros arquivos em `.claude/`) no modo `acceptEdits`
+
+**Causas e soluções:**
+- **Workspace não confiável.** As execuções headless ignoram a caixa de diálogo de confiança e ignoram silenciosamente as regras `permissions.allow` de `.claude/settings.json` em um workspace nunca aprovado. Execute `claude` uma vez de forma interativa no diretório do projeto e aceite o diálogo de confiança. `bear-craft doctor` avisa quando o workspace não é confiável.
+- **Caminhos protegidos.** `.claude/CLAUDE.md`, `.claude/settings.json` e o restante de `.claude/` são caminhos protegidos: o modo `acceptEdits` não aprova automaticamente edições neles. Edite-os manualmente, aprove a solicitação, ou mantenha as informações específicas do projeto (stack, convenções) em um `CLAUDE.md` na raiz, fora de `.claude/`.
+- **Regras deny.** A lista `deny` padrão visa apenas arquivos de segredos (`.env*`, `secrets/**`, `*.key`, `*.pem`, `credentials.json`, `.credentials*`). Arquivos de documentação cujo nome contém a palavra «credentials» não são bloqueados.
+
+---
+
 ### Instalação Cria Diretório Vazio
 
 **Sintomas:**
