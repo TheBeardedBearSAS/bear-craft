@@ -82,6 +82,11 @@ describe('deriveStoryData', () => {
     expect(deriveStoryData('# US-003: X\n\n- **EPIC**: [EPIC-003](../epics/EPIC-003.md)\n').epic_id).toBe('EPIC-003');
   });
 
+  it('does not truncate an id that merely starts like an epic id (EPIC-001-A)', () => {
+    expect(deriveStoryData('# US-004: X\n\n- **EPIC**: EPIC-001-A\n').epic_id).toBe('EPIC-001-A');
+    expect(deriveStoryData('# US-005: X\n\n- **EPIC**: EPIC-0012\n').epic_id).toBe('EPIC-0012');
+  });
+
   it('returns {} for a body without any metadata', () => {
     expect(deriveStoryData('Just prose.')).toEqual({});
   });

@@ -526,7 +526,7 @@ describe('POST /api/stories', () => {
       const entry = (await ssy()).stories['US-101'];
       expect(entry).toMatchObject({ title: 'Pay with a card', status: 'backlog', sprint_id: null, story_points: 3 });
       expect(entry.history).toHaveLength(1);
-      expect(entry.history[0]).toMatchObject({ from: '', to: 'backlog', by: 'kanban:alice', reason: 'Story created' });
+      expect(entry.history[0]).toMatchObject({ from: 'none', to: 'backlog', by: 'kanban:alice', reason: 'Story created' });
       expect(Object.keys(entry).slice(0, 4)).toEqual(['title', 'status', 'previous_status', 'sprint_id']);
 
       const md = await readFile(inRoot(STORIES, 'US-101-pay-with-a-card.md'), 'utf8');

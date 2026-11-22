@@ -13,7 +13,12 @@ describe('SprintStatusSchema : creation history written by the planning commands
   it('accepts a creation entry whose `from` is null (no previous status)', () => {
     const parsed = SprintStatusSchema.safeParse(doc({ history: [{ ...created, from: null }] }));
     expect(parsed.success).toBe(true);
-    expect(parsed.data.stories['US-001'].history[0].from).toBe('');
+    expect(parsed.data.stories['US-001'].history[0].from).toBe('none');
+  });
+
+  it('normalizes an empty `from` to "none" too', () => {
+    const parsed = SprintStatusSchema.safeParse(doc({ history: [{ ...created, from: '' }] }));
+    expect(parsed.data.stories['US-001'].history[0].from).toBe('none');
   });
 
   it('accepts a creation entry whose `from` is the documented "none"', () => {

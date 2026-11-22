@@ -18,12 +18,12 @@ export const TddPhaseSchema = z.enum(TDD_PHASES);
 
 export const HistoryEntrySchema = z.object({
   timestamp: z.string(),
-  // The creation entry has no previous status: the commands wrote null, "" or "none".
+  // The creation entry has no previous status: null / "" / "none" are all normalized to "none".
   from: z
     .string()
     .nullable()
     .optional()
-    .transform((v) => v ?? ''),
+    .transform((v) => v || 'none'),
   to: z.string(),
   by: z.string().default('auto'),
   reason: z.string().default(''),
