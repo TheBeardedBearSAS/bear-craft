@@ -72,6 +72,7 @@ ${c.bold}Options:${c.reset}
   ${c.yellow}--from=URL${c.reset}           Install from a remote team config JSON URL
   ${c.yellow}--target=PATH${c.reset}        Target directory (for skill subcommands)
   ${c.yellow}--force${c.reset}              Overwrite existing files
+  ${c.yellow}--fix${c.reset}                With doctor: migrate the legacy Read(**/*credentials*) deny rule (backup kept)
   ${c.yellow}--quick${c.reset}              Quick Flow track (bug fixes)
   ${c.yellow}--standard${c.reset}           Standard track (features)
   ${c.yellow}--enterprise${c.reset}         Enterprise track (platforms)

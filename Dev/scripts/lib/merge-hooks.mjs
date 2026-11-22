@@ -58,6 +58,17 @@ export function removeHooks(settings, match) {
   return { settings: out, removed };
 }
 
+/** Remove exact-match rules from permissions.deny. Pure: returns a copy. */
+export function removeDenyRules(settings, rules) {
+  if (settings === null || typeof settings !== 'object' || Array.isArray(settings)) return { settings, removed: 0 };
+  const out = structuredClone(settings);
+  const deny = out.permissions?.deny;
+  if (!Array.isArray(deny)) return { settings: out, removed: 0 };
+  const kept = deny.filter((r) => !rules.includes(r));
+  out.permissions.deny = kept;
+  return { settings: out, removed: deny.length - kept.length };
+}
+
 function readJson(file) {
   return JSON.parse(fs.readFileSync(file, 'utf8'));
 }

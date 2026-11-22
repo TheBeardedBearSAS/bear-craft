@@ -174,8 +174,10 @@ Run environment diagnostics and installation health checks.
 ### Usage
 
 ```bash
-npx @the-bearded-bear/bear-craft doctor [target-directory]
+npx @the-bearded-bear/bear-craft doctor [target-directory] [--fix]
 ```
+
+`--fix` migrates the legacy `Read(**/*credentials*)` deny rule of `.claude/settings.json`: it writes a `settings.json.bak-<timestamp>` backup, removes only that rule and adds `Read(**/credentials.json)` and `Read(**/.credentials*)` when missing. Everything else is preserved; invalid JSON is never rewritten; the command is idempotent.
 
 ### Description
 
