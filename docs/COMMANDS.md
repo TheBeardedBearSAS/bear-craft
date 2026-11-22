@@ -713,7 +713,7 @@ Paperclip is an open-source AI-workforce orchestration platform (Node.js + TypeS
 
 ---
 
-## Project Commands (`/project:`)
+## Project Commands (`/bear-project:`)
 
 Available with Project installation. Since Phase 2 of the PM simplification, the many per-entity commands were merged into five commands with subcommands (`backlog`, `reverse`, `trace`, `report`, `migrate`); the old names are listed in [MIGRATION-v9.md](MIGRATION-v9.md).
 
@@ -840,7 +840,7 @@ backlog → ready-for-dev → in-progress → review → done
 
 ---
 
-## Quality Gate Commands (`/gate:`)
+## Quality Gate Commands (`/bear-gate:`)
 
 Available with BMAD v6 installation.
 

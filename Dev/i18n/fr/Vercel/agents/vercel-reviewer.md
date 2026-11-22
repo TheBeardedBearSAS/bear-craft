@@ -447,7 +447,7 @@ Le projet utilise-t-il une intégration Marketplace (Neon Postgres, Upstash Redi
 **Secret en dur :**
 ```typescript
 // INTERDIT — secret en dur dans le code source, définitivement dans l'historique git
-const STRIPE_SECRET_KEY = 'sk_live_51H...';
+const STRIPE_SECRET_KEY = 'sk_live_<REDACTED>...';
 
 // CORRECT — lu depuis l'environnement, pas de littéral de fallback, échoue
 // bruyamment si absent

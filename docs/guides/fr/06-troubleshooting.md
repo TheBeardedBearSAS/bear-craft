@@ -105,6 +105,21 @@ Ce guide couvre les problèmes courants et leurs solutions lors de l'utilisation
    ls -la ~/mon-projet
    ```
 
+### Invites de permission en mode headless (`claude -p`)
+
+**Symptômes :**
+- Une exécution headless (`claude -p`) se voit refuser des modifications ou commandes que `permissions.allow` devrait couvrir
+- Claude ne peut pas modifier `.claude/CLAUDE.md` (ni d'autres fichiers sous `.claude/`) en mode `acceptEdits`
+
+**Causes et solutions :**
+- **Workspace non approuvé.** Les exécutions headless passent outre la boîte de dialogue de confiance et ignorent silencieusement les règles `permissions.allow` de `.claude/settings.json` sur un workspace jamais approuvé. Lancez `claude` une fois en mode interactif dans le répertoire du projet et acceptez la demande de confiance. `bear-craft doctor` signale un workspace non approuvé.
+- **Chemins protégés.** `.claude/CLAUDE.md`, `.claude/settings.json` et le reste de `.claude/` sont des chemins protégés : le mode `acceptEdits` n'approuve pas automatiquement leur modification. Modifiez-les à la main, validez l'invite, ou conservez les informations propres au projet (stack, conventions) dans un `CLAUDE.md` à la racine, hors de `.claude/`.
+- **Règles deny.** La liste `deny` par défaut ne cible que les fichiers de secrets (`.env`, `.env.*`, `secrets/**`, `*.key`, `*.pem`, `credentials.json`, `.credentials*`, clés SSH, `*.tfstate`…). Les fichiers de documentation dont le nom contient « credentials » ne sont pas bloqués.
+- **Les projets déjà installés gardent l'ancienne règle.** Un `.claude/settings.json` existant n'est jamais écrasé : les projets installés avant ce correctif contiennent encore `Read(**/*credentials*)`, qui bloque les docs, ADR et stories dont le nom contient « credentials ». Retirez cette entrée de `permissions.deny` (et ajoutez `Read(**/credentials.json)` et `Read(**/.credentials*)` pour continuer à protéger ces fichiers), ou réinstallez avec `--force`. `bear-craft doctor` signale la présence de l'ancienne règle.
+- **Un `deny` sur `Read` n'est pas une frontière de sécurité.** Il n'empêche ni `git show HEAD:.env`, ni `docker compose config`, ni aucune autre commande d'afficher un secret. C'est une défense en profondeur : activez le sandbox Bash pour un vrai cloisonnement.
+
+---
+
 ### L'Installation Crée un Répertoire Vide
 
 **Symptômes :**

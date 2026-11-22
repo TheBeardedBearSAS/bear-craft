@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { mkdtempSync, mkdirSync, writeFileSync, rmSync, chmodSync } from 'fs';
-import { join } from 'path';
+import { join, dirname } from 'path';
 import { tmpdir } from 'os';
 
 // Mock colors to simplify output assertions
@@ -329,5 +329,83 @@ describe('runDoctor', () => {
     expect(() => runDoctor('/etc', { execFn: allToolsExec })).toThrow(/system directory/);
     expect(() => runDoctor('/', { execFn: allToolsExec })).toThrow(/system directory/);
     expect(() => runDoctor('/usr/local', { execFn: allToolsExec })).toThrow(/system directory/);
+  });
+  // #268 : en headless, un workspace non approuvé ignore silencieusement permissions.allow.
+  describe('workspace trust (permissions.allow)', () => {
+    function installWithAllow() {
+      mkdirSync(join(tempDir, '.claude'));
+      writeFileSync(
+        join(tempDir, '.claude', 'settings.json'),
+        JSON.stringify({ permissions: { allow: ['Read', 'Edit'] } })
+      );
+    }
+    function claudeJson(projects) {
+      const file = join(tempDir, 'claude.json');
+      writeFileSync(file, JSON.stringify({ projects }));
+      return file;
+    }
+    const output = () => consoleSpy.mock.calls.map((c) => c[0]).join('\n');
+
+    it('warns when the workspace is not trusted', () => {
+      installWithAllow();
+      const claudeJsonPath = claudeJson({});
+      runDoctor(tempDir, { execFn: allToolsExec, claudeJsonPath });
+      expect(output()).toMatch(/\[WARN\].*not trusted/);
+      expect(output()).toContain('permissions.allow');
+    });
+
+    it('warns when the workspace is explicitly not accepted', () => {
+      installWithAllow();
+      const claudeJsonPath = claudeJson({ [tempDir]: { hasTrustDialogAccepted: false } });
+      runDoctor(tempDir, { execFn: allToolsExec, claudeJsonPath });
+      expect(output()).toMatch(/\[WARN\].*not trusted/);
+    });
+
+    it('is OK when the workspace is trusted', () => {
+      installWithAllow();
+      const claudeJsonPath = claudeJson({ [tempDir]: { hasTrustDialogAccepted: true } });
+      runDoctor(tempDir, { execFn: allToolsExec, claudeJsonPath });
+      expect(output()).toMatch(/\[OK\].*trusted/);
+      expect(output()).not.toContain('not trusted');
+    });
+
+    it('inherits trust from a parent directory', () => {
+      installWithAllow();
+      const claudeJsonPath = claudeJson({ [dirname(tempDir)]: { hasTrustDialogAccepted: true } });
+      runDoctor(tempDir, { execFn: allToolsExec, claudeJsonPath });
+      expect(output()).not.toContain('not trusted');
+    });
+
+    it('warns (cannot verify) when ~/.claude.json is missing', () => {
+      installWithAllow();
+      runDoctor(tempDir, { execFn: allToolsExec, claudeJsonPath: join(tempDir, 'absent.json') });
+      expect(output()).toMatch(/\[WARN\].*not trusted/);
+    });
+
+    it('warns when settings.json still denies Read(**/*credentials*) (#275)', () => {
+      mkdirSync(join(tempDir, '.claude'));
+      writeFileSync(
+        join(tempDir, '.claude', 'settings.json'),
+        JSON.stringify({ permissions: { deny: ['Read(**/.env)', 'Read(**/*credentials*)'] } })
+      );
+      runDoctor(tempDir, { execFn: allToolsExec, claudeJsonPath: join(tempDir, 'absent.json') });
+      expect(output()).toMatch(/\[WARN\].*Read\(\*\*\/\*credentials\*\)/);
+    });
+
+    it('does not warn about the credentials rule when it is absent', () => {
+      mkdirSync(join(tempDir, '.claude'));
+      writeFileSync(
+        join(tempDir, '.claude', 'settings.json'),
+        JSON.stringify({ permissions: { deny: ['Read(**/credentials.json)'] } })
+      );
+      runDoctor(tempDir, { execFn: allToolsExec, claudeJsonPath: join(tempDir, 'absent.json') });
+      expect(output()).not.toContain('*credentials*');
+    });
+
+    it('says nothing without permissions.allow', () => {
+      mkdirSync(join(tempDir, '.claude'));
+      runDoctor(tempDir, { execFn: allToolsExec, claudeJsonPath: join(tempDir, 'absent.json') });
+      expect(output()).not.toContain('trusted');
+    });
   });
 });

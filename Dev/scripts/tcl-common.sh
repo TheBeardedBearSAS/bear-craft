@@ -206,7 +206,9 @@ generate_minimal_claude_md() {
 # ${project_name} - ${tech_display_name} Project
 
 **Stack**: ${tech_stack}
-
+${TESTING_STACK:+
+**Tests**: ${TESTING_STACK#*: }
+}
 ## Quick Reference
 
 See \`@.claude/INDEX.md\` for condensed checklists and patterns.

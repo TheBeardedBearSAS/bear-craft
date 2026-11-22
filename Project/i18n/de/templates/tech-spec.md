@@ -185,8 +185,8 @@ CREATE INDEX idx_users_email ON users(email);
 
 // Response 200
 {
-    "access_token": "eyJhbGciOiJIUzI1NiIs...",
-    "refresh_token": "eyJhbGciOiJIUzI1NiIs...",
+    "access_token": "<ACCESS_TOKEN>",
+    "refresh_token": "<REFRESH_TOKEN>",
     "expires_in": 3600,
     "token_type": "Bearer"
 }

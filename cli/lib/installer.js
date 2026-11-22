@@ -299,7 +299,12 @@ export async function runInstallation(cli, { CLI_ROOT, VERSION, execFn }) {
       [langArg, ...stackArgs, '--plugin-mode', ...(cli.config.hooks ? [`--hooks=${cli.config.hooks}`] : []), target],
       CLI_ROOT
     );
-    for (const tech of installTechs) {
+    // Base layers first: a framework (symfony, laravel) writes .claude/CLAUDE.md after php and must win (#269).
+    const scriptOrder = [
+      ...installTechs.filter((t) => baseLayers.includes(t)),
+      ...installTechs.filter((t) => !baseLayers.includes(t)),
+    ];
+    for (const tech of scriptOrder) {
       const scriptPath = path.join(scriptsDir, `install-${tech}-rules.sh`);
       if (!fs.existsSync(scriptPath)) continue;
       console.log(`${c.cyan}[${step++}/${total}]${c.reset} Copying ${tech} references...`);

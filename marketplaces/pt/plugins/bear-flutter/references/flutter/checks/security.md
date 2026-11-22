@@ -28,7 +28,7 @@ Você é um especialista Flutter responsável por auditar a segurança do projet
   - Comando: `grep -r -E "(api[_-]?key|token|password|secret)" lib/ --include="*.dart"`
   - Exemplos a evitar:
     ```dart
-    ❌ const apiKey = "sk_live_123abc";
+    ❌ const apiKey = "sk_live_<REDACTED>";
     ❌ final password = "admin123";
     ```
 - [ ] **Variáveis de ambiente** utilizadas (0-2 pts)
@@ -130,7 +130,7 @@ Gere um relatório com:
 **SECRETS HARDCODED DETECTADOS:**
 ```
 ❌ lib/config/api_config.dart:5
-  const apiKey = "sk_live_abc123xyz";
+  const apiKey = "sk_live_<REDACTED>";
 
 ❌ lib/services/auth_service.dart:12
   final baseUrl = "http://api.example.com"; // HTTP em vez de HTTPS

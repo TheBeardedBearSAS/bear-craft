@@ -418,7 +418,7 @@ prompt_project_info() {
     echo "Project configuration - ${TECH_DISPLAY_NAME}"
     echo "=========================================="
     read -rp "Project name [MyProject]: " PROJECT_NAME
-    PROJECT_NAME="${PROJECT_NAME:-MyProject}"
+    PROJECT_NAME="${PROJECT_NAME:-$(basename "$(cd "$target_dir" && pwd)")}"
     read -rp "Tech stack [${DEFAULT_STACK}]: " TECH_STACK
     TECH_STACK="${TECH_STACK:-${DEFAULT_STACK}}"
     echo ""
@@ -580,17 +580,17 @@ main() {
 
     case $mode in
         install)
-            [[ "$interactive" = "true" ]] && prompt_project_info || { PROJECT_NAME="${PROJECT_NAME:-MyProject}"; TECH_STACK="${TECH_STACK:-${DEFAULT_STACK}}"; }
+            [[ "$interactive" = "true" ]] && prompt_project_info || { PROJECT_NAME="${PROJECT_NAME:-$(basename "$(cd "$target_dir" && pwd)")}"; TECH_STACK="${TECH_STACK:-${DEFAULT_STACK}}"; }
             install_tcl "$target_dir" "$PROJECT_NAME" "$TECH_STACK" "$dry_run" "$preserve_config" "$skip_common"
             ;;
         update)
             if [[ "$force" = "true" ]]; then
                 log_warning "Force mode: ALL files will be overwritten"
-                [[ "$interactive" = "true" ]] && prompt_project_info || { PROJECT_NAME="${PROJECT_NAME:-MyProject}"; TECH_STACK="${TECH_STACK:-${DEFAULT_STACK}}"; }
+                [[ "$interactive" = "true" ]] && prompt_project_info || { PROJECT_NAME="${PROJECT_NAME:-$(basename "$(cd "$target_dir" && pwd)")}"; TECH_STACK="${TECH_STACK:-${DEFAULT_STACK}}"; }
                 install_tcl "$target_dir" "$PROJECT_NAME" "$TECH_STACK" "$dry_run" "$preserve_config" "$skip_common"
             else
                 log_info "Updating references..."
-                PROJECT_NAME="${PROJECT_NAME:-MyProject}"
+                PROJECT_NAME="${PROJECT_NAME:-$(basename "$(cd "$target_dir" && pwd)")}"
                 TECH_STACK="${TECH_STACK:-${DEFAULT_STACK}}"
                 install_tcl "$target_dir" "$PROJECT_NAME" "$TECH_STACK" "$dry_run" "true" "$skip_common"
             fi

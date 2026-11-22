@@ -105,6 +105,21 @@ Este guia cobre os problemas mais comuns e suas soluções ao usar o Bear-Craft.
    ls -la ~/my-project
    ```
 
+### Solicitações de permissão em modo headless (`claude -p`)
+
+**Sintomas:**
+- Uma execução headless (`claude -p`) recusa edições ou comandos que `permissions.allow` deveria cobrir
+- Claude não consegue editar `.claude/CLAUDE.md` (nem outros arquivos em `.claude/`) no modo `acceptEdits`
+
+**Causas e soluções:**
+- **Workspace não confiável.** As execuções headless ignoram a caixa de diálogo de confiança e ignoram silenciosamente as regras `permissions.allow` de `.claude/settings.json` em um workspace nunca aprovado. Execute `claude` uma vez de forma interativa no diretório do projeto e aceite o diálogo de confiança. `bear-craft doctor` avisa quando o workspace não é confiável.
+- **Caminhos protegidos.** `.claude/CLAUDE.md`, `.claude/settings.json` e o restante de `.claude/` são caminhos protegidos: o modo `acceptEdits` não aprova automaticamente edições neles. Edite-os manualmente, aprove a solicitação, ou mantenha as informações específicas do projeto (stack, convenções) em um `CLAUDE.md` na raiz, fora de `.claude/`.
+- **Regras deny.** A lista `deny` padrão visa apenas arquivos de segredos (`.env`, `.env.*`, `secrets/**`, `*.key`, `*.pem`, `credentials.json`, `.credentials*`, chaves SSH, `*.tfstate`…). Arquivos de documentação cujo nome contém a palavra «credentials» não são bloqueados.
+- **Projetos já instalados mantêm a regra antiga.** Um `.claude/settings.json` existente nunca é sobrescrito: projetos instalados antes desta correção ainda contêm `Read(**/*credentials*)`, que bloqueia docs, ADRs e histórias com «credentials» no nome. Remova essa entrada de `permissions.deny` (e adicione `Read(**/credentials.json)` e `Read(**/.credentials*)` para continuar protegendo esses arquivos), ou reinstale com `--force`. `bear-craft doctor` avisa quando a regra antiga ainda está presente.
+- **Um `deny` em `Read` não é uma fronteira de segurança.** Ele não impede que `git show HEAD:.env`, `docker compose config` ou qualquer outro comando exiba um segredo. É defesa em profundidade: ative o sandbox do Bash para isolamento real.
+
+---
+
 ### Instalação Cria Diretório Vazio
 
 **Sintomas:**

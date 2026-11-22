@@ -12,7 +12,7 @@ I18N_DIR="$(dirname "$SCRIPT_DIR")/i18n"
 TECH_NAME="PHP"
 TECH_DISPLAY_NAME="PHP"
 TECH_NAMESPACE="php"
-DEFAULT_STACK="PHP 8.5, Composer, PSR Standards, Pest 4, PHPUnit 12"
+DEFAULT_STACK="PHP 8.5, Composer, PSR Standards, Pest 5, PHPUnit 13"
 
 # --- TCL version ---
 source "${SCRIPT_DIR}/tcl-common.sh"

@@ -14,7 +14,7 @@ Expert en architecture, décomposition technique et facilitation Scrum.
 
 ## Commandes personnalisées
 
-### Génération & Gestion de Backlog (`/project:`)
+### Génération & Gestion de Backlog (`/bear-project:`)
 
 | Commande | Description |
 |----------|-------------|
@@ -24,7 +24,7 @@ Expert en architecture, décomposition technique et facilitation Scrum.
 | `/bear-project:migrate` | Migrer un backlog existant |
 | `/bear-project:migrate --resync` | Synchroniser l'index du backlog |
 
-### Gestion des EPICs (`/project:`)
+### Gestion des EPICs (`/bear-project:`)
 
 | Commande | Description |
 |----------|-------------|
@@ -32,7 +32,7 @@ Expert en architecture, décomposition technique et facilitation Scrum.
 | `/bear-project:backlog list epic` | Lister tous les EPICs |
 | `/bear-project:backlog edit epic EPIC-XXX` | Modifier un EPIC |
 
-### Gestion des User Stories (`/project:`)
+### Gestion des User Stories (`/bear-project:`)
 
 | Commande | Description |
 |----------|-------------|
@@ -41,7 +41,7 @@ Expert en architecture, décomposition technique et facilitation Scrum.
 | `/bear-project:backlog edit story US-XXX` | Modifier une US |
 | `/bear-project:migrate --stories` | Mettre à jour plusieurs US |
 
-### Gestion des Tasks (`/project:`)
+### Gestion des Tasks (`/bear-project:`)
 
 | Commande | Description |
 |----------|-------------|
@@ -49,7 +49,7 @@ Expert en architecture, décomposition technique et facilitation Scrum.
 | `/bear-project:backlog list task` | Lister les tâches |
 | `/bear-project:backlog move task TASK-XXX statut` | Changer le statut |
 
-### Visualisation & Exécution (`/project:`)
+### Visualisation & Exécution (`/bear-project:`)
 
 | Commande | Description |
 |----------|-------------|
@@ -71,7 +71,7 @@ Expert en architecture, décomposition technique et facilitation Scrum.
 | `/bear-project:backlog move story --auto` | Routage automatique des stories |
 | `/bear-workflow:implement US-XXX` | Développer une story |
 
-### Quality Gates (`/gate:`)
+### Quality Gates (`/bear-gate:`)
 
 | Commande | Description |
 |----------|-------------|

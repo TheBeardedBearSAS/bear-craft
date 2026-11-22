@@ -579,7 +579,7 @@ Fonte: [React advisory](https://react.dev/blog/2025/12/03/critical-security-vuln
 
 ```typescript
 // ❌ RUIM - NUNCA comitar segredos
-const API_KEY = 'sk-1234567890abcdef'; // PERIGO!
+const API_KEY = '<YOUR_API_KEY>'; // PERIGO!
 
 // ✅ BOM - Usar variaveis de ambiente
 const API_KEY = import.meta.env.VITE_API_KEY;
@@ -604,7 +604,7 @@ VITE_AUTH_DOMAIN=auth.exemplo.com
 ```env
 # .env (adicionar ao .gitignore)
 VITE_API_BASE_URL=https://api.producao.com
-VITE_API_KEY=sk-chave-secreta-real
+VITE_API_KEY=<YOUR_API_KEY>
 VITE_AUTH_DOMAIN=auth.producao.com
 ```
 

@@ -268,7 +268,7 @@ Listar los problemas críticos de seguridad (puntuación ❌ inmediata):
    - **Ejemplo:**
    ```typescript
    // Código vulnerable
-   const API_KEY = "sk_live_123456789abcdef"; // ❌ CRÍTICO
+   const API_KEY = "sk_live_<REDACTED>"; // ❌ CRÍTICO
    ```
    - **Corrección inmediata:**
    ```typescript

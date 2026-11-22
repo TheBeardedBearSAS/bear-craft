@@ -179,7 +179,7 @@ api.interceptors.request.use((config) => {
 
 ```typescript
 // ❌ MAL - NUNCA hacer commit de secretos
-const API_KEY = 'sk-1234567890abcdef';
+const API_KEY = '<YOUR_API_KEY>';
 
 // ✅ BIEN - Usar variables de entorno
 const API_KEY = import.meta.env.VITE_API_KEY;

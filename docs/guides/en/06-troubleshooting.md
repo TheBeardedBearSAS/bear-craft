@@ -105,6 +105,21 @@ This guide covers common issues and their solutions when using Bear-Craft.
    ls -la ~/my-project
    ```
 
+### Permission Prompts in Headless Mode (`claude -p`)
+
+**Symptoms:**
+- A headless run (`claude -p`) is refused edits or commands that `permissions.allow` should cover
+- Claude cannot edit `.claude/CLAUDE.md` (or other files under `.claude/`) in `acceptEdits` mode
+
+**Causes and solutions:**
+- **Untrusted workspace.** Headless runs skip the trust dialog and silently ignore the `permissions.allow` rules of `.claude/settings.json` on a workspace that was never trusted. Run `claude` once interactively in the project directory and accept the trust dialog. `bear-craft doctor` warns when the workspace is not trusted.
+- **Protected paths.** `.claude/CLAUDE.md`, `.claude/settings.json` and the rest of `.claude/` are protected paths: `acceptEdits` mode does not auto-approve edits to them. Edit them by hand, approve the prompt, or keep project-specific facts (stack, conventions) in a root `CLAUDE.md` outside `.claude/`.
+- **Deny rules.** The default `deny` list only targets secret files (`.env`, `.env.*`, `secrets/**`, `*.key`, `*.pem`, `credentials.json`, `.credentials*`, SSH keys, `*.tfstate`…). Documentation files whose name contains the word "credentials" are not blocked.
+- **Already-installed projects keep the old rule.** An existing `.claude/settings.json` is never overwritten, so projects installed before this fix still contain `Read(**/*credentials*)`, which blocks docs, ADRs and stories with "credentials" in their name. Remove that entry from `permissions.deny` (and add `Read(**/credentials.json)` and `Read(**/.credentials*)` if you want to keep protecting those files), or reinstall with `--force`. `bear-craft doctor` warns when the old rule is still present.
+- **A `deny` on `Read` is not a security boundary.** It does not prevent `git show HEAD:.env`, `docker compose config` or any other command from printing a secret. Treat it as defense in depth and enable the Bash sandbox for real isolation.
+
+---
+
 ### Installation Creates Empty Directory
 
 **Symptoms:**

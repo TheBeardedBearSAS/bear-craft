@@ -228,7 +228,7 @@ add_header Cross-Origin-Resource-Policy "same-origin" always;
 
 ```bash
 # ❌ RUIM - Segredos no código
-const API_KEY = 'sk-1234567890abcdef';
+const API_KEY = '<YOUR_API_KEY>';
 
 # ✅ BOM - Variáveis de ambiente
 const API_KEY = import.meta.env.VITE_API_KEY;

@@ -419,7 +419,7 @@ Does the project use a Marketplace integration (Neon Postgres, Upstash Redis/KV)
 **Hardcoded secret:**
 ```typescript
 // FORBIDDEN — secret hardcoded in source, permanently in git history
-const STRIPE_SECRET_KEY = 'sk_live_51H...';
+const STRIPE_SECRET_KEY = 'sk_live_<REDACTED>...';
 
 // CORRECT — read from env, no literal fallback, fails loudly if unset
 const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY;
