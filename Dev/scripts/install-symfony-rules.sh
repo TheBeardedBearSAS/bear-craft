@@ -12,11 +12,11 @@ I18N_DIR="$(dirname "$SCRIPT_DIR")/i18n"
 TECH_NAME="Symfony"
 TECH_DISPLAY_NAME="Symfony"
 TECH_NAMESPACE="symfony"
-DEFAULT_STACK="Symfony 7+, PHP 8.3+, Doctrine ORM, API Platform, Messenger"
+DEFAULT_STACK="Symfony 8.1, PHP 8.4+, Doctrine ORM, API Platform, Messenger"
 
 # --- TCL version ---
 source "${SCRIPT_DIR}/tcl-common.sh"
-VERSION=$(get_claude_craft_version)
+VERSION=$(get_bear_craft_version)
 
 # --- Rule mappings ---
 TECH_RULE_MAPPINGS=(
@@ -68,7 +68,7 @@ TECH_2026_REFS=(
 HELP_DESCRIPTION="    TCL-optimized installation covering:
     - Clean Architecture / DDD / Hexagonal
     - PSR-12 standards, PHP 8.3+ attributes
-    - Tests PHPUnit, Codeception, Behat, Infection
+    - Tests PHPUnit (or Pest), Behat, Infection
     - Quality (PHPStan, Psalm, PHP-CS-Fixer)
     - Doctrine ORM, API Platform, Messenger
     - CQRS, Domain Events, Value Objects
@@ -76,7 +76,7 @@ HELP_DESCRIPTION="    TCL-optimized installation covering:
     Token reduction: ~95% (from ~120K to ~5K)"
 
 # --- Install data ---
-AVAILABLE_COMMANDS="- \`/${TECH_NAMESPACE}:check <architecture|code-quality|security|testing|all>\` - Audit by axis (all = scored aggregate)"
+AVAILABLE_COMMANDS="- \`/bear-${TECH_NAMESPACE}:check <architecture|code-quality|security|testing|all>\` - Audit by axis (all = scored aggregate)"
 
 ARCHITECTURE_SUMMARY="\`\`\`
 src/
@@ -109,7 +109,7 @@ CODING_STANDARDS_SUMMARY="| Element | Convention | Example |
 
 **Always**: PSR-12, PHP 8.3+ attributes, strict types, final classes."
 
-TESTING_STACK="**Symfony Stack**: PHPUnit + Codeception + Behat + Infection (mutation testing)"
+TESTING_STACK="**Symfony Stack**: PHPUnit (or Pest) + Behat + Infection (mutation testing)"
 
 TECH_REFERENCES="- \`${TECH_NAMESPACE}/architecture.md\` - Clean Architecture + DDD
 - \`${TECH_NAMESPACE}/coding-standards.md\` - PSR-12 & PHP 8.3+

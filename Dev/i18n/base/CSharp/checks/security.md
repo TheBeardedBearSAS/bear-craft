@@ -57,7 +57,7 @@ var hashed = hasher.HashPassword(user, password);
 
 // ❌ VULNERABLE: Secrets in code
 var connectionString = "Server=db;Password=MySecretPassword123";
-var apiKey = "sk-1234567890abcdef";
+var apiKey = "<YOUR_API_KEY>";
 
 // ✅ SECURE: Configuration/secrets management
 var connectionString = Configuration.GetConnectionString("DefaultConnection");

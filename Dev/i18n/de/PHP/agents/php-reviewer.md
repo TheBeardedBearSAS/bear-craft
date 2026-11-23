@@ -360,7 +360,7 @@ $hash = password_hash($password, PASSWORD_ARGON2ID);
 
 ```php
 // SCHLECHT: Geheimnis im Code
-const API_KEY = 'sk_live_abc123';
+const API_KEY = 'sk_live_<REDACTED>';
 
 // GUT: Umgebungsvariable
 $apiKey = $_ENV['API_KEY'];

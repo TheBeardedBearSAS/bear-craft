@@ -353,7 +353,7 @@ async function createStory(ctx, c) {
         id = nextStoryId(await knownIds(tx.data, dir), input.epic_id ?? null);
         created = await writeNewStory(ctx, id, input);
         tx.addStory(id, newEntry(input));
-        tx.appendHistory(id, { from: '', to: 'backlog', by: actor(ctx.user), reason: 'Story created' });
+        tx.appendHistory(id, { from: 'none', to: 'backlog', by: actor(ctx.user), reason: 'Story created' });
       },
       { now: ctx.now }
     );

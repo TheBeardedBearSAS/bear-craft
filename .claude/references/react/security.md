@@ -579,7 +579,7 @@ Source: [React advisory](https://react.dev/blog/2025/12/03/critical-security-vul
 
 ```typescript
 // ❌ BAD - NEVER commit secrets
-const API_KEY = 'sk-1234567890abcdef'; // DANGER!
+const API_KEY = '<YOUR_API_KEY>'; // DANGER!
 
 // ✅ GOOD - Use environment variables
 const API_KEY = import.meta.env.VITE_API_KEY;

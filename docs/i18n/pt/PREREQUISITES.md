@@ -1,6 +1,6 @@
 # Pré-requisitos
 
-Guia completo de todas as dependências necessárias para o Claude Craft.
+Guia completo de todas as dependências necessárias para o Bear Craft.
 
 ---
 
@@ -106,7 +106,7 @@ Necessário para StatusLine e recursos avançados.
 | yq | 4.0 |
 | Git | 2.0 |
 | Docker | 20.0 |
-| Claude Code | 2.1.321+ (2.1.322 recommended) |
+| Claude Code | 2.1.325+ (2.1.326 recommended) |
 
 ---
 

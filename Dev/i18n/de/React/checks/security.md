@@ -228,7 +228,7 @@ add_header Cross-Origin-Resource-Policy "same-origin" always;
 
 ```bash
 # ❌ SCHLECHT - Secrets im Code
-const API_KEY = 'sk-1234567890abcdef';
+const API_KEY = '<YOUR_API_KEY>';
 
 # ✅ GUT - Umgebungsvariablen
 const API_KEY = import.meta.env.VITE_API_KEY;
@@ -248,7 +248,7 @@ VITE_API_KEY=ihr-api-key-hier
 
 # .env (NICHT committen)
 VITE_API_BASE_URL=https://api.production.com
-VITE_API_KEY=sk-echter-geheimer-schluessel
+VITE_API_KEY=<YOUR_API_KEY>
 ```
 
 ## Häufige Schwachstellen

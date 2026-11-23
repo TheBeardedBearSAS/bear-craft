@@ -412,7 +412,7 @@ from myproject.infrastructure.database.session import get_session
 
 ```python
 # ❌ Never do this
-API_KEY = "sk_live_abc123def456"
+API_KEY = "sk_live_<REDACTED>"
 DATABASE_PASSWORD = "password123"
 
 # ✅ Use environment variables

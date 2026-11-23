@@ -18,7 +18,12 @@ export const TddPhaseSchema = z.enum(TDD_PHASES);
 
 export const HistoryEntrySchema = z.object({
   timestamp: z.string(),
-  from: z.string(),
+  // The creation entry has no previous status: null / "" / "none" are all normalized to "none".
+  from: z
+    .string()
+    .nullable()
+    .optional()
+    .transform((v) => v || 'none'),
   to: z.string(),
   by: z.string().default('auto'),
   reason: z.string().default(''),
@@ -107,7 +112,11 @@ export const SprintStatusSchema = z
           .object({
             title: z.string(),
             status: StoryStatusSchema,
-            previous_status: z.string().optional().default(''),
+            previous_status: z
+              .string()
+              .nullable()
+              .optional()
+              .transform((v) => v ?? ''),
             // Own sprint: null = backlog; an absent key keeps the historical "active sprint" reading.
             sprint_id: z.string().nullable().optional(),
             // Real BMAD v6 yaml uses assigned_to: null for unassigned stories.

@@ -1,8 +1,8 @@
 /**
- * claude-craft kanban : launches a local HTTP server that serves an interactive
+ * bear-craft kanban : launches a local HTTP server that serves an interactive
  * Kanban view of a BMAD v6 project-management/ directory.
  *
- * Usage : claude-craft kanban [--port=3737] [--open] [--readonly] [--no-watch] [--user=<name>]
+ * Usage : bear-craft kanban [--port=3737] [--open] [--readonly] [--no-watch] [--user=<name>]
  *
  * @module cli/lib/kanban
  */
@@ -32,6 +32,22 @@ function openBrowser(url) {
   }
 }
 
+/** Usage text of `bear-craft kanban --help` (printed without starting the server). */
+export function printKanbanHelp() {
+  console.log(`${c.bold}Usage:${c.reset} bear-craft kanban [path] [options]
+
+Launch the local Kanban UI for the project-management/ directory of [path] (default: current directory).
+
+${c.bold}Options:${c.reset}
+  ${c.green}--port=<n>${c.reset}       Port to listen on, 1024-65535 (default: 3737)
+  ${c.green}--open${c.reset}           Open the board in the default browser
+  ${c.green}--readonly${c.reset}       Disable every write (transitions, edits, creation)
+  ${c.green}--no-watch${c.reset}       Do not reload when files change on disk
+  ${c.green}--user=<name>${c.reset}    Author recorded in history entries (default: git user.name)
+  ${c.green}-h, --help${c.reset}       Show this help and exit
+`);
+}
+
 /**
  * @param {object} opts
  * @param {string} opts.targetPath
@@ -42,7 +58,7 @@ export async function runKanban({ targetPath, options }) {
   if (!resolved) {
     console.error(
       `${c.red}Error: no 'project-management/' directory found under ${path.resolve(targetPath)}.${c.reset}\n` +
-        `Run ${c.bold}/workflow:plan${c.reset} in Claude Code first, or cd into a BMAD project.`
+        `Run ${c.bold}/bear-workflow:plan${c.reset} in Claude Code first, or cd into a BMAD project.`
     );
     process.exit(1);
   }
@@ -86,7 +102,7 @@ export async function runKanban({ targetPath, options }) {
   });
 
   const url = `http://127.0.0.1:${port}`;
-  console.log(`${c.green}claude-craft kanban${c.reset} serving ${c.bold}${pmDir}${c.reset}`);
+  console.log(`${c.green}bear-craft kanban${c.reset} serving ${c.bold}${pmDir}${c.reset}`);
   console.log(`  ${c.cyan}${url}${c.reset}${readonly ? `  ${c.dim}(readonly)${c.reset}` : ''}`);
   console.log(`  ${c.dim}watching:${c.reset} ${watch ? 'yes' : 'no'}`);
   console.log(`  ${c.dim}Press Ctrl+C to stop.${c.reset}\n`);

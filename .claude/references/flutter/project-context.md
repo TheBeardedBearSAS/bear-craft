@@ -478,7 +478,7 @@ prefs.setString('token', authToken);  // Non crypté !
 const apiKey = String.fromEnvironment('API_KEY');
 
 // ❌ MAUVAIS - Hardcodé dans le code
-const apiKey = 'sk_live_12345...';  // Jamais !
+const apiKey = 'sk_live_<REDACTED>...';  // Jamais !
 ```
 
 ---
