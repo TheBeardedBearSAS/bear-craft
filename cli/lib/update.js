@@ -9,6 +9,7 @@ import { spawnSync } from 'child_process';
 import c from './colors.js';
 import { listDirs } from './fs-utils.js';
 import { TECH_REGISTRY } from './tech-registry.js';
+import { fixLegacyCredentialsDeny } from './settings-migrate.js';
 import { assertSafeTarget, assertSafeLang } from './path-safety.js';
 import {
   INFRA_PLUGINS,
@@ -163,6 +164,10 @@ function runUpdate(targetPath, options, cliRoot, deps = {}) {
     }
   }
 
+  // .claude/CLAUDE.md is a user file (stack line, team edits): the scripts run with --force, so put it back (#283).
+  const claudeMdPath = path.join(claudeDir, 'CLAUDE.md');
+  const userClaudeMd = fs.existsSync(claudeMdPath) ? fs.readFileSync(claudeMdPath) : null;
+
   const scriptsDir = path.join(cliRoot, 'Dev', 'scripts');
   const langArg = `--lang=${lang}`;
   let updated = 0;
@@ -182,7 +187,12 @@ function runUpdate(targetPath, options, cliRoot, deps = {}) {
       anyFailed = true;
     }
   }
-  for (const tech of install.techs) {
+  // Base layers first: a framework (symfony, laravel) writes .claude/CLAUDE.md after php and must win (#269, #283).
+  const scriptOrder = [
+    ...install.techs.filter((t) => TECH_REGISTRY[t]?.baseLayer),
+    ...install.techs.filter((t) => !TECH_REGISTRY[t]?.baseLayer),
+  ];
+  for (const tech of scriptOrder) {
     const entry = TECH_REGISTRY[tech];
     const script = entry && path.join(scriptsDir, entry.installScript);
     if (!script || !fs.existsSync(script)) {
@@ -195,6 +205,11 @@ function runUpdate(targetPath, options, cliRoot, deps = {}) {
     } else {
       anyFailed = true;
     }
+  }
+
+  if (userClaudeMd !== null) {
+    fs.writeFileSync(claudeMdPath, userClaudeMd);
+    console.log(`  ${c.green}[KEEP]${c.reset} .claude/CLAUDE.md left as is (user file)`);
   }
 
   // 2. Copy-based leftovers: our files are removed, the user's are kept (with a warning).
@@ -218,6 +233,13 @@ function runUpdate(targetPath, options, cliRoot, deps = {}) {
     } catch (err) {
       console.log(`  ${c.red}[FAIL]${c.reset} Plugins: ${err.message}`);
       anyFailed = true;
+    }
+
+    // 4. Existing settings.json is never rewritten: migrate the legacy credentials deny rule (#284).
+    if (!anyFailed && fixLegacyCredentialsDeny(safeTarget) === 'failed') {
+      console.log(
+        `  ${c.yellow}[WARN]${c.reset} settings.json not migrated — run bear-craft doctor --fix after fixing it`
+      );
     }
   }
 

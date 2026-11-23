@@ -426,7 +426,11 @@ describe('runDoctor', () => {
         expect(fixed.permissions.deny).toEqual([
           'Read(**/.env)',
           'Read(**/credentials.json)',
+          'Read(**/*credentials.json)',
+          'Read(**/credentials.tfrc.json)',
           'Read(**/.credentials*)',
+          'Read(**/.aws/credentials)',
+          'Read(**/.git-credentials)',
         ]);
         expect(fixed.permissions.allow).toEqual(['Bash(ls)']);
         expect(fixed.hooks).toEqual(original.hooks);
