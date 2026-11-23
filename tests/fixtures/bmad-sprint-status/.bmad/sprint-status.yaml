@@ -12,6 +12,15 @@ metadata:
   goal: "Demonstrate YAML-only story ingestion."
   epic: "E1"
 
+# Sprint-level tasks that belong to no story (#296)
+cross_cutting_tasks:
+  TASK-051:
+    title: "Version re-check"
+    status: "done"
+  TASK-052:
+    title: "Changelog"
+    status: "to-do"
+
 stories:
   US-100:
     title: "Markdown-backed story (content from markdown)"

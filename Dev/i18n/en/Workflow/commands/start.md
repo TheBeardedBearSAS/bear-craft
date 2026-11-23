@@ -351,6 +351,7 @@ For every created task (US tasks and cross-cutting tasks), following `.claude/te
 2. Append the TASK ids to `stories.<US>.tasks.list`
 3. Set `stories.<US>.tasks.status.<TASK>: to-do`
 4. Update `stories.<US>.tasks.total` (`completed` stays the number of `done` tasks)
+5. Task that belongs to no story (cross-cutting): write it under the root key `cross_cutting_tasks.<TASK>` (`title`, `status: to-do`, `epic_id` if any), never under a story and never under an invented key
 
 ### Step 10: Final Checklist
 

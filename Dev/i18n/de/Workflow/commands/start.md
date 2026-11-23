@@ -351,6 +351,7 @@ Für jeden erstellten Task (US-Tasks und übergreifende Tasks), gemäß `.claude
 2. Die TASK-IDs an `stories.<US>.tasks.list` anhängen
 3. `stories.<US>.tasks.status.<TASK>: to-do` setzen
 4. `stories.<US>.tasks.total` aktualisieren (`completed` bleibt die Anzahl der `done`-Tasks)
+5. Task ohne Story-Zugehörigkeit (übergreifend): unter dem Root-Schlüssel `cross_cutting_tasks.<TASK>` eintragen (`title`, `status: to-do`, ggf. `epic_id`), nie unter einer Story und nie unter einem erfundenen Schlüssel
 
 ### Schritt 10: Finale Checkliste
 

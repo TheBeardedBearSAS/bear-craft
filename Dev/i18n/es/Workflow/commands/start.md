@@ -351,6 +351,7 @@ Para cada tarea creada (tareas de US y tareas transversales), según `.claude/te
 2. Añadir los ids TASK a `stories.<US>.tasks.list`
 3. Definir `stories.<US>.tasks.status.<TASK>: to-do`
 4. Actualizar `stories.<US>.tasks.total` (`completed` sigue siendo el número de tareas `done`)
+5. Tarea que no pertenece a ninguna story (transversal): escribirla bajo la clave raíz `cross_cutting_tasks.<TASK>` (`title`, `status: to-do`, `epic_id` si procede), nunca bajo una story ni bajo una clave inventada
 
 ### Paso 10: Lista de Verificación Final
 

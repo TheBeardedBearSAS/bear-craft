@@ -152,6 +152,37 @@ describe('TaskFrontmatterSchema', () => {
   });
 });
 
+describe('SprintStatusSchema cross_cutting_tasks (#296)', () => {
+  const base = {
+    metadata: { sprint_id: 'sprint-1', name: 'S', start_date: '2026-11-02', end_date: '2026-11-13' },
+    stories: {},
+  };
+
+  it('accepts sprint-level tasks and keeps them typed', () => {
+    const parsed = SprintStatusSchema.parse({
+      ...base,
+      cross_cutting_tasks: { 'TASK-051': { title: 'Re-check versions', status: 'done', epic_id: 'EPIC-001' } },
+    });
+    expect(parsed.cross_cutting_tasks['TASK-051']).toEqual({
+      title: 'Re-check versions',
+      status: 'done',
+      epic_id: 'EPIC-001',
+    });
+  });
+
+  it('rejects an unknown task status', () => {
+    const res = SprintStatusSchema.safeParse({
+      ...base,
+      cross_cutting_tasks: { 'TASK-051': { title: 'x', status: 'finished' } },
+    });
+    expect(res.success).toBe(false);
+  });
+
+  it('is optional', () => {
+    expect(SprintStatusSchema.parse(base).cross_cutting_tasks).toBeUndefined();
+  });
+});
+
 describe('TransitionRequestSchema', () => {
   it('accepts all valid statuses', () => {
     for (const status of STATUSES) {

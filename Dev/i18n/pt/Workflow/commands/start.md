@@ -351,6 +351,7 @@ Para cada tarefa criada (tarefas de US e tarefas transversais), conforme `.claud
 2. Adicionar os ids TASK a `stories.<US>.tasks.list`
 3. Definir `stories.<US>.tasks.status.<TASK>: to-do`
 4. Atualizar `stories.<US>.tasks.total` (`completed` continua sendo o número de tarefas `done`)
+5. Tarefa que não pertence a nenhuma story (transversal): escrevê-la sob a chave raiz `cross_cutting_tasks.<TASK>` (`title`, `status: to-do`, `epic_id` se houver), nunca sob uma story nem sob uma chave inventada
 
 ### Etapa 10: Checklist Final
 

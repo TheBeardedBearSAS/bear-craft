@@ -21,6 +21,14 @@ describe.each(LANGS)('templates validate against the Kanban schemas (%s)', (lang
     expect(creation.from).toBe('none');
   });
 
+  it('sprint-status.md documents cross_cutting_tasks, accepted by the schema (#296)', () => {
+    const tpl = read(lang, 'sprint-status.md');
+    const block = tpl.match(/```yaml\n(# \.bmad\/sprint-status\.yaml[\s\S]*?)```/);
+    const parsed = SprintStatusSchema.parse(yaml.load(block[1]));
+    expect(Object.keys(parsed.cross_cutting_tasks ?? {}).length).toBeGreaterThan(0);
+    expect(tpl).toContain('cross_cutting_tasks');
+  });
+
   it('user-story.md, once filled, is accepted by StoryFrontmatterSchema', () => {
     const filled = read(lang, 'user-story.md')
       .replace(/\{ID\}/g, '001')

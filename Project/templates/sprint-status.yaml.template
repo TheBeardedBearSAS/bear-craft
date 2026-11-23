@@ -38,6 +38,13 @@ stories:
         by: "auto"
         reason: "Story created"
 
+# Optional: sprint-level tasks that belong to no story (counted by status and the Kanban)
+# cross_cutting_tasks:
+#   TASK-051:
+#     title: "Version re-check"
+#     status: "to-do"        # to-do | in-progress | done | blocked
+#     epic_id: "{EPIC_ID}"   # optional
+
 routing:
   auto_transitions:
     enabled: true

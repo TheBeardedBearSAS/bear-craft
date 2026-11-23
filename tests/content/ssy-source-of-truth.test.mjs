@@ -42,6 +42,13 @@ describe('canonical sprint-status.yaml schema template', () => {
   });
 });
 
+describe('sprint-level tasks (#296)', () => {
+  it.each(LANGS)('start and status cite cross_cutting_tasks (lang=%s)', (lang) => {
+    expect(at('Dev/i18n/{lang}/Workflow/commands/start.md', lang)).toContain('cross_cutting_tasks');
+    expect(at('Dev/i18n/{lang}/Workflow/commands/status.md', lang)).toContain('cross_cutting_tasks');
+  });
+});
+
 describe('markdown templates hold content only', () => {
   it.each(LANGS)('no status emoji in story, epic, task and board templates (lang=%s)', (lang) => {
     for (const t of ['user-story', 'epic', 'task', 'board']) {
@@ -69,7 +76,8 @@ describe('"Which path?" decision page', () => {
 
   it.each(LANGS)('exists and routes greenfield, brownfield, bugfix and autonomous sprint (lang=%s)', (lang) => {
     const guide = read('docs/guides', lang, GUIDE);
-    for (const cmd of ['/bear-workflow:init', '/bear-workflow:auto-sprint', '/bear-project:reverse', '/bear-qa:tdd']) expect(guide).toContain(cmd);
+    for (const cmd of ['/bear-workflow:init', '/bear-workflow:auto-sprint', '/bear-project:reverse', '/bear-qa:tdd'])
+      expect(guide).toContain(cmd);
   });
 
   it.each(LANGS)('is linked from /bear-common:getting-started and /bear-workflow:init (lang=%s)', (lang) => {

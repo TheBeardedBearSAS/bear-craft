@@ -10,6 +10,19 @@ import { removeDenyRules } from '../../Dev/scripts/lib/merge-hooks.mjs';
 
 export const LEGACY_CREDENTIALS_DENY = 'Read(**/*credentials*)';
 
+// #295 : `Read(**/.env.*)` bloquait aussi .env.dist / .env.example (gabarits sans secret).
+export const LEGACY_ENV_DENY = 'Read(**/.env.*)';
+
+const REPLACEMENT_ENV_DENY = [
+  'Read(**/.env.local)',
+  'Read(**/.env.*.local)',
+  'Read(**/.env.production*)',
+  'Read(**/.env.prod*)',
+  'Read(**/.env.staging*)',
+  'Read(**/.env.development*)',
+  'Read(**/.env.test*)',
+];
+
 const REPLACEMENT_CREDENTIALS_DENY = [
   'Read(**/*credentials.json)',
   'Read(**/credentials.tfrc.json)',
@@ -19,8 +32,8 @@ const REPLACEMENT_CREDENTIALS_DENY = [
 ];
 
 /**
- * Migrate the legacy `Read(**\/*credentials*)` deny rule: back up settings.json (same mode), drop only that rule,
- * add the narrower replacements. Invalid JSON or a failed write never alters the original file.
+ * Migrate the legacy `Read(**\/*credentials*)` and `Read(**\/.env.*)` deny rules: back up settings.json (same mode),
+ * drop only those rules, add the narrower replacements. Invalid JSON or a failed write never alters the original file.
  * @param {string} targetPath
  * @returns {'fixed'|'unchanged'|'failed'}
  */
@@ -41,9 +54,14 @@ export function fixLegacyCredentialsDeny(targetPath) {
   if (settings === null || typeof settings !== 'object' || Array.isArray(settings)) {
     return fail('.claude/settings.json is invalid JSON (not an object) — not modified, fix it by hand');
   }
-  const { settings: next, removed } = removeDenyRules(settings, [LEGACY_CREDENTIALS_DENY]);
+  const { settings: next, removed } = removeDenyRules(settings, [LEGACY_CREDENTIALS_DENY, LEGACY_ENV_DENY]);
   if (removed === 0) return 'unchanged';
-  for (const rule of REPLACEMENT_CREDENTIALS_DENY) {
+  const hadRule = (rule) => settings.permissions.deny.includes(rule);
+  const replacements = [
+    ...(hadRule(LEGACY_CREDENTIALS_DENY) ? REPLACEMENT_CREDENTIALS_DENY : []),
+    ...(hadRule(LEGACY_ENV_DENY) ? REPLACEMENT_ENV_DENY : []),
+  ];
+  for (const rule of replacements) {
     if (!next.permissions.deny.includes(rule)) next.permissions.deny.push(rule);
   }
   const stamp = new Date().toISOString().replaceAll(/[-:.]/g, '');
@@ -62,7 +80,7 @@ export function fixLegacyCredentialsDeny(targetPath) {
     return fail(`Could not write .claude/settings.json (${error.code || error.message}) — original left intact`);
   }
   console.log(
-    `  ${c.green}[FIXED]${c.reset} Replaced ${LEGACY_CREDENTIALS_DENY} with ${REPLACEMENT_CREDENTIALS_DENY.join(', ')} (backup: ${path.basename(backup)})`
+    `  ${c.green}[FIXED]${c.reset} Replaced legacy deny rule(s) with ${replacements.join(', ')} (backup: ${path.basename(backup)})`
   );
   return 'fixed';
 }

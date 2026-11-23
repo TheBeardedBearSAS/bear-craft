@@ -106,6 +106,19 @@ export const SprintStatusSchema = z
         closed_date: z.string().optional(),
       })
       .passthrough(),
+    // Sprint-level tasks that belong to no story (TASK-id -> { title, status, epic_id? }) (#296).
+    cross_cutting_tasks: z
+      .record(
+        z.string(),
+        z
+          .object({
+            title: z.string(),
+            status: z.enum(TASK_STATUSES),
+            epic_id: z.string().optional(),
+          })
+          .passthrough()
+      )
+      .optional(),
     stories: z
       .record(
         z

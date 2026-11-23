@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **`implement` / `backlog move` wrote estimated timestamps** (#292): every `history[].timestamp` and checkpoint timestamp is taken with `date -u +%Y-%m-%dT%H:%M:%SZ`.
 - **`implement` ended at review without PR/CI verification** (#293): when a CI workflow exists, story validation opens the PR, waits for `gh pr checks --watch`, and the `done` transition happens after the merge (otherwise "pending merge").
 - **`/bear-gate:check story` could never pass after `implement`** (#294): story validation now writes `acceptance_criteria.validated` and `review.approved` to `.bmad/sprint-status.yaml`.
+- **Default `deny` rule `Read(**/.env.*)` blocked `.env.dist` / `.env.example`** (#295): the template now lists explicit secret patterns (`.env.local`, `.env.*.local`, `.env.prod*`, `.env.production*`, `.env.staging*`, `.env.development*`, `.env.test*`), so `.env.dist`, `.env.example`, `.env.sample` and `.env.template` can be read and written. `bear-craft doctor` warns about the legacy rule; `doctor --fix` and `update` replace it (backup kept, other rules untouched).
+- **No schema slot for sprint tasks that belong to no story** (#296): `.bmad/sprint-status.yaml` documents the optional root key `cross_cutting_tasks` (`TASK-<id>: { title, status, epic_id? }`); `/bear-workflow:start` writes such tasks there, `/bear-workflow:status` counts them and the Kanban exposes them as `cross_cutting_tasks` in `GET /api/sprints/current`.
 
 ## [10.1.1] - 2026-11-23
 

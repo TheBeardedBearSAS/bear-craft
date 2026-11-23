@@ -402,6 +402,39 @@ describe('runDoctor', () => {
       expect(output()).not.toContain('*credentials*');
     });
 
+    it('warns when settings.json still denies Read(**/.env.*) (#295)', () => {
+      mkdirSync(join(tempDir, '.claude'));
+      writeFileSync(
+        join(tempDir, '.claude', 'settings.json'),
+        JSON.stringify({ permissions: { deny: ['Read(**/.env)', 'Read(**/.env.*)'] } })
+      );
+      runDoctor(tempDir, { execFn: allToolsExec, claudeJsonPath: join(tempDir, 'absent.json') });
+      expect(output()).toMatch(/\[WARN\].*Read\(\*\*\/\.env\.\*\)/);
+    });
+
+    it('--fix replaces Read(**/.env.*) with explicit env rules and keeps the rest (#295)', () => {
+      mkdirSync(join(tempDir, '.claude'));
+      const file = join(tempDir, '.claude', 'settings.json');
+      writeFileSync(
+        file,
+        JSON.stringify({ permissions: { deny: ['Read(**/.env)', 'Read(**/.env.*)', 'Bash(sudo:*)'] } })
+      );
+      runDoctor(tempDir, { execFn: allToolsExec, claudeJsonPath: join(tempDir, 'absent.json'), fix: true });
+      const { deny } = JSON.parse(readFileSync(file, 'utf8')).permissions;
+      expect(deny).not.toContain('Read(**/.env.*)');
+      expect(deny).toEqual([
+        'Read(**/.env)',
+        'Bash(sudo:*)',
+        'Read(**/.env.local)',
+        'Read(**/.env.*.local)',
+        'Read(**/.env.production*)',
+        'Read(**/.env.prod*)',
+        'Read(**/.env.staging*)',
+        'Read(**/.env.development*)',
+        'Read(**/.env.test*)',
+      ]);
+    });
+
     describe('--fix legacy credentials deny', () => {
       const LEGACY = 'Read(**/*credentials*)';
       const settingsPath = () => join(tempDir, '.claude', 'settings.json');

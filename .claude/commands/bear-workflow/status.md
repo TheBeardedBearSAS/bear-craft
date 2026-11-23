@@ -64,7 +64,7 @@ Cette commande **met à jour** `project-management/workflow-status.yaml` (`curre
 ### Étape 2 : Lire les métriques du sprint
 
 1. Identifier le sprint (`--sprint N` ou le sprint courant : celui qui contient des stories non Done) et lire son `sprint-goal.md`.
-2. Lire `.bmad/sprint-status.yaml` : statuts des stories/tâches, `tdd_phase`, affectations, bloqueurs.
+2. Lire `.bmad/sprint-status.yaml` : statuts des stories/tâches, `tdd_phase`, affectations, bloqueurs. Compter les tâches de sprint de `cross_cutting_tasks` dans les totaux de tâches.
 3. Calculer les points, les tâches et les heures réalisés vs la cible, la progression par story, le burndown, les bloqueurs et les risques.
 4. Ajouter le routage BMAD : décompte de la machine à états, phase TDD des stories en cours, suggestions de routage automatique (les stories dont toutes les tâches sont terminées sont prêtes pour `review`).
 

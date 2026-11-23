@@ -11,7 +11,7 @@ import c from './colors.js';
 import { listDirs } from './fs-utils.js';
 import { assertSafeTarget } from './path-safety.js';
 import { MIN_CLAUDE_CODE, RECOMMENDED_CLAUDE_CODE, assessClaude } from './claude-code.js';
-import { LEGACY_CREDENTIALS_DENY, fixLegacyCredentialsDeny } from './settings-migrate.js';
+import { LEGACY_CREDENTIALS_DENY, LEGACY_ENV_DENY, fixLegacyCredentialsDeny } from './settings-migrate.js';
 import { diagnosePlugins, readInstallJson } from './plugin-install.js';
 import * as yaml from 'js-yaml';
 import { countPlaceholderTimestamps } from '../kanban/shared/timestamps.js';
@@ -269,6 +269,15 @@ function runDoctor(targetPath, deps = {}) {
     );
     console.log(
       `         Run ${c.cyan}bear-craft doctor --fix${c.reset} (or replace it with the narrower Read(**/*credentials.json), Read(**/.credentials*)… rules in permissions.deny)`
+    );
+    warned++;
+  }
+  if (readDenyRules(targetPath).includes(LEGACY_ENV_DENY)) {
+    console.log(
+      `  ${c.yellow}[WARN]${c.reset} .claude/settings.json still denies ${LEGACY_ENV_DENY} (blocks .env.dist and .env.example templates)`
+    );
+    console.log(
+      `         Run ${c.cyan}bear-craft doctor --fix${c.reset} (or replace it with Read(**/.env.local), Read(**/.env.*.local), Read(**/.env.prod*)… in permissions.deny)`
     );
     warned++;
   }

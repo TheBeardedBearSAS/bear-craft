@@ -64,7 +64,7 @@ Dieser Befehl **aktualisiert** bei jeder Ausführung `project-management/workflo
 ### Schritt 2: Sprint-Metriken lesen
 
 1. Den Sprint bestimmen (`--sprint N` oder der aktuelle: der Sprint mit nicht abgeschlossenen Stories) und dessen `sprint-goal.md` lesen.
-2. `.bmad/sprint-status.yaml` lesen: Status von Stories/Tasks, `tdd_phase`, Zuweisungen, Blocker.
+2. `.bmad/sprint-status.yaml` lesen: Status von Stories/Tasks, `tdd_phase`, Zuweisungen, Blocker. Die Sprint-Tasks aus `cross_cutting_tasks` in die Task-Summen einrechnen.
 3. Punkte, Tasks und Stunden (erledigt vs. Ziel), Fortschritt pro Story, Burndown, Blocker und Risiken berechnen.
 4. BMAD-Routing ergänzen: Zähler der Zustandsmaschine, TDD-Phase der Stories in Bearbeitung, Auto-Routing-Vorschläge (Stories, deren Tasks alle erledigt sind, sind bereit für `review`).
 
