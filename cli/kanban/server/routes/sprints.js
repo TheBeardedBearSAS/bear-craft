@@ -10,6 +10,7 @@ import {
   nextSprintNumber,
   parseSprintGoal,
   renderSprintGoal,
+  sameSprint,
   sprintSlug,
   sprintState,
   startSprint,
@@ -206,7 +207,7 @@ async function readJsonOrEmpty(c, schema) {
 function sprintMeta(ss, id, goalText = null) {
   const base = { name: id, start_date: '', end_date: '', epic: '', points_delivered: null };
   if (!ss || ss._invalid) return planned(base, id, goalText);
-  if (ss.metadata?.sprint_id === id) {
+  if (sameSprint(ss.metadata?.sprint_id, id)) {
     return withCapacity(
       {
         name: ss.metadata.name ?? id,
@@ -239,7 +240,7 @@ function planned(base, id, goalText) {
 const withCapacity = (meta, capacity) => (Number.isInteger(capacity) ? { ...meta, capacity_points: capacity } : meta);
 const capacityOf = (meta) => (meta.capacity_points === undefined ? {} : { capacity_points: meta.capacity_points });
 
-const knownToStatus = (ss, id) => ss?.metadata?.sprint_id === id || !!ss?.archived_sprints?.[id];
+const knownToStatus = (ss, id) => sameSprint(ss?.metadata?.sprint_id, id) || !!ss?.archived_sprints?.[id];
 
 const sumPoints = (stories) => stories.reduce((n, st) => n + (st.story_points ?? 0), 0);
 
@@ -287,7 +288,7 @@ function registerReads(app, { repository, projectRoot, loadStatusSafe }) {
       )
     );
     const sprints = summaries.map((s, i) => {
-      const stories = allStories.filter((st) => st.sprint_id === s.id);
+      const stories = allStories.filter((st) => sameSprint(st.sprint_id, s.id));
       const meta = sprintMeta(ss, s.id, goals[i]);
       return {
         ...s,

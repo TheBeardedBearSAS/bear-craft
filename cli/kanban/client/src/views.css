@@ -320,6 +320,8 @@
 .card {
   position: relative;
   flex: none;
+  min-width: 0;
+  max-width: 100%;
   background: var(--bg-elev);
   border: 1px solid var(--border-faint);
   border-radius: var(--radius);
@@ -365,9 +367,20 @@
 
 .card-top {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 8px;
+  gap: 4px 8px;
+  min-width: 0;
   margin-bottom: 8px;
+}
+.card-top > *,
+.card-meta > * {
+  min-width: 0;
+}
+.card .chip {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .card-id {
   font-family: var(--mono);

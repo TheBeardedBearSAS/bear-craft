@@ -445,3 +445,60 @@ describe('sprint directory helpers', () => {
     expect(parseSprintGoal(md, 'x').start_date).toBe('2026-01-01');
   });
 });
+
+// Issue #298: /bear-workflow:start historically wrote `metadata.sprint_id: "sprint-1"` while the sprint
+// folder (and the Kanban id) is `sprint-1-walking_skeleton`.
+describe('short sprint ids written by the workflow (sprint-N) match the sprint folder id', () => {
+  const FOLDER = 'sprint-1-walking_skeleton';
+  const short = (over = {}) => ({
+    version: '1.0',
+    metadata: {
+      sprint_id: 'sprint-1',
+      name: 'Walking skeleton',
+      start_date: '2026-11-23',
+      end_date: '2026-12-04',
+      ...over,
+    },
+    stories: {
+      'US-001': { title: 'A', status: 'done', story_points: 5, sprint_id: FOLDER },
+      'US-002': { title: 'B', status: 'done', story_points: 3, sprint_id: 'sprint-1' },
+    },
+  });
+
+  it('is active under the folder id while not closed', () => {
+    expect(sprintState(FOLDER, short(), [FOLDER])).toBe('active');
+  });
+
+  it('is closed under the folder id once closed_date is set, without archived_sprints', () => {
+    expect(sprintState(FOLDER, short({ closed_date: '2026-12-04' }), [FOLDER])).toBe('closed');
+  });
+
+  it('does not confuse sprint-1 with sprint-10-x', () => {
+    expect(sprintState('sprint-10-next', short(), ['sprint-10-next'])).toBe('planned');
+  });
+
+  it('closeSprint accepts the folder id and owns stories carrying either id', () => {
+    const { summary } = closeSprint(short(), FOLDER, { today: '2026-12-04', knownSprintIds: [FOLDER] });
+    expect(summary.archived.sort()).toEqual(['US-001', 'US-002']);
+    expect(summary.points_delivered).toBe(8);
+  });
+
+  it('velocity lists a closed sprint that has no archive entry', () => {
+    const v = velocity(short({ closed_date: '2026-12-04' }));
+    expect(v.sprints).toEqual([
+      { id: 'sprint-1', name: 'Walking skeleton', closed_date: '2026-12-04', committed: 8, delivered: 8 },
+    ]);
+    expect(v.average).toBe(8);
+  });
+
+  it('velocity ignores the active sprint', () => {
+    expect(velocity(short()).sprints).toEqual([]);
+  });
+});
+
+describe('parseSprintGoal — "Dates" row', () => {
+  it('reads "Dates | start → end (n days)"', () => {
+    const md = '# Sprint 1 : X\n\n| Attribut | Valeur |\n|---|---|\n| Dates | 2026-11-23 → 2026-12-04 (10 jours) |\n';
+    expect(parseSprintGoal(md, 'sprint-1-x')).toMatchObject({ start_date: '2026-11-23', end_date: '2026-12-04' });
+  });
+});

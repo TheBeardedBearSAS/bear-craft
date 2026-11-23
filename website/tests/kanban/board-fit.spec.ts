@@ -37,3 +37,30 @@ test.describe('1280 px', () => {
     for (const w of widths) expect(w).toBeGreaterThanOrEqual(200);
   });
 });
+
+// Dogfooding #299: in a narrow column (Done at 1600 px) the priority pill and the TDD tag were drawn
+// outside the right edge of the card. Every descendant must stay inside the card's bounding box.
+for (const width of [1280, 1600]) {
+  test.describe(`${width} px cards`, () => {
+    test.use({ viewport: { width, height: 900 } });
+
+    test('board: card content stays inside the card (Done column included)', async ({ page }) => {
+      await openView(page, 'kanban');
+      const cards = page.locator('section.column li.card');
+      expect(await cards.count()).toBeGreaterThan(0);
+      const escapes = await cards.evaluateAll((els) =>
+        els.flatMap((card) => {
+          const box = card.getBoundingClientRect();
+          return [...card.querySelectorAll('.card-top > *, .card-meta > *')]
+            .map((el) => ({ el, r: el.getBoundingClientRect() }))
+            .filter(({ r }) => r.width > 0 && (r.right > box.right + 1 || r.left < box.left - 1))
+            .map(
+              ({ el, r }) =>
+                `${card.querySelector('.card-id')?.textContent} ${el.className} right=${r.right} card=${box.right}`
+            );
+        })
+      );
+      expect(escapes).toEqual([]);
+    });
+  });
+}

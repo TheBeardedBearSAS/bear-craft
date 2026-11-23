@@ -20,6 +20,19 @@ const DATE_RE = '(\\d{4}-\\d{2}-\\d{2})';
 
 const usable = (ss) => (ss && !ss._invalid ? ss : null);
 const activeId = (ss) => (ss?.metadata?.sprint_id && !ss.metadata.closed_date ? ss.metadata.sprint_id : null);
+const SHORT_SPRINT_RE = /^sprint-\d+$/;
+
+/**
+ * Same sprint under two spellings: exact id, or the short `sprint-<N>` that /bear-workflow:start used to write
+ * in metadata.sprint_id versus the folder id `sprint-<N>-<slug>` (backward compatibility).
+ */
+export function sameSprint(a, b) {
+  if (!a || !b) return false;
+  if (a === b) return true;
+  const [short, long] = SHORT_SPRINT_RE.test(a) ? [a, b] : [b, a];
+  return SHORT_SPRINT_RE.test(short) && long.startsWith(`${short}-`);
+}
+
 const sum = (list, pick) => list.reduce((n, item) => n + (pick(item) ?? 0), 0);
 
 /** Sprint-level tasks (`cross_cutting_tasks`) that belong to no story: the list and its done count (#296). */
@@ -32,8 +45,8 @@ export function summarizeCrossCuttingTasks(ss) {
 /** @returns {'active'|'closed'|'planned'|null} null when the sprint is unknown everywhere */
 export function sprintState(id, ss, sprintDirIds) {
   const status = usable(ss);
-  if (activeId(status) === id) return 'active';
-  const closedHere = status?.metadata?.sprint_id === id && status.metadata.closed_date;
+  if (sameSprint(activeId(status), id)) return 'active';
+  const closedHere = sameSprint(status?.metadata?.sprint_id, id) && status.metadata.closed_date;
   if (closedHere || status?.archived_sprints?.[id]) return 'closed';
   return sprintDirIds.includes(id) ? 'planned' : null;
 }
@@ -58,7 +71,7 @@ export function startSprint(ss, sprint) {
 }
 
 /** A story belongs to the sprint through its own `sprint_id`, or implicitly to the active one when it has none. */
-const ownedBy = (story, id) => (Object.hasOwn(story, 'sprint_id') ? story.sprint_id === id : true);
+const ownedBy = (story, id) => (Object.hasOwn(story, 'sprint_id') ? sameSprint(story.sprint_id, id) : true);
 
 function assertCarryTarget(ss, carryOver, knownSprintIds) {
   if (carryOver !== 'backlog' && sprintState(carryOver, ss, knownSprintIds ?? []) !== 'planned') {
@@ -71,7 +84,7 @@ function assertCarryTarget(ss, carryOver, knownSprintIds) {
  * @returns {{ ops: object[], summary: object }}
  */
 export function closeSprint(ss, id, { carryOver = 'backlog', today, knownSprintIds = null } = {}) {
-  if (activeId(usable(ss)) !== id) throw new SprintOpError('not_active');
+  if (!sameSprint(activeId(usable(ss)), id)) throw new SprintOpError('not_active');
   assertCarryTarget(ss, carryOver, knownSprintIds);
   const members = Object.entries(ss.stories ?? {}).filter(([, story]) => ownedBy(story, id));
   const done = members.filter(([, story]) => story.status === 'done');
@@ -141,14 +154,26 @@ function velocityRow(id, archive) {
   };
 }
 
+const archivedRows = (ss) =>
+  Object.entries(usable(ss)?.archived_sprints ?? {}).map(([id, archive]) => velocityRow(id, archive ?? {}));
+
+/** A sprint closed in metadata (closed_date) whose stories were left in place instead of archived. */
+function closedMetadataRows(ss) {
+  const status = usable(ss);
+  const meta = status?.metadata;
+  if (!meta?.sprint_id || !meta.closed_date) return [];
+  if (Object.keys(status.archived_sprints ?? {}).some((id) => sameSprint(id, meta.sprint_id))) return [];
+  const members = Object.values(status.stories ?? {}).filter((s) => ownedBy(s, meta.sprint_id));
+  const stories = Object.fromEntries(members.map((s, i) => [i, { status: s.status, points: s.story_points ?? 0 }]));
+  return [velocityRow(meta.sprint_id, { name: meta.name, closed_date: meta.closed_date, stories })];
+}
+
 const byClosure = (a, b) =>
   a.closed_date.localeCompare(b.closed_date) || a.id.localeCompare(b.id, 'en', { numeric: true });
 
 /** @returns {{ sprints: Array<{id,name,closed_date,committed,delivered}>, average: number|null }} oldest first */
 export function velocity(ss) {
-  const rows = Object.entries(usable(ss)?.archived_sprints ?? {})
-    .map(([id, archive]) => velocityRow(id, archive ?? {}))
-    .sort(byClosure);
+  const rows = [...archivedRows(ss), ...closedMetadataRows(ss)].sort(byClosure);
   const recent = rows.filter((r) => r.delivered !== null).slice(-AVERAGE_WINDOW);
   const average = recent.length ? Math.round((sum(recent, (r) => r.delivered) / recent.length) * 10) / 10 : null;
   return { sprints: rows, average };
@@ -204,6 +229,15 @@ function goalOf(text) {
   return oneLine(section.replace(/^["“”]|["“”]$/g, ''));
 }
 
+/** "| Dates | 2026-11-23 → 2026-12-04 (10 days) |" -> [start, end] (any arrow or dash separator). */
+const datesRow = (text) => {
+  const m = new RegExp(
+    `^\\|\\s*(?:Dates?|Fechas?|Datum|Daten|Datas?)\\s*\\|\\s*${DATE_RE}\\D{1,12}?${DATE_RE}`,
+    'mi'
+  ).exec(text);
+  return m ? [m[1], m[2]] : null;
+};
+
 /** Text of the first `# ` heading, or ''. */
 const titleOf = (text) =>
   text
@@ -220,8 +254,8 @@ export function parseSprintGoal(text, id) {
   const title = titleOf(src);
   const parsed = {
     name: title.replace(/^Sprint\s*\d+\s*[:—–-]?\s*/i, '').trim() || id,
-    start_date: field(src, 'Début|Debut|Start', DATE_RE) ?? '',
-    end_date: field(src, 'Fin|End', DATE_RE) ?? '',
+    start_date: field(src, 'Début|Debut|Start', DATE_RE) ?? datesRow(src)?.[0] ?? '',
+    end_date: field(src, 'Fin|End', DATE_RE) ?? datesRow(src)?.[1] ?? '',
     goal: goalOf(src),
   };
   const capacity = field(src, 'Capacité|Capacite|Capacity', '(\\d+)');
