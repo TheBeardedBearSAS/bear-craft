@@ -11,7 +11,7 @@ Inside Claude Code:
 /plugin install bear-python@bear-craft
 ```
 
-Requires Claude Code 2.1.325 or later. Version 10.1.0.
+Requires Claude Code 2.1.325 or later. Version 10.1.1.
 
 ## Commands
 

@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [10.1.1] - 2026-11-23
+
+### Fixed
+
+- **`bear-craft update` overwrote `.claude/CLAUDE.md` with the generic PHP template** (#283): base-layer techs (`php`) now run before frameworks (`symfony`, `laravel`), so the framework header wins, and an existing `.claude/CLAUDE.md` is treated as a user file and left as is (`[KEEP]`).
+- **`bear-craft update` did not migrate the legacy `Read(**/*credentials*)` deny rule** (#284): `update` now applies the same migration as `doctor --fix` (backup, only that rule removed, the 5 narrowed rules added). The replacement list of `doctor --fix` is aligned with the 10.1.0 template (`**/*credentials.json`, `**/credentials.tfrc.json`, `**/.credentials*`, `**/.aws/credentials`, `**/.git-credentials`).
+
+### Changed
+
+- Dependency bumps (Dependabot): production group (#253), `aquasecurity/trivy-action` (#254), `sigstore/cosign-installer` 4.1.3 (#255), `softprops/action-gh-release` 3.0.4 (#256).
+
 ## [10.1.0] - 2026-11-23
 
 > Fixes the 11 issues found while dogfooding 10.0.0 on a greenfield Symfony project (`claude -p`, issues #265–#275), plus three follow-ups that turn the remaining caveats into checks.
