@@ -1,6 +1,6 @@
 # Guía de Solución de Problemas
 
-Esta guía cubre los problemas más comunes y sus soluciones al usar Claude-Craft.
+Esta guía cubre los problemas más comunes y sus soluciones al usar Bear-Craft.
 
 ---
 
@@ -21,7 +21,7 @@ Esta guía cubre los problemas más comunes y sus soluciones al usar Claude-Craf
 ### Comandos No Reconocidos Tras la Instalación
 
 **Síntomas:**
-- Los comandos de barra diagonal como `/symfony:check all` no funcionan
+- Los comandos de barra diagonal como `/bear-symfony:check all` no funcionan
 - Claude no reconoce los comandos instalados
 
 **Soluciones:**
@@ -43,7 +43,7 @@ Esta guía cubre los problemas más comunes y sus soluciones al usar Claude-Craf
 
 3. **Comprobar el formato del archivo de comandos**
    ```bash
-   head -5 .claude/commands/symfony/check-compliance.md
+   head -5 .claude/commands/bear-symfony/check.md
    # Debería comenzar con la cabecera markdown adecuada
    ```
 
@@ -55,9 +55,9 @@ Esta guía cubre los problemas más comunes y sus soluciones al usar Claude-Craf
 
 **Soluciones:**
 
-1. **Verificar la ruta de Claude-Craft**
+1. **Verificar la ruta de Bear-Craft**
    ```bash
-   # Comprobar que se ejecuta desde el directorio claude-craft
+   # Comprobar que se ejecuta desde el directorio bear-craft
    pwd
    ls -la Dev/scripts/
    ```
@@ -104,6 +104,21 @@ Esta guía cubre los problemas más comunes y sus soluciones al usar Claude-Craf
    # Comprobar la propiedad del directorio
    ls -la ~/my-project
    ```
+
+### Solicitudes de permiso en modo headless (`claude -p`)
+
+**Síntomas:**
+- Una ejecución headless (`claude -p`) rechaza ediciones o comandos que `permissions.allow` debería cubrir
+- Claude no puede editar `.claude/CLAUDE.md` (ni otros archivos bajo `.claude/`) en modo `acceptEdits`
+
+**Causas y soluciones:**
+- **Workspace no confiable.** Las ejecuciones headless omiten el diálogo de confianza e ignoran silenciosamente las reglas `permissions.allow` de `.claude/settings.json` en un workspace nunca aprobado. Ejecute `claude` una vez de forma interactiva en el directorio del proyecto y acepte el diálogo de confianza. `bear-craft doctor` avisa cuando el workspace no es de confianza.
+- **Rutas protegidas.** `.claude/CLAUDE.md`, `.claude/settings.json` y el resto de `.claude/` son rutas protegidas: el modo `acceptEdits` no aprueba automáticamente su edición. Edítelos a mano, apruebe la solicitud, o mantenga la información específica del proyecto (stack, convenciones) en un `CLAUDE.md` en la raíz, fuera de `.claude/`.
+- **Reglas deny.** La lista `deny` por defecto solo apunta a archivos de secretos (`.env`, `.env.*`, `secrets/**`, `*.key`, `*.pem`, `credentials.json`, `.credentials*`, claves SSH, `*.tfstate`…). Los archivos de documentación cuyo nombre contiene la palabra «credentials» no se bloquean.
+- **Los proyectos ya instalados conservan la regla antigua.** Un `.claude/settings.json` existente nunca se sobrescribe, por lo que los proyectos instalados antes de esta corrección aún contienen `Read(**/*credentials*)`, que bloquea docs, ADR e historias cuyo nombre contiene "credentials". Ejecute `bear-craft doctor --fix`: hace una copia de seguridad del archivo (`settings.json.bak-<marca de tiempo>`), elimina solo esa regla y añade `Read(**/credentials.json)` y `Read(**/.credentials*)`, sin tocar el resto (un JSON inválido nunca se reescribe). `bear-craft doctor` avisa cuando la regla antigua sigue presente.
+- **Un `deny` sobre `Read` no es una frontera de seguridad.** No impide que `git show HEAD:.env`, `docker compose config` u otro comando muestre un secreto. Es defensa en profundidad: active el sandbox de Bash para un aislamiento real.
+
+---
 
 ### La Instalación Crea un Directorio Vacío
 
@@ -222,14 +237,14 @@ Esta guía cubre los problemas más comunes y sus soluciones al usar Claude-Craf
 ### Comando No Encontrado
 
 **Síntomas:**
-- `/symfony:generate-crud` devuelve "comando desconocido"
+- `/bear-symfony:generate-crud` devuelve "comando desconocido"
 - Las sugerencias de comandos no aparecen
 
 **Soluciones:**
 
 1. **Comprobar el directorio de comandos**
    ```bash
-   ls .claude/commands/symfony/
+   ls .claude/commands/bear-symfony/
    # Debería incluir generate-crud.md
    ```
 
@@ -261,17 +276,17 @@ Esta guía cubre los problemas más comunes y sus soluciones al usar Claude-Craf
 
 2. **Revisar el archivo de comandos**
    ```bash
-   cat .claude/commands/symfony/generate-crud.md
+   cat .claude/commands/bear-symfony/generate-crud.md
    # Entender qué espera el comando
    ```
 
 3. **Proporcionar los parámetros requeridos**
    ```bash
    # En lugar de
-   /symfony:generate-crud
+   /bear-symfony:generate-crud
 
    # Usar
-   /symfony:generate-crud User --with-api --with-tests
+   /bear-symfony:generate-crud User --with-api --with-tests
    ```
 
 ### Salida de Comandos Incorrecta
@@ -546,7 +561,7 @@ cat .claude/settings.json | jq '.hooks.PreCompact'
 
 ### Fallos de Hooks Relacionados con Seguridad
 
-Si se usan servidores MCP con hooks, asegurarse de tener Claude Code v2.1.321+ para evitar CVEs conocidas:
+Si se usan servidores MCP con hooks, asegurarse de tener Claude Code v2.1.325+ para evitar CVEs conocidas:
 - CVE-2025-59536: Ejecución de comandos antes del diálogo de confianza al inicio
 - CVE-2026-86063: Bypass del pin SHA de plugins (corregido en 2.1.179)
 - CVE-2026-103435: Escritura arbitraria de archivos vía symlink, TOCTOU (corregido en 2.1.129)
@@ -614,7 +629,7 @@ Si se usan servidores MCP con hooks, asegurarse de tener Claude Code v2.1.321+ p
 
 6. **Configurar RTK** para un ahorro de tokens del 55-65%
    ```bash
-   /common:setup-rtk
+   /bear-common:setup-rtk
    ```
 
 7. **Usar agentes para tareas complejas**
@@ -650,7 +665,7 @@ Si se usan servidores MCP con hooks, asegurarse de tener Claude Code v2.1.321+ p
 Si encuentras bugs:
 
 1. Recopilar información:
-   - Versión de Claude-Craft
+   - Versión de Bear-Craft
    - Sistema operativo
    - Pasos para reproducir
    - Mensajes de error
@@ -666,7 +681,7 @@ Si encuentras bugs:
 
 Entorno:
 - SO: [tu SO]
-- Versión de Claude-Craft: [versión]
+- Versión de Bear-Craft: [versión]
 - Tecnología: [symfony/flutter/etc.]
 
 Lo que intenté:

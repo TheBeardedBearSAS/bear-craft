@@ -4,7 +4,7 @@
 
 - Status das stories: `backlog | ready-for-dev | in-progress | review | done | blocked`
 - Status das tarefas: `to-do | in-progress | done | blocked`
-- As transições de stories seguem a máquina de estados BMAD (ver `/project:backlog move story`).
+- As transições de stories seguem a máquina de estados BMAD (ver `/bear-project:backlog move story`).
 
 ```yaml
 # .bmad/sprint-status.yaml
@@ -34,6 +34,11 @@ stories:
         TASK-001: "done"
         TASK-002: "in-progress"
     history:
+      - timestamp: "2026-11-02T08:30:00Z"
+        from: "none"
+        to: "backlog"
+        by: "auto"
+        reason: "Story criada"
       - timestamp: "2026-11-02T09:00:00Z"
         from: "ready-for-dev"
         to: "in-progress"
@@ -56,8 +61,10 @@ routing:
 - O conteúdo (título, descrição, critérios de aceitação, detalhes das tarefas) é escrito nos arquivos markdown; o status é escrito somente neste arquivo.
 - `tasks.completed` é o número de tarefas cujo status é `done`; `tasks.total` é o tamanho de `tasks.list`.
 - Toda transição de story atualiza `status` e `previous_status` e adiciona uma entrada em `history` (`timestamp`, `from`, `to`, `by`, `reason`).
+- Entrada de criação: uma nova story não tem status anterior, então sua primeira entrada em `history` usa `from: "none"` (nunca `null`) e `to: "backlog"`.
+- Os carimbos de data/hora (`history[].timestamp`, `initialized_at`, `updated_at`) são o horário UTC real do evento, em ISO 8601: obtê-lo com `date -u +%Y-%m-%dT%H:%M:%SZ`. Nunca escrever um marcador só de data como `T00:00:00Z`.
 - O status do epic é calculado a partir de suas stories (todas `backlog` = não iniciado, qualquer outra não `done` = em andamento, todas `done` = concluído); nunca é escrito em lugar algum.
-- Se o arquivo não existir, criá-lo a partir do esqueleto de `/workflow:init` antes de escrever.
+- Se o arquivo não existir, criá-lo a partir do esqueleto de `/bear-workflow:init` antes de escrever.
 - `stories.<id>.sprint_id` (opcional): ausente = comportamento histórico (a story pertence ao sprint ativo); `null` = backlog; caso contrário, o identificador do sprint ao qual ela pertence.
 - `metadata.closed_date` (opcional, `AAAA-MM-DD`): definida ao encerrar um sprint; um sprint com `closed_date` deixa de ser o sprint ativo.
 - Ao encerrar um sprint, suas stories `done` são removidas de `stories` e registradas em `archived_sprints.<sprint_id>` com `name`, `epic` (se houver), `closed_date`, `points_committed`, `points_delivered` e `stories` (`<id>: { status: "done", points }`). As stories não concluídas permanecem em `stories`, com `sprint_id` igual a `null` (backlog) ou ao sprint de destino. A forma anterior, apenas com `stories`, continua válida.

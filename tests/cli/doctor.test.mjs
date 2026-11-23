@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { mkdtempSync, mkdirSync, writeFileSync, rmSync, chmodSync } from 'fs';
-import { join } from 'path';
+import { mkdtempSync, mkdirSync, writeFileSync, rmSync, chmodSync, readFileSync, readdirSync, statSync } from 'fs';
+import { join, dirname } from 'path';
 import { tmpdir } from 'os';
 
 // Mock colors to simplify output assertions
@@ -20,12 +20,12 @@ vi.mock('../../cli/lib/colors.js', () => ({
 import { runDoctor } from '../../cli/lib/doctor.js';
 
 /** Helper: exec mock with all tools present (including yq).
- *  Uses Claude Code 2.1.322 (recommended baseline since the 2026-11-10 Claude alignment audit)
+ *  Uses Claude Code 2.1.326 (recommended baseline since the 2026-11-16 Claude alignment audit)
  *  so the version check does not emit [WARN]/[FAIL] in tests that don't expect one.
  */
 function allToolsExec(cmd) {
   if (cmd.includes('npm')) return '10.0.0';
-  if (cmd.includes('claude')) return '2.1.322';
+  if (cmd.includes('claude')) return '2.1.326';
   if (cmd.includes('git')) return 'git version 2.45.0';
   if (cmd.includes('yq')) return 'yq (https://github.com/mikefarah/yq/) version v4.44.1';
   return null;
@@ -36,7 +36,7 @@ describe('runDoctor', () => {
   let consoleSpy;
 
   beforeEach(() => {
-    tempDir = mkdtempSync(join(tmpdir(), 'claude-craft-doctor-'));
+    tempDir = mkdtempSync(join(tmpdir(), 'bear-craft-doctor-'));
     consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
     process.exitCode = undefined;
   });
@@ -86,38 +86,14 @@ describe('runDoctor', () => {
     expect(output).toContain('Claude Code not found');
   });
 
-  // Version-check branches (security minimum 2.1.321 since the 2026-11-10 audit).
+  // Version-check branches (security minimum 2.1.325 since the 2026-11-16 audit).
 
-  it('reports outdated Claude Code (< 2.1.321 minimum) as failure with upgrade hint', () => {
+  it('reports outdated Claude Code (< 2.1.325 minimum) as failure with upgrade hint', () => {
     mkdirSync(join(tempDir, '.claude'));
 
     const execFn = (cmd) => {
       if (cmd.includes('npm')) return '10.0.0';
-      // 2.1.270 passed the old 2.1.260 floor but is below 2.1.321 ; must produce [FAIL].
-      if (cmd.includes('claude')) return '2.1.270';
-      if (cmd.includes('git')) return 'git version 2.45.0';
-      if (cmd.includes('yq')) return 'yq v4.44.1';
-      return null;
-    };
-
-    runDoctor(tempDir, { execFn });
-
-    const output = consoleSpy.mock.calls.map((c) => c[0]).join('\n');
-    expect(output).toContain('[FAIL]');
-    expect(output).toContain('2.1.270');
-    // MIN_CLAUDE_CODE is loaded from config/versions.yaml (claudeCode.minimum)
-    expect(output).toContain('requires >= 2.1.321');
-    expect(output).toContain('CVE-2026-86063');
-    // Upgrade hint must mention the npm install command.
-    expect(output).toContain('npm install -g @anthropic-ai/claude-code@latest');
-  });
-
-  it('reports Claude Code between min (2.1.321) and recommended as warning with correct recommended version', () => {
-    mkdirSync(join(tempDir, '.claude'));
-
-    const execFn = (cmd) => {
-      if (cmd.includes('npm')) return '10.0.0';
-      // 2.1.321 is the minimum itself, below the recommended version ; must produce [WARN].
+      // 2.1.321 was the previous floor but is below 2.1.325 ; must produce [FAIL].
       if (cmd.includes('claude')) return '2.1.321';
       if (cmd.includes('git')) return 'git version 2.45.0';
       if (cmd.includes('yq')) return 'yq v4.44.1';
@@ -127,10 +103,34 @@ describe('runDoctor', () => {
     runDoctor(tempDir, { execFn });
 
     const output = consoleSpy.mock.calls.map((c) => c[0]).join('\n');
-    expect(output).toContain('[WARN]');
+    expect(output).toContain('[FAIL]');
     expect(output).toContain('2.1.321');
-    // RECOMMENDED_CLAUDE_CODE is loaded from config/versions.yaml (2.1.322)
-    expect(output).toContain('recommended 2.1.322');
+    // MIN_CLAUDE_CODE is loaded from config/versions.yaml (claudeCode.minimum)
+    expect(output).toContain('requires >= 2.1.325');
+    expect(output).toContain('CVE-2026-86063');
+    // Upgrade hint must mention the npm install command.
+    expect(output).toContain('npm install -g @anthropic-ai/claude-code@latest');
+  });
+
+  it('reports Claude Code between min (2.1.325) and recommended as warning with correct recommended version', () => {
+    mkdirSync(join(tempDir, '.claude'));
+
+    const execFn = (cmd) => {
+      if (cmd.includes('npm')) return '10.0.0';
+      // 2.1.325 is the minimum itself, below the recommended version ; must produce [WARN].
+      if (cmd.includes('claude')) return '2.1.325';
+      if (cmd.includes('git')) return 'git version 2.45.0';
+      if (cmd.includes('yq')) return 'yq v4.44.1';
+      return null;
+    };
+
+    runDoctor(tempDir, { execFn });
+
+    const output = consoleSpy.mock.calls.map((c) => c[0]).join('\n');
+    expect(output).toContain('[WARN]');
+    expect(output).toContain('2.1.325');
+    // RECOMMENDED_CLAUDE_CODE is loaded from config/versions.yaml (2.1.326)
+    expect(output).toContain('recommended 2.1.326');
   });
 
   it('reports unparseable Claude Code version output as OK without crashing', () => {
@@ -160,7 +160,7 @@ describe('runDoctor', () => {
 
     const execFn = (cmd) => {
       if (cmd.includes('npm')) return '10.0.0';
-      if (cmd.includes('claude')) return '2.1.322';
+      if (cmd.includes('claude')) return '2.1.326';
       if (cmd.includes('git')) return null;
       if (cmd.includes('yq')) return 'yq v4.44.1';
       return null;
@@ -179,7 +179,7 @@ describe('runDoctor', () => {
 
     const execFn = (cmd) => {
       if (cmd.includes('npm')) return null;
-      if (cmd.includes('claude')) return '2.1.322';
+      if (cmd.includes('claude')) return '2.1.326';
       if (cmd.includes('git')) return 'git version 2.45.0';
       if (cmd.includes('yq')) return 'yq v4.44.1';
       return null;
@@ -253,7 +253,7 @@ describe('runDoctor', () => {
 
     const execFn = (cmd) => {
       if (cmd.includes('npm')) return '10.0.0';
-      if (cmd.includes('claude')) return '2.1.322';
+      if (cmd.includes('claude')) return '2.1.326';
       if (cmd.includes('git')) return 'git version 2.45.0';
       if (cmd.includes('yq')) return null;
       return null;
@@ -329,5 +329,184 @@ describe('runDoctor', () => {
     expect(() => runDoctor('/etc', { execFn: allToolsExec })).toThrow(/system directory/);
     expect(() => runDoctor('/', { execFn: allToolsExec })).toThrow(/system directory/);
     expect(() => runDoctor('/usr/local', { execFn: allToolsExec })).toThrow(/system directory/);
+  });
+  // #268 : en headless, un workspace non approuvé ignore silencieusement permissions.allow.
+  describe('workspace trust (permissions.allow)', () => {
+    function installWithAllow() {
+      mkdirSync(join(tempDir, '.claude'));
+      writeFileSync(
+        join(tempDir, '.claude', 'settings.json'),
+        JSON.stringify({ permissions: { allow: ['Read', 'Edit'] } })
+      );
+    }
+    function claudeJson(projects) {
+      const file = join(tempDir, 'claude.json');
+      writeFileSync(file, JSON.stringify({ projects }));
+      return file;
+    }
+    const output = () => consoleSpy.mock.calls.map((c) => c[0]).join('\n');
+
+    it('warns when the workspace is not trusted', () => {
+      installWithAllow();
+      const claudeJsonPath = claudeJson({});
+      runDoctor(tempDir, { execFn: allToolsExec, claudeJsonPath });
+      expect(output()).toMatch(/\[WARN\].*not trusted/);
+      expect(output()).toContain('permissions.allow');
+    });
+
+    it('warns when the workspace is explicitly not accepted', () => {
+      installWithAllow();
+      const claudeJsonPath = claudeJson({ [tempDir]: { hasTrustDialogAccepted: false } });
+      runDoctor(tempDir, { execFn: allToolsExec, claudeJsonPath });
+      expect(output()).toMatch(/\[WARN\].*not trusted/);
+    });
+
+    it('is OK when the workspace is trusted', () => {
+      installWithAllow();
+      const claudeJsonPath = claudeJson({ [tempDir]: { hasTrustDialogAccepted: true } });
+      runDoctor(tempDir, { execFn: allToolsExec, claudeJsonPath });
+      expect(output()).toMatch(/\[OK\].*trusted/);
+      expect(output()).not.toContain('not trusted');
+    });
+
+    it('inherits trust from a parent directory', () => {
+      installWithAllow();
+      const claudeJsonPath = claudeJson({ [dirname(tempDir)]: { hasTrustDialogAccepted: true } });
+      runDoctor(tempDir, { execFn: allToolsExec, claudeJsonPath });
+      expect(output()).not.toContain('not trusted');
+    });
+
+    it('warns (cannot verify) when ~/.claude.json is missing', () => {
+      installWithAllow();
+      runDoctor(tempDir, { execFn: allToolsExec, claudeJsonPath: join(tempDir, 'absent.json') });
+      expect(output()).toMatch(/\[WARN\].*not trusted/);
+    });
+
+    it('warns when settings.json still denies Read(**/*credentials*) (#275)', () => {
+      mkdirSync(join(tempDir, '.claude'));
+      writeFileSync(
+        join(tempDir, '.claude', 'settings.json'),
+        JSON.stringify({ permissions: { deny: ['Read(**/.env)', 'Read(**/*credentials*)'] } })
+      );
+      runDoctor(tempDir, { execFn: allToolsExec, claudeJsonPath: join(tempDir, 'absent.json') });
+      expect(output()).toMatch(/\[WARN\].*Read\(\*\*\/\*credentials\*\)/);
+    });
+
+    it('does not warn about the credentials rule when it is absent', () => {
+      mkdirSync(join(tempDir, '.claude'));
+      writeFileSync(
+        join(tempDir, '.claude', 'settings.json'),
+        JSON.stringify({ permissions: { deny: ['Read(**/credentials.json)'] } })
+      );
+      runDoctor(tempDir, { execFn: allToolsExec, claudeJsonPath: join(tempDir, 'absent.json') });
+      expect(output()).not.toContain('*credentials*');
+    });
+
+    describe('--fix legacy credentials deny', () => {
+      const LEGACY = 'Read(**/*credentials*)';
+      const settingsPath = () => join(tempDir, '.claude', 'settings.json');
+      const baks = () => readdirSync(join(tempDir, '.claude')).filter((f) => f.startsWith('settings.json.bak-'));
+      const doFix = () =>
+        runDoctor(tempDir, { execFn: allToolsExec, claudeJsonPath: join(tempDir, 'absent.json'), fix: true });
+      const seed = (raw) => {
+        mkdirSync(join(tempDir, '.claude'));
+        writeFileSync(settingsPath(), raw);
+      };
+
+      it('removes only the legacy rule, adds replacements and keeps the rest', () => {
+        const original = {
+          permissions: { allow: ['Bash(ls)'], deny: ['Read(**/.env)', LEGACY, 'Read(**/credentials.json)'] },
+          hooks: { Stop: [{ matcher: '', hooks: [{ type: 'command', command: 'x' }] }] },
+        };
+        seed(JSON.stringify(original));
+        doFix();
+        const raw = readFileSync(settingsPath(), 'utf8');
+        expect(raw.endsWith('\n')).toBe(true);
+        const fixed = JSON.parse(raw);
+        expect(fixed.permissions.deny).toEqual([
+          'Read(**/.env)',
+          'Read(**/credentials.json)',
+          'Read(**/.credentials*)',
+        ]);
+        expect(fixed.permissions.allow).toEqual(['Bash(ls)']);
+        expect(fixed.hooks).toEqual(original.hooks);
+        expect(output()).toContain('[FIXED]');
+        expect(output()).not.toMatch(/\[WARN\].*\*credentials\*/);
+      });
+
+      it('creates a timestamped backup with the original content', () => {
+        const raw = JSON.stringify({ permissions: { deny: [LEGACY] } });
+        seed(raw);
+        doFix();
+        expect(baks()).toHaveLength(1);
+        expect(readFileSync(join(tempDir, '.claude', baks()[0]), 'utf8')).toBe(raw);
+      });
+
+      it('is idempotent', () => {
+        seed(JSON.stringify({ permissions: { deny: [LEGACY] } }));
+        doFix();
+        const after = readFileSync(settingsPath(), 'utf8');
+        doFix();
+        expect(readFileSync(settingsPath(), 'utf8')).toBe(after);
+        expect(baks()).toHaveLength(1);
+      });
+
+      it('leaves invalid JSON untouched and says so', () => {
+        seed('{ not json');
+        doFix();
+        expect(readFileSync(settingsPath(), 'utf8')).toBe('{ not json');
+        expect(baks()).toHaveLength(0);
+        expect(output()).toMatch(/invalid JSON/i);
+        expect(output()).toMatch(/1 failed/);
+        expect(process.exitCode).toBe(1);
+      });
+
+      it.each(['null', '[]', '"str"', '42'])('treats non-object JSON (%s) as invalid, no write', (raw) => {
+        seed(raw);
+        doFix();
+        expect(readFileSync(settingsPath(), 'utf8')).toBe(raw);
+        expect(baks()).toHaveLength(0);
+        expect(output()).toMatch(/invalid JSON/i);
+        expect(process.exitCode).toBe(1);
+      });
+
+      it('keeps backup mode equal to the original (0600)', () => {
+        seed(JSON.stringify({ permissions: { deny: [LEGACY] } }));
+        chmodSync(settingsPath(), 0o600);
+        doFix();
+        expect(statSync(join(tempDir, '.claude', baks()[0])).mode & 0o777).toBe(0o600);
+        expect(statSync(settingsPath()).mode & 0o777).toBe(0o600);
+      });
+
+      it.skipIf(process.getuid?.() === 0)('reports a write failure without stack trace, original intact', () => {
+        const raw = JSON.stringify({ permissions: { deny: [LEGACY] } });
+        seed(raw);
+        chmodSync(settingsPath(), 0o444);
+        chmodSync(join(tempDir, '.claude'), 0o555);
+        try {
+          doFix();
+        } finally {
+          chmodSync(join(tempDir, '.claude'), 0o755);
+        }
+        expect(readFileSync(settingsPath(), 'utf8')).toBe(raw);
+        expect(output()).toMatch(/\[FAIL\].*(write|EACCES)/i);
+        expect(output()).not.toMatch(/\n\s+at /);
+        expect(process.exitCode).toBe(1);
+      });
+
+      it('does nothing without fix option', () => {
+        const raw = JSON.stringify({ permissions: { deny: [LEGACY] } });
+        seed(raw);
+        runDoctor(tempDir, { execFn: allToolsExec, claudeJsonPath: join(tempDir, 'absent.json') });
+        expect(readFileSync(settingsPath(), 'utf8')).toBe(raw);
+        expect(output()).toContain('doctor --fix');
+      });
+    });
+
+    it('says nothing without permissions.allow', () => {
+      mkdirSync(join(tempDir, '.claude'));
+      runDoctor(tempDir, { execFn: allToolsExec, claudeJsonPath: join(tempDir, 'absent.json') });
+      expect(output()).not.toContain('trusted');
+    });
   });
 });

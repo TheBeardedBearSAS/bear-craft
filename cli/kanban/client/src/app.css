@@ -1,5 +1,5 @@
 /* ============================================================
-   claude-craft · Kanban — Design System (refonte Claude Design)
+   bear-craft · Kanban — Design System (refonte Claude Design)
    Dark, opinionated. Acid-lime brand accent (distinct des six
    teintes de statut). Space Grotesk display + JetBrains Mono.
    ============================================================ */
@@ -247,7 +247,7 @@ a {
 /* ============================================================ App shell */
 .app-shell {
   display: grid;
-  grid-template-columns: 248px 1fr;
+  grid-template-columns: 248px minmax(0, 1fr);
   grid-template-rows: 100%;
   height: 100%;
 }

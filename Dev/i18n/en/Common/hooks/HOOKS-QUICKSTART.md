@@ -1,13 +1,13 @@
 # Hooks Quick Start Guide
 
-Claude Code hooks for automated quality control and safety, installed in your project by claude-craft.
+Claude Code hooks for automated quality control and safety, installed in your project by bear-craft.
 
 ## Setup
 
 1. **Install with the installer** (copies the scripts to `.claude/hooks/` and merges the hooks into `.claude/settings.json` without overwriting yours):
    ```bash
    bash Dev/scripts/install-common-rules.sh --hooks=default /path/to/project
-   # or through the CLI: npx @the-bearded-bear/claude-craft install . --hooks=default
+   # or through the CLI: npx @the-bearded-bear/bear-craft install . --hooks=default
    ```
    - `--hooks=default` (default): safety guards, secrets check, output hints, context re-injection after compaction.
    - `--hooks=full`: `default` plus the Stop test gate, post-edit lint, Slack notification, session init/end metrics and tool-failure hints.
@@ -15,7 +15,7 @@ Claude Code hooks for automated quality control and safety, installed in your pr
 
 2. **Customize as needed**: edit the scripts in `.claude/hooks/` to match your tooling. Re-running the installer never removes or rewrites your own hooks.
 
-3. **Merge by hand** if you prefer: the fragments are `hooks.default.json`, `hooks.full.json` and `hooks.memory.json` (`node <claude-craft>/Dev/scripts/lib/merge-hooks.mjs add --settings .claude/settings.json --fragment <fragment>`). Ready-to-adapt examples are copied to `.claude/templates/hooks/`.
+3. **Merge by hand** if you prefer: the fragments are `hooks.default.json`, `hooks.full.json` and `hooks.memory.json` (`node <bear-craft>/Dev/scripts/lib/merge-hooks.mjs add --settings .claude/settings.json --fragment <fragment>`). Ready-to-adapt examples are copied to `.claude/templates/hooks/`.
 
 ## Available Hooks
 
@@ -40,6 +40,7 @@ Claude Code hooks for automated quality control and safety, installed in your pr
 - The payload arrives as **JSON on stdin**; only **exit code 2** blocks (any other non-zero code is a non-blocking error).
 - Only `hookSpecificOutput.additionalContext` reaches the model; PreCompact plain-text stdout is read as compaction instructions.
 - Scripts need `jq` or `node` to read the payload: the safety guards block when neither is available, the informational hooks do nothing.
+- The three safety guards (`guard-network`, `block-dangerous-commands`, `protect-sensitive-files`) set `"onFailure": "block"` (Claude Code 2.1.295+): if the script is missing, crashes or times out, the tool call is blocked instead of going ahead. If a guard blocks every call after a broken install, re-run the install, or remove the hooks with `--hooks=none`. Re-running the install adds `onFailure` to guards installed by an older version, and never replaces a value you set.
 
 ## More Information
 

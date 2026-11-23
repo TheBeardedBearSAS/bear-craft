@@ -35,7 +35,7 @@ Brief technical context and existing system overview.
 | FR-001 | 4.1 REST Endpoints | Pending |
 | FR-002 | 3.1 Data Model | Pending |
 
-> This table maps PRD functional requirements (FR-xxx) to the tech spec sections that describe their implementation. Run `/project:trace` to verify coverage.
+> This table maps PRD functional requirements (FR-xxx) to the tech spec sections that describe their implementation. Run `/bear-project:trace` to verify coverage.
 
 ---
 
@@ -185,8 +185,8 @@ CREATE INDEX idx_users_email ON users(email);
 
 // Response 200
 {
-    "access_token": "eyJhbGciOiJIUzI1NiIs...",
-    "refresh_token": "eyJhbGciOiJIUzI1NiIs...",
+    "access_token": "<ACCESS_TOKEN>",
+    "refresh_token": "<REFRESH_TOKEN>",
     "expires_in": 3600,
     "token_type": "Bearer"
 }

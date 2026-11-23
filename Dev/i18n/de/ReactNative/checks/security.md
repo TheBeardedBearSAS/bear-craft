@@ -268,7 +268,7 @@ Kritische Sicherheitsprobleme auflisten (sofort ❌ Punktzahl):
    - **Beispiel:**
    ```typescript
    // Anfälliger Code
-   const API_KEY = "sk_live_123456789abcdef"; // ❌ KRITISCH
+   const API_KEY = "sk_live_<REDACTED>"; // ❌ KRITISCH
    ```
    - **Sofortige Behebung:**
    ```typescript

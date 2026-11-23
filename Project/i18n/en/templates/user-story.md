@@ -2,7 +2,7 @@
 
 ## Metadata
 - **ID**: US-{ID}
-- **EPIC**: {EPIC_ID}
+- **EPIC**: {EPIC_ID} <!-- bare id only, e.g. EPIC-001 (no title) -->
 - **Sprint**: {SPRINT}
 - **Status**: tracked in .bmad/sprint-status.yaml
 - **Points**: {POINTS}

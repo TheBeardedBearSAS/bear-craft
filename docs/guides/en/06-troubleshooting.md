@@ -1,6 +1,6 @@
 # Troubleshooting Guide
 
-This guide covers common issues and their solutions when using Claude-Craft.
+This guide covers common issues and their solutions when using Bear-Craft.
 
 ---
 
@@ -21,7 +21,7 @@ This guide covers common issues and their solutions when using Claude-Craft.
 ### Commands Not Recognized After Installation
 
 **Symptoms:**
-- Slash commands like `/symfony:check all` don't work
+- Slash commands like `/bear-symfony:check all` don't work
 - Claude doesn't recognize installed commands
 
 **Solutions:**
@@ -43,7 +43,7 @@ This guide covers common issues and their solutions when using Claude-Craft.
 
 3. **Check command file format**
    ```bash
-   head -5 .claude/commands/symfony/check-compliance.md
+   head -5 .claude/commands/bear-symfony/check.md
    # Should start with proper markdown header
    ```
 
@@ -55,9 +55,9 @@ This guide covers common issues and their solutions when using Claude-Craft.
 
 **Solutions:**
 
-1. **Verify Claude-Craft path**
+1. **Verify Bear-Craft path**
    ```bash
-   # Check you're running from claude-craft directory
+   # Check you're running from bear-craft directory
    pwd
    ls -la Dev/scripts/
    ```
@@ -104,6 +104,21 @@ This guide covers common issues and their solutions when using Claude-Craft.
    # Check directory ownership
    ls -la ~/my-project
    ```
+
+### Permission Prompts in Headless Mode (`claude -p`)
+
+**Symptoms:**
+- A headless run (`claude -p`) is refused edits or commands that `permissions.allow` should cover
+- Claude cannot edit `.claude/CLAUDE.md` (or other files under `.claude/`) in `acceptEdits` mode
+
+**Causes and solutions:**
+- **Untrusted workspace.** Headless runs skip the trust dialog and silently ignore the `permissions.allow` rules of `.claude/settings.json` on a workspace that was never trusted. Run `claude` once interactively in the project directory and accept the trust dialog. `bear-craft doctor` warns when the workspace is not trusted.
+- **Protected paths.** `.claude/CLAUDE.md`, `.claude/settings.json` and the rest of `.claude/` are protected paths: `acceptEdits` mode does not auto-approve edits to them. Edit them by hand, approve the prompt, or keep project-specific facts (stack, conventions) in a root `CLAUDE.md` outside `.claude/`.
+- **Deny rules.** The default `deny` list only targets secret files (`.env`, `.env.*`, `secrets/**`, `*.key`, `*.pem`, `credentials.json`, `.credentials*`, SSH keys, `*.tfstate`…). Documentation files whose name contains the word "credentials" are not blocked.
+- **Already-installed projects keep the old rule.** An existing `.claude/settings.json` is never overwritten, so projects installed before this fix still contain `Read(**/*credentials*)`, which blocks docs, ADRs and stories with "credentials" in their name. Run `bear-craft doctor --fix`: it backs up the file (`settings.json.bak-<timestamp>`), removes only that rule and adds `Read(**/credentials.json)` and `Read(**/.credentials*)`, leaving the rest untouched (invalid JSON is never rewritten). `bear-craft doctor` warns when the old rule is still present.
+- **A `deny` on `Read` is not a security boundary.** It does not prevent `git show HEAD:.env`, `docker compose config` or any other command from printing a secret. Treat it as defense in depth and enable the Bash sandbox for real isolation.
+
+---
 
 ### Installation Creates Empty Directory
 
@@ -222,14 +237,14 @@ This guide covers common issues and their solutions when using Claude-Craft.
 ### Command Not Found
 
 **Symptoms:**
-- `/symfony:generate-crud` returns "unknown command"
+- `/bear-symfony:generate-crud` returns "unknown command"
 - Command suggestions don't appear
 
 **Solutions:**
 
 1. **Check command directory**
    ```bash
-   ls .claude/commands/symfony/
+   ls .claude/commands/bear-symfony/
    # Should include generate-crud.md
    ```
 
@@ -261,17 +276,17 @@ This guide covers common issues and their solutions when using Claude-Craft.
 
 2. **Review command file**
    ```bash
-   cat .claude/commands/symfony/generate-crud.md
+   cat .claude/commands/bear-symfony/generate-crud.md
    # Understand what the command expects
    ```
 
 3. **Provide required parameters**
    ```bash
    # Instead of
-   /symfony:generate-crud
+   /bear-symfony:generate-crud
 
    # Use
-   /symfony:generate-crud User --with-api --with-tests
+   /bear-symfony:generate-crud User --with-api --with-tests
    ```
 
 ### Command Output Incorrect
@@ -546,7 +561,7 @@ cat .claude/settings.json | jq '.hooks.PreCompact'
 
 ### Security-Related Hook Failures
 
-If using MCP servers with hooks, ensure Claude Code v2.1.321+ to avoid known CVEs:
+If using MCP servers with hooks, ensure Claude Code v2.1.325+ to avoid known CVEs:
 - CVE-2025-59536: Command execution before the startup trust dialog
 - CVE-2026-86063: Plugin commit SHA pin bypass (fixed 2.1.179)
 - CVE-2026-103435: Arbitrary file write via symlink, TOCTOU (fixed 2.1.129)
@@ -614,7 +629,7 @@ If using MCP servers with hooks, ensure Claude Code v2.1.321+ to avoid known CVE
 
 6. **Set up RTK** for 55-65% token savings
    ```bash
-   /common:setup-rtk
+   /bear-common:setup-rtk
    ```
 
 7. **Use agents for complex tasks**
@@ -650,7 +665,7 @@ If using MCP servers with hooks, ensure Claude Code v2.1.321+ to avoid known CVE
 If you encounter bugs:
 
 1. Gather information:
-   - Claude-Craft version
+   - Bear-Craft version
    - Operating system
    - Steps to reproduce
    - Error messages
@@ -666,7 +681,7 @@ If you encounter bugs:
 
 Environment:
 - OS: [your OS]
-- Claude-Craft version: [version]
+- Bear-Craft version: [version]
 - Technology: [symfony/flutter/etc.]
 
 What I tried:

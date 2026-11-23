@@ -1,6 +1,6 @@
 # Guide de Dépannage
 
-Ce guide couvre les problèmes courants et leurs solutions lors de l'utilisation de Claude-Craft.
+Ce guide couvre les problèmes courants et leurs solutions lors de l'utilisation de Bear-Craft.
 
 ---
 
@@ -21,7 +21,7 @@ Ce guide couvre les problèmes courants et leurs solutions lors de l'utilisation
 ### Commandes Non Reconnues Après Installation
 
 **Symptômes :**
-- Les commandes slash comme `/symfony:check all` ne fonctionnent pas
+- Les commandes slash comme `/bear-symfony:check all` ne fonctionnent pas
 - Claude ne reconnaît pas les commandes installées
 
 **Solutions :**
@@ -43,7 +43,7 @@ Ce guide couvre les problèmes courants et leurs solutions lors de l'utilisation
 
 3. **Vérifier le format des fichiers de commandes**
    ```bash
-   head -5 .claude/commands/symfony/check-compliance.md
+   head -5 .claude/commands/bear-symfony/check.md
    # Devrait commencer par un en-tête markdown correct
    ```
 
@@ -55,9 +55,9 @@ Ce guide couvre les problèmes courants et leurs solutions lors de l'utilisation
 
 **Solutions :**
 
-1. **Vérifier le chemin Claude-Craft**
+1. **Vérifier le chemin Bear-Craft**
    ```bash
-   # Vérifier que vous êtes dans le répertoire claude-craft
+   # Vérifier que vous êtes dans le répertoire bear-craft
    pwd
    ls -la Dev/scripts/
    ```
@@ -104,6 +104,21 @@ Ce guide couvre les problèmes courants et leurs solutions lors de l'utilisation
    # Vérifier la propriété du répertoire
    ls -la ~/mon-projet
    ```
+
+### Invites de permission en mode headless (`claude -p`)
+
+**Symptômes :**
+- Une exécution headless (`claude -p`) se voit refuser des modifications ou commandes que `permissions.allow` devrait couvrir
+- Claude ne peut pas modifier `.claude/CLAUDE.md` (ni d'autres fichiers sous `.claude/`) en mode `acceptEdits`
+
+**Causes et solutions :**
+- **Workspace non approuvé.** Les exécutions headless passent outre la boîte de dialogue de confiance et ignorent silencieusement les règles `permissions.allow` de `.claude/settings.json` sur un workspace jamais approuvé. Lancez `claude` une fois en mode interactif dans le répertoire du projet et acceptez la demande de confiance. `bear-craft doctor` signale un workspace non approuvé.
+- **Chemins protégés.** `.claude/CLAUDE.md`, `.claude/settings.json` et le reste de `.claude/` sont des chemins protégés : le mode `acceptEdits` n'approuve pas automatiquement leur modification. Modifiez-les à la main, validez l'invite, ou conservez les informations propres au projet (stack, conventions) dans un `CLAUDE.md` à la racine, hors de `.claude/`.
+- **Règles deny.** La liste `deny` par défaut ne cible que les fichiers de secrets (`.env`, `.env.*`, `secrets/**`, `*.key`, `*.pem`, `credentials.json`, `.credentials*`, clés SSH, `*.tfstate`…). Les fichiers de documentation dont le nom contient « credentials » ne sont pas bloqués.
+- **Les projets déjà installés gardent l'ancienne règle.** Un `.claude/settings.json` existant n'est jamais écrasé : les projets installés avant ce correctif contiennent encore `Read(**/*credentials*)`, qui bloque les docs, ADR et stories dont le nom contient « credentials ». Lancez `bear-craft doctor --fix` : il sauvegarde le fichier (`settings.json.bak-<horodatage>`), retire uniquement cette règle et ajoute `Read(**/credentials.json)` et `Read(**/.credentials*)`, sans toucher au reste (un JSON invalide n'est jamais réécrit). `bear-craft doctor` signale la présence de l'ancienne règle.
+- **Un `deny` sur `Read` n'est pas une frontière de sécurité.** Il n'empêche ni `git show HEAD:.env`, ni `docker compose config`, ni aucune autre commande d'afficher un secret. C'est une défense en profondeur : activez le sandbox Bash pour un vrai cloisonnement.
+
+---
 
 ### L'Installation Crée un Répertoire Vide
 
@@ -222,14 +237,14 @@ Ce guide couvre les problèmes courants et leurs solutions lors de l'utilisation
 ### Commande Non Trouvée
 
 **Symptômes :**
-- `/symfony:generate-crud` retourne "commande inconnue"
+- `/bear-symfony:generate-crud` retourne "commande inconnue"
 - Les suggestions de commandes n'apparaissent pas
 
 **Solutions :**
 
 1. **Vérifier le répertoire des commandes**
    ```bash
-   ls .claude/commands/symfony/
+   ls .claude/commands/bear-symfony/
    # Devrait inclure generate-crud.md
    ```
 
@@ -261,17 +276,17 @@ Ce guide couvre les problèmes courants et leurs solutions lors de l'utilisation
 
 2. **Examiner le fichier de commande**
    ```bash
-   cat .claude/commands/symfony/generate-crud.md
+   cat .claude/commands/bear-symfony/generate-crud.md
    # Comprendre ce que la commande attend
    ```
 
 3. **Fournir les paramètres requis**
    ```bash
    # Au lieu de
-   /symfony:generate-crud
+   /bear-symfony:generate-crud
 
    # Utilisez
-   /symfony:generate-crud User --with-api --with-tests
+   /bear-symfony:generate-crud User --with-api --with-tests
    ```
 
 ### Sortie de Commande Incorrecte
@@ -496,7 +511,7 @@ Ce guide couvre les problèmes courants et leurs solutions lors de l'utilisation
    ```bash
    claude --version
    # Les hooks nécessitent v2.1.47+ (PreCompact: v2.1.76+, PostCompact: v2.1.76+)
-   # Minimum : v2.1.321 | Recommandé : v2.1.322
+   # Minimum : v2.1.325 | Recommandé : v2.1.326
    ```
 
 3. **Vérifier que le script hook est exécutable**
@@ -543,7 +558,7 @@ Ce guide couvre les problèmes courants et leurs solutions lors de l'utilisation
 
 3. **Vérifier la sécurité MCP**
    - Auditer le code source des serveurs MCP tiers
-   - Utiliser Claude Code v2.1.321+ avec des serveurs MCP (corrections de sécurité CVE)
+   - Utiliser Claude Code v2.1.325+ avec des serveurs MCP (corrections de sécurité CVE)
    - Voir `.claude/rules/11-security.md` pour la checklist de vetting MCP
 
 ---
@@ -610,7 +625,7 @@ Ce guide couvre les problèmes courants et leurs solutions lors de l'utilisation
 
 6. **Configurer RTK pour réduire les tokens**
    ```
-   /common:setup-rtk
+   /bear-common:setup-rtk
    ```
    RTK réduit la consommation de tokens de 55-65% sur les commandes CLI.
 
@@ -647,7 +662,7 @@ Ce guide couvre les problèmes courants et leurs solutions lors de l'utilisation
 Si vous rencontrez des bugs :
 
 1. Collecter les informations :
-   - Version Claude-Craft
+   - Version Bear-Craft
    - Système d'exploitation
    - Étapes pour reproduire
    - Messages d'erreur
@@ -663,7 +678,7 @@ Si vous rencontrez des bugs :
 
 Environnement :
 - OS : [votre OS]
-- Version Claude-Craft : [version]
+- Version Bear-Craft : [version]
 - Technologie : [symfony/flutter/etc.]
 
 Ce que j'ai essayé :

@@ -33,10 +33,20 @@
       "Bash(chmod 777:*)",
       "Read(**/.env)",
       "Read(**/.env.*)",
-      "Read(**/secrets/*)",
+      "Read(**/secrets/**)",
       "Read(**/*.key)",
       "Read(**/*.pem)",
-      "Read(**/*credentials*)"
+      "Read(**/*credentials.json)",
+      "Read(**/credentials.tfrc.json)",
+      "Read(**/.credentials*)",
+      "Read(**/.aws/credentials)",
+      "Read(**/.git-credentials)",
+      "Read(**/.ssh/**)",
+      "Read(**/id_rsa)",
+      "Read(**/id_ed25519)",
+      "Read(**/*.p12)",
+      "Read(**/*.pfx)",
+      "Read(**/*.tfstate)"
     ]
   },
 
