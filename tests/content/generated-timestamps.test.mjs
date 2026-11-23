@@ -38,3 +38,45 @@ describe('workflow-status.yaml example (#272)', () => {
     expect(read('Dev/i18n', lang, 'Workflow/commands', `${f}.md`)).toContain(NOW_CMD);
   });
 });
+
+// #291 / #292 / #293 / #294: implement must take real time, wait for CI and record the validation.
+const IMPL_LAYERS = [
+  '.claude/commands/bear-workflow',
+  ...LANGS.map((l) => `Dev/i18n/${l}/Workflow/commands`),
+  ...LANGS.map((l) => `marketplaces/${l}/plugins/bear-workflow/commands`),
+];
+
+describe.each(IMPL_LAYERS)('implement.md real-time and validation guidance (%s)', (dir) => {
+  const md = () => read(dir, 'implement.md');
+
+  it('#291: step 3.6 never invents the actual time (measured with date -u or left empty)', () => {
+    const lines = md().split('\n');
+    const i = lines.findIndex((l) => l.startsWith('**3.6'));
+    const block = lines.slice(i, i + 8).join('\n');
+    expect(block).toContain('--auto');
+    expect(block).toContain('claude -p');
+    expect(block).toContain(NOW_CMD);
+    expect(block).toContain('started_at');
+    expect(block).toContain('time_spent');
+  });
+
+  it('#292: every history entry written by implement takes the real UTC time', () => {
+    const text = md();
+    expect(text.split(NOW_CMD).length - 1).toBeGreaterThanOrEqual(2);
+    const i = text.indexOf('history');
+    expect(text.slice(i)).toContain(NOW_CMD);
+  });
+
+  it('#293: story validation waits for the PR checks and documents the done transition after merge', () => {
+    const text = md();
+    expect(text).toContain('.github/workflows');
+    expect(text).toContain('gh pr checks --watch');
+    expect(text).toContain('gh pr merge');
+  });
+
+  it('#294: story validation writes acceptance_criteria.validated and review', () => {
+    const text = md();
+    expect(text).toContain('acceptance_criteria.validated');
+    expect(text).toContain('review.approved');
+  });
+});

@@ -522,7 +522,7 @@ Processus :
    2. Mettre à jour `stories.<US>.status`
    3. Renseigner les horodatages
    4. Mettre à jour `stories.<US>.tdd_phase` si applicable
-   5. Ajouter une entrée à `stories.<US>.history` (`timestamp`, `from`, `to`, `by`, `reason`)
+   5. Ajouter une entrée à `stories.<US>.history` (`timestamp`, `from`, `to`, `by`, `reason`) (`timestamp` relevé avec `date -u +%Y-%m-%dT%H:%M:%SZ`, jamais estimé)
 5. **Appliquer les effets de bord** : `→ in-progress` : `tdd_phase: red`, `current_task` = première tâche | `→ review` : `tdd_phase: refactor`, effacer `current_task` | `→ done` : effacer `tdd_phase`, enregistrer l'heure d'achèvement | `→ blocked` : stocker `blocked_reason` et `previous_status`
 6. **Appliquer les règles de routage** : après chaque transition, évaluer `routing.auto_transitions` (voir `move story --auto` ci-dessous) afin d'enchaîner les transitions dépendantes
 

@@ -188,7 +188,8 @@ Update `tdd_phase` (`red` -> `green` -> `refactor`) in the YAML at each phase.
 - [ ] Code reviewed -> handled by TASK-XXX [REV]
 ```
 
-**3.6 Mark the task `done`.** Ask for the actual time spent, then update:
+**3.6 Mark the task `done`.** Record the actual time spent, then update:
+- Time: interactively, ask for it. Under `--auto` or headless (`claude -p`), never ask and never estimate: take `date -u +%Y-%m-%dT%H:%M:%SZ` when the task starts (store it as `started_at` in the task file) and again here, then set `time_spent` to the difference. Without a recorded `started_at`, leave `time_spent` empty and report "time not measured"; estimated hours are never presented as actual.
 - `.bmad/sprint-status.yaml`: `tasks.status.<TASK>: done` and `tasks.completed` (= number of `done` tasks)
 - Task file content metadata (`time_spent`, `updated_at`; no status)
 - `board.md` (regenerated from the YAML), `index.md`, sprint metrics
@@ -206,11 +207,13 @@ Refs: TASK-001, US-001
 
 #### Story validation
 
-When all tasks of a story are `done`: check each acceptance criterion, run the E2E tests if present, run the quality gate (`/bear-gate:check story` when configured), then transition the story (`in-progress` -> `review` -> `done`) in the YAML, with `previous_status` and a `history` entry. Update the EPIC progress (EPIC status is derived).
+When all tasks of a story are `done`: check each acceptance criterion and write the number of verified criteria to `acceptance_criteria.validated` in the YAML (next to `acceptance_criteria.total`), so that `/bear-gate:check story` can reach 100 %; run the E2E tests if present; run the quality gate (`/bear-gate:check story` when configured).
+
+When the project has a CI workflow (`.github/workflows/` or equivalent): open the PR (`gh pr create`), wait for the checks (`gh pr checks --watch`), and fix or report every red check before saying the story is ready for review; a green local run is not enough (CI environment variables, cold cache and test order can differ). Then transition the story `in-progress` -> `review` in the YAML, with `previous_status` and a `history` entry whose `timestamp` comes from `date -u +%Y-%m-%dT%H:%M:%SZ` (never an estimated time). When the PR is approved, record `review.approved: true` (and the PR number). The transition to `done` happens after the merge (`gh pr merge`, or once the merge is observed), also timestamped with `date -u`; until then the report says "pending merge" and the story stays in `review`. Update the EPIC progress (EPIC status is derived).
 
 ```
 US-001 validation: 4/4 tasks, acceptance criteria met, E2E passed
-US-001 -> done  |  EPIC-001: 1/3 stories (33%)
+US-001 -> review  |  PR checks green, pending merge  |  EPIC-001: 0/3 stories done
 ```
 
 After every transition the `routing.auto_transitions` rules apply (see `/bear-project:backlog move story --auto`).
@@ -222,7 +225,7 @@ After every transition the `routing.auto_transitions` rules apply (see `/bear-pr
 
 ### Step 5: Checkpoints and resume
 
-A checkpoint is saved after each story in `.bmad/batch-queue.yaml`:
+A checkpoint is saved after each story in `.bmad/batch-queue.yaml` (`timestamp` taken with `date -u +%Y-%m-%dT%H:%M:%SZ`):
 
 ```yaml
 checkpoints:
@@ -285,8 +288,8 @@ Next actions: `/bear-workflow:review`, `/bear-workflow:retro`, `/bear-workflow:i
 
 At each status change, all statuses go to `.bmad/sprint-status.yaml`; markdown files get content only.
 
-1. **sprint-status.yaml:** task status (`to-do | in-progress | done | blocked`), `tasks.completed`, `tdd_phase`, story transitions (`ready-for-dev` -> `in-progress` -> `review` -> `done`) with `previous_status` and a `history` entry
-2. **Task file:** `time_spent`, `updated_at` (no status)
+1. **sprint-status.yaml:** task status (`to-do | in-progress | done | blocked`), `tasks.completed`, `tdd_phase`, story transitions (`ready-for-dev` -> `in-progress` -> `review` -> `done`) with `previous_status` and a `history` entry (every `history[].timestamp` is taken with `date -u +%Y-%m-%dT%H:%M:%SZ`)
+2. **Task file:** `time_spent` (measured only, see step 3.6), `updated_at` (no status)
 3. **User story file:** task progress display (no status)
 4. **EPIC file:** story progress (status derived)
 5. **board.md:** Kanban columns regenerated from the YAML

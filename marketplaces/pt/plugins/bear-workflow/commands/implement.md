@@ -188,7 +188,8 @@ Atualizar `tdd_phase` (`red` -> `green` -> `refactor`) no YAML a cada fase.
 - [ ] Código revisado -> tratado por TASK-XXX [REV]
 ```
 
-**3.6 Marcar a tarefa `done`.** Pedir o tempo real gasto e depois atualizar:
+**3.6 Marcar a tarefa `done`.** Registrar o tempo real gasto e depois atualizar:
+- Tempo: em interativo, pedir. Com `--auto` ou em headless (`claude -p`), nunca pedir nem estimar: capturar `date -u +%Y-%m-%dT%H:%M:%SZ` ao iniciar a tarefa (guardá-lo como `started_at` no arquivo da tarefa) e novamente aqui, e definir `time_spent` como a diferença. Sem `started_at` registrado, deixar `time_spent` vazio e indicar "tempo não medido" no relatório; horas estimadas nunca são apresentadas como reais.
 - `.bmad/sprint-status.yaml`: `tasks.status.<TASK>: done` e `tasks.completed` (= número de tarefas `done`)
 - Metadados de conteúdo do arquivo da tarefa (`time_spent`, `updated_at`; sem status)
 - `board.md` (regenerado a partir do YAML), `index.md`, métricas do sprint
@@ -206,11 +207,13 @@ Refs: TASK-001, US-001
 
 #### Validação da story
 
-Quando todas as tarefas de uma story estão `done`: verificar cada critério de aceitação, executar os testes E2E se existirem, executar o quality gate (`/bear-gate:check story` quando configurado) e fazer a story transitar (`in-progress` -> `review` -> `done`) no YAML, com `previous_status` e uma entrada `history`. Atualizar o progresso do EPIC (o status do EPIC é derivado).
+Quando todas as tarefas de uma story estão `done`: verificar cada critério de aceitação e escrever o número de critérios verificados em `acceptance_criteria.validated` no YAML (ao lado de `acceptance_criteria.total`), para que `/bear-gate:check story` possa chegar a 100 %; executar os testes E2E se existirem; executar o quality gate (`/bear-gate:check story` quando configurado).
+
+Quando o projeto tem um workflow de CI (`.github/workflows/` ou equivalente): abrir a PR (`gh pr create`), aguardar os checks (`gh pr checks --watch`) e corrigir ou reportar cada check vermelho antes de anunciar a story pronta para review; uma execução local verde não basta (variáveis de ambiente de CI, cache frio e ordem dos testes podem diferir). Depois fazer a story transitar `in-progress` -> `review` no YAML, com `previous_status` e uma entrada `history` cujo `timestamp` vem de `date -u +%Y-%m-%dT%H:%M:%SZ` (nunca um horário estimado). Quando a PR é aprovada, registrar `review.approved: true` (e o número da PR). A transição para `done` ocorre após o merge (`gh pr merge`, ou quando o merge é constatado), também com timestamp de `date -u`; até lá o relatório indica "aguardando merge" e a story permanece em `review`. Atualizar o progresso do EPIC (o status do EPIC é derivado).
 
 ```
 US-001 validation: 4/4 tasks, acceptance criteria met, E2E passed
-US-001 -> done  |  EPIC-001: 1/3 stories (33%)
+US-001 -> review  |  checks da PR verdes, merge pendente  |  EPIC-001: 0/3 stories done
 ```
 
 Após cada transição, as regras `routing.auto_transitions` se aplicam (ver `/bear-project:backlog move story --auto`).
@@ -222,7 +225,7 @@ Após cada transição, as regras `routing.auto_transitions` se aplicam (ver `/b
 
 ### Etapa 5: Checkpoints e retomada
 
-Um checkpoint é salvo após cada story em `.bmad/batch-queue.yaml`:
+Um checkpoint é salvo após cada story em `.bmad/batch-queue.yaml` (`timestamp` capturado com `date -u +%Y-%m-%dT%H:%M:%SZ`):
 
 ```yaml
 checkpoints:
@@ -285,8 +288,8 @@ Próximas ações: `/bear-workflow:review`, `/bear-workflow:retro`, `/bear-workf
 
 A cada mudança de status, todos os status vão para `.bmad/sprint-status.yaml`; os arquivos markdown recebem apenas conteúdo.
 
-1. **sprint-status.yaml:** status das tarefas (`to-do | in-progress | done | blocked`), `tasks.completed`, `tdd_phase`, transições de stories (`ready-for-dev` -> `in-progress` -> `review` -> `done`) com `previous_status` e uma entrada `history`
-2. **Arquivo de tarefa:** `time_spent`, `updated_at` (sem status)
+1. **sprint-status.yaml:** status das tarefas (`to-do | in-progress | done | blocked`), `tasks.completed`, `tdd_phase`, transições de stories (`ready-for-dev` -> `in-progress` -> `review` -> `done`) com `previous_status` e uma entrada `history` (cada `history[].timestamp` é capturado com `date -u +%Y-%m-%dT%H:%M:%SZ`)
+2. **Arquivo de tarefa:** `time_spent` (somente medido, ver o passo 3.6), `updated_at` (sem status)
 3. **Arquivo de user story:** exibição do progresso das tarefas (sem status)
 4. **Arquivo EPIC:** progresso das stories (status derivado)
 5. **board.md:** colunas Kanban regeneradas a partir do YAML
