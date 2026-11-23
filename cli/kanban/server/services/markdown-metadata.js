@@ -2,7 +2,7 @@ import { mapBmadPriority } from '../../shared/priority.js';
 import { parseDependencyRefs } from '../../shared/deps.js';
 
 /**
- * Fallback for backlogs written from the claude-craft templates
+ * Fallback for backlogs written from the bear-craft templates
  * (Project/i18n/<lang>/templates/{epic,user-story}.md) : no YAML frontmatter,
  * metadata as a "- **Label**: value" bullet list under "## Metadata"
  * (localized heading/labels). Derives the same fields the frontmatter schemas expect.
@@ -125,6 +125,12 @@ function points(value) {
   return Number.isNaN(n) ? undefined : n;
 }
 
+/** "EPIC-001 — Title", "[EPIC-001](…)" -> "EPIC-001"; anything else is left to the schema. */
+function bareEpicId(value) {
+  if (value === undefined) return undefined;
+  return /^[[(\s]*(EPIC-\d{3,})(?=$|[\s\])—–:,])/.exec(value)?.[1] ?? value;
+}
+
 function dropUndefined(obj) {
   return Object.fromEntries(Object.entries(obj).filter(([, v]) => v !== undefined));
 }
@@ -139,7 +145,7 @@ export function deriveStoryData(body) {
   return dropUndefined({
     id: raw.id,
     title: raw.title,
-    epic_id: raw.epic_id,
+    epic_id: bareEpicId(raw.epic_id),
     sprint_id: raw.sprint_id,
     persona: raw.persona,
     status: raw.status === undefined ? undefined : (STORY_STATUS[statusKey(raw.status)] ?? 'backlog'),

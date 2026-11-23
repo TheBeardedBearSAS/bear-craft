@@ -1,13 +1,13 @@
 # Guia de início rápido dos hooks
 
-Hooks do Claude Code para controlo de qualidade e segurança automatizados, instalados no seu projeto pelo claude-craft.
+Hooks do Claude Code para controlo de qualidade e segurança automatizados, instalados no seu projeto pelo bear-craft.
 
 ## Instalação
 
 1. **Instalar com o instalador** (copia os scripts para `.claude/hooks/` e funde os hooks em `.claude/settings.json` sem substituir os seus):
    ```bash
    bash Dev/scripts/install-common-rules.sh --hooks=default /caminho/do/projeto
-   # ou através do CLI: npx @the-bearded-bear/claude-craft install . --hooks=default
+   # ou através do CLI: npx @the-bearded-bear/bear-craft install . --hooks=default
    ```
    - `--hooks=default` (predefinição): guardas de segurança, verificação de segredos, avisos sobre saídas volumosas, reinjeção do contexto após a compactação.
    - `--hooks=full`: `default` mais a barreira de testes Stop, o lint após edição, a notificação Slack, as métricas de sessão e as pistas de recuperação após falha de ferramenta.
@@ -15,7 +15,7 @@ Hooks do Claude Code para controlo de qualidade e segurança automatizados, inst
 
 2. **Personalizar**: edite os scripts em `.claude/hooks/` conforme as suas ferramentas. Voltar a executar o instalador nunca remove nem reescreve os seus próprios hooks.
 
-3. **Fundir à mão** se preferir: os fragmentos são `hooks.default.json`, `hooks.full.json` e `hooks.memory.json` (`node <claude-craft>/Dev/scripts/lib/merge-hooks.mjs add --settings .claude/settings.json --fragment <fragmento>`). Exemplos para adaptar são copiados para `.claude/templates/hooks/`.
+3. **Fundir à mão** se preferir: os fragmentos são `hooks.default.json`, `hooks.full.json` e `hooks.memory.json` (`node <bear-craft>/Dev/scripts/lib/merge-hooks.mjs add --settings .claude/settings.json --fragment <fragmento>`). Exemplos para adaptar são copiados para `.claude/templates/hooks/`.
 
 ## Hooks disponíveis
 
@@ -40,6 +40,7 @@ Hooks do Claude Code para controlo de qualidade e segurança automatizados, inst
 - O payload chega como **JSON no stdin**; só o **código de saída 2** bloqueia (qualquer outro código diferente de zero é um erro não bloqueante).
 - Só `hookSpecificOutput.additionalContext` chega ao modelo; o stdout em texto simples do PreCompact é lido como instruções de compactação.
 - Os scripts precisam de `jq` ou `node` para ler o payload: as guardas de segurança bloqueiam se nenhum estiver disponível, os hooks informativos não fazem nada.
+- As três guardas de segurança (`guard-network`, `block-dangerous-commands`, `protect-sensitive-files`) declaram `"onFailure": "block"` (Claude Code 2.1.295+): se o script estiver ausente, falhar ou exceder o timeout, a chamada da ferramenta é bloqueada em vez de prosseguir. Se uma guarda bloquear todas as chamadas após uma instalação quebrada, execute a instalação novamente ou remova os hooks com `--hooks=none`. Reinstalar adiciona `onFailure` às guardas instaladas por uma versão anterior, sem nunca substituir um valor que você definiu.
 
 ## Mais informações
 

@@ -12,11 +12,11 @@ I18N_DIR="$(dirname "$SCRIPT_DIR")/i18n"
 TECH_NAME="PHP"
 TECH_DISPLAY_NAME="PHP"
 TECH_NAMESPACE="php"
-DEFAULT_STACK="PHP 8.5, Composer, PSR Standards, Pest 4, PHPUnit 12"
+DEFAULT_STACK="PHP 8.5, Composer, PSR Standards, Pest 5, PHPUnit 13"
 
 # --- TCL version ---
 source "${SCRIPT_DIR}/tcl-common.sh"
-VERSION=$(get_claude_craft_version)
+VERSION=$(get_bear_craft_version)
 
 # --- Rule mappings ---
 TECH_RULE_MAPPINGS=(
@@ -48,7 +48,7 @@ HELP_DESCRIPTION="    TCL-optimized installation covering:
     Token reduction: ~95% (from ~70K to ~3.5K)"
 
 # --- Install data ---
-AVAILABLE_COMMANDS="- \`/${TECH_NAMESPACE}:check <architecture|code-quality|security|testing|all>\` - Audit by axis (all = scored aggregate)"
+AVAILABLE_COMMANDS="- \`/bear-${TECH_NAMESPACE}:check <architecture|code-quality|security|testing|all>\` - Audit by axis (all = scored aggregate)"
 
 ARCHITECTURE_SUMMARY="\`\`\`
 src/

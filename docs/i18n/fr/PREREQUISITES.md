@@ -1,6 +1,6 @@
 # Prérequis
 
-Guide complet de toutes les dépendances requises pour Claude Craft.
+Guide complet de toutes les dépendances requises pour Bear Craft.
 
 ---
 
@@ -156,7 +156,7 @@ make --version
 
 ## Claude Code
 
-Claude Craft est conçu pour fonctionner avec [Claude Code](https://claude.ai/code), le CLI officiel d'Anthropic.
+Bear Craft est conçu pour fonctionner avec [Claude Code](https://claude.ai/code), le CLI officiel d'Anthropic.
 
 > **Important :** La méthode `npm install -g` est obsolète. Utilisez les installateurs natifs ci-dessous.
 
@@ -193,7 +193,7 @@ Exécutez ce script pour vérifier tous les prérequis :
 #!/bin/bash
 # Enregistrez sous check-prerequisites.sh et exécutez : bash check-prerequisites.sh
 
-echo "Vérification des prérequis Claude Craft..."
+echo "Vérification des prérequis Bear Craft..."
 echo ""
 
 check() {
@@ -244,7 +244,7 @@ fi
 | Docker Compose | 2.0 | 2.24+ |
 | jq | 1.5 | 1.7+ |
 | Make | 3.0 | 4.x |
-| Claude Code | 2.1.321 (CVE-2026-86063 / CVE-2026-103435 patchés) | 2.1.322 |
+| Claude Code | 2.1.325 (CVE-2026-86063 / CVE-2026-103435 patchés) | 2.1.326 |
 
 ---
 

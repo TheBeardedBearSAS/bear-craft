@@ -11,7 +11,7 @@ Vite inlines any environment variable matching `envPrefix` (default: `VITE_`) di
 ```typescript
 // ❌ CRITICAL — a private API key, baked into the public bundle
 // .env
-VITE_STRIPE_SECRET_KEY=sk_live_xxxxxxxxxxxx
+VITE_STRIPE_SECRET_KEY=sk_live_<REDACTED>
 
 // src/payments.ts
 const key = import.meta.env.VITE_STRIPE_SECRET_KEY // shipped to every browser, in plain text
