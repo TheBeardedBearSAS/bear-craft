@@ -2,7 +2,7 @@
   "name": "bear-kubernetes",
   "displayName": "Bear Craft — Kubernetes",
   "description": "Kubernetes: architecture, deployment setup, security audit and troubleshooting.",
-  "version": "10.1.0",
+  "version": "10.1.1",
   "author": {
     "name": "The Bearded Bear",
     "url": "https://the-bearded-bear.com"

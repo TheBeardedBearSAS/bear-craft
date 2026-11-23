@@ -2,7 +2,7 @@
   "name": "bear-tauri",
   "displayName": "Bear Craft — Tauri",
   "description": "Tauri 2.12: Desktop & mobile apps: Rust core + web frontend, capabilities/permissions, plugins, signed updater. Audit and generation commands, reviewer agent and stack skills.",
-  "version": "10.1.0",
+  "version": "10.1.1",
   "author": {
     "name": "The Bearded Bear",
     "url": "https://the-bearded-bear.com"

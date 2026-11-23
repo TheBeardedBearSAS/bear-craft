@@ -2,7 +2,7 @@
   "name": "bear-ansible",
   "displayName": "Bear Craft — Ansible",
   "description": "Ansible: automation architecture, deployment setup, security audit and debugging.",
-  "version": "10.1.0",
+  "version": "10.1.1",
   "author": {
     "name": "The Bearded Bear",
     "url": "https://the-bearded-bear.com"
