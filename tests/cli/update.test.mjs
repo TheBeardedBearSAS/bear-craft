@@ -178,6 +178,110 @@ describe('runUpdate', () => {
     expect(pluginInstall.installPlugins.mock.calls[0][0].install).toMatchObject({ lang: 'fr', techs: ['react'] });
   });
 
+  describe('installed tech and user files (#283)', () => {
+    const seedInstall = (techs) => {
+      mkdirSync(join(tempDir, '.claude'), { recursive: true });
+      mkdirSync(join(tempDir, '.bear-craft'));
+      writeFileSync(
+        join(tempDir, '.bear-craft', 'install.json'),
+        JSON.stringify({
+          lang: 'en',
+          techs,
+          infra: [],
+          hooks: { profile: 'default', memory: false },
+          version: '10.0.0',
+        })
+      );
+      mkdirSync(join(cliRoot, 'Dev', 'scripts'), { recursive: true });
+      for (const name of ['common', ...techs]) {
+        writeFileSync(join(cliRoot, 'Dev', 'scripts', `install-${name}-rules.sh`), '#!/bin/bash');
+      }
+    };
+    const claudeMd = () => join(tempDir, '.claude', 'CLAUDE.md');
+
+    it('runs the base layer (php) before the framework (symfony) so the framework header wins', () => {
+      seedInstall(['symfony', 'php']);
+      const order = [];
+      spawnSync.mockImplementation((_c, args) => {
+        order.push(String(args[0]).split('/').pop());
+        return { status: 0, stdout: '', stderr: '' };
+      });
+
+      runUpdate(tempDir, {}, cliRoot);
+
+      expect(order).toEqual(['install-common-rules.sh', 'install-php-rules.sh', 'install-symfony-rules.sh']);
+    });
+
+    it('keeps a .claude/CLAUDE.md the user edited, whatever the scripts write', () => {
+      seedInstall(['symfony', 'php']);
+      const edited = '# URSSAF mock server - PHP / Symfony Project\n\n**Stack**: PHP 8.5, Symfony 8.2, PHPUnit 13.4\n';
+      writeFileSync(claudeMd(), edited);
+      spawnSync.mockImplementation(() => {
+        writeFileSync(claudeMd(), '# MockServer - PHP Project\n\n**Stack**: PHP 8.5, Pest 5\n');
+        return { status: 0, stdout: '', stderr: '' };
+      });
+
+      runUpdate(tempDir, {}, cliRoot);
+
+      expect(readFileSync(claudeMd(), 'utf8')).toBe(edited);
+      const output = consoleSpy.mock.calls.map((c) => c[0]).join('\n');
+      expect(output).toContain('[KEEP]');
+    });
+
+    it('lets the scripts generate .claude/CLAUDE.md when it does not exist', () => {
+      seedInstall(['symfony', 'php']);
+      spawnSync.mockImplementation(() => {
+        writeFileSync(claudeMd(), '# generated\n');
+        return { status: 0, stdout: '', stderr: '' };
+      });
+
+      runUpdate(tempDir, {}, cliRoot);
+
+      expect(readFileSync(claudeMd(), 'utf8')).toBe('# generated\n');
+    });
+  });
+
+  describe('legacy credentials deny rule (#284)', () => {
+    const LEGACY = 'Read(**/*credentials*)';
+    const settingsPath = () => join(tempDir, '.claude', 'settings.json');
+
+    it('replaces the legacy rule with the narrowed list and keeps the user entries', () => {
+      mkdirSync(join(tempDir, '.claude'));
+      writeFileSync(
+        settingsPath(),
+        JSON.stringify({ permissions: { deny: ['Read(**/.env)', LEGACY, 'Bash(rm -rf *)'] } })
+      );
+      mkdirSync(join(cliRoot, 'Dev', 'scripts'), { recursive: true });
+
+      runUpdate(tempDir, {}, cliRoot);
+
+      const { deny } = JSON.parse(readFileSync(settingsPath(), 'utf8')).permissions;
+      expect(deny).not.toContain(LEGACY);
+      expect(deny).toEqual([
+        'Read(**/.env)',
+        'Bash(rm -rf *)',
+        'Read(**/*credentials.json)',
+        'Read(**/credentials.tfrc.json)',
+        'Read(**/.credentials*)',
+        'Read(**/.aws/credentials)',
+        'Read(**/.git-credentials)',
+      ]);
+      const output = consoleSpy.mock.calls.map((c) => c[0]).join('\n');
+      expect(output).toContain('[FIXED]');
+    });
+
+    it('leaves settings.json untouched when there is no legacy rule', () => {
+      mkdirSync(join(tempDir, '.claude'));
+      const raw = JSON.stringify({ permissions: { deny: ['Read(**/.env)'] } });
+      writeFileSync(settingsPath(), raw);
+      mkdirSync(join(cliRoot, 'Dev', 'scripts'), { recursive: true });
+
+      runUpdate(tempDir, {}, cliRoot);
+
+      expect(readFileSync(settingsPath(), 'utf8')).toBe(raw);
+    });
+  });
+
   it('replays .bear-craft/install.json (techs, infra, hooks, language) when it exists', () => {
     mkdirSync(join(tempDir, '.claude'));
     mkdirSync(join(tempDir, '.bear-craft'));
