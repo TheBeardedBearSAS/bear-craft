@@ -621,7 +621,7 @@ function connect(
 }
 
 // ❌ MAUVAIS: Ne jamais coder en dur les secrets
-$apiKey = 'sk_live_xxxxxxxxxxxxx';  // NE JAMAIS FAIRE ÇA!
+$apiKey = 'sk_live_<REDACTED>';  // NE JAMAIS FAIRE ÇA!
 ```
 
 ## Checklist de Sécurité

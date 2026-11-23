@@ -11,7 +11,7 @@ arguments:
     required: false
 ---
 
-# /workflow:design
+# /bear-workflow:design
 
 ## Auftrag
 
@@ -21,26 +21,28 @@ Die Designphase (Solutioning) durchführen: das PRD in eine technische Spezifika
 
 | Aufruf | Was es tut | Ersetzt |
 |--------|------------|---------|
-| `/workflow:design` | Liest `project-management/prd.md`, schreibt `project-management/tech-spec.md` + Architekturdateien + ADRs | `/workflow:design` |
-| `/workflow:design --constitution` | Schreibt `project-management/constitution.md` (unveränderliche Entscheidungen, von `/gate:check alignment` genutzt) | `/workflow:design --constitution` |
-| `/workflow:design --continue` | Setzt eine unterbrochene Design-Sitzung fort | - |
+| `/bear-workflow:design` | Liest `project-management/prd.md`, schreibt `project-management/tech-spec.md` + Architekturdateien + ADRs | `/bear-workflow:design` |
+| `/bear-workflow:design --constitution` | Schreibt `project-management/constitution.md` (unveränderliche Entscheidungen, von `/bear-gate:check alignment` genutzt) | `/bear-workflow:design --constitution` |
+| `/bear-workflow:design --continue` | Setzt eine unterbrochene Design-Sitzung fort | - |
 
 Kanonische Dokumentenreihenfolge: PRD → Tech-Spec → Backlog → Sprint.
 
 ## Wann verwenden
 
 - Tracks **Standard** und **Enterprise**
-- Nach `/workflow:plan --only=prd`
+- Nach `/bear-workflow:plan --only=prd`
 - `--constitution`: zu Projektbeginn (oder sobald Entscheidungen festgeschrieben werden müssen)
 
 ## Voraussetzungen
 
 - Das PRD existiert unter `project-management/prd.md` (`--constitution`: nur optionale Quellen, siehe unten)
-- Technologie-Stack identifiziert (bei neuen Projekten interaktiv abgefragt)
+- Technologie-Stack identifiziert (bei neuen Projekten interaktiv abgefragt; im Headless-Modus aus `CLAUDE.md` oder dem PRD lesen und bei Fehlen mit klarer Fehlermeldung abbrechen)
 
 ## Plan Mode
 
-> **Der Plan Mode ist verpflichtend.** Claude aktiviert den Plan Mode, um den betroffenen Code zu analysieren, eine Generierungsstrategie vorzuschlagen und Ihre Freigabe abzuwarten, bevor Artefakte erstellt werden.
+> **Der Plan Mode ist in interaktiven Sitzungen verpflichtend.** Claude aktiviert den Plan Mode, um den betroffenen Code zu analysieren, eine Generierungsstrategie vorzuschlagen und Ihre Freigabe abzuwarten, bevor Artefakte erstellt werden. In Headless-Läufen (`claude -p`, kein TTY, niemand zum Antworten) ist er ausgesetzt: siehe unten.
+
+> **Headless-Modus (`claude -p`, kein TTY, niemand zum Antworten).** Der Plan Mode ist ausgesetzt: nicht aktivieren und weder `ScheduleWakeup` noch `AskUserQuestion` oder ein anderes Tool aufrufen, das auf eine Antwort wartet, sonst läuft der Durchlauf in einer Schleife. Die Annahmen explizit nennen, den Plan in `project-management/design-plan.md` schreiben, ihn in das Endergebnis aufnehmen, dann mit der Generierung fortfahren und den Turn beenden.
 
 ## Workflow: Tech-Spec (Standard)
 
@@ -126,6 +128,8 @@ Beispiel einer Sicherheits-Checkliste:
 - Sicherheit, Teststrategie und Deployment-Ansatz sind dokumentiert
 - ADRs vollständig und begründet
 
+Im Headless-Modus `/bear-gate:check spec` ausführen und den echten Score und die Befunde berichten; die gemeldeten Mängel beheben und das Gate erneut ausführen. Dieses Gate niemals selbst bewerten. Konnte es nicht ausgeführt werden, ausdrücklich `Design-Gate: NICHT AUSGEFÜHRT` mit Begründung angeben, statt ein Ergebnis zu behaupten.
+
 Iterationen anbieten: Caching-Strategie, erweiterte API-Dokumentation, Deployment-Pipeline.
 
 ### Schritt 6: Abschluss
@@ -138,12 +142,12 @@ Iterationen anbieten: Caching-Strategie, erweiterte API-Dokumentation, Deploymen
 ║ ✅ docs/adr/ (3 ADRs)                                     ║
 ║ • 24 API-Endpoints • 8 Entitäten • 3 Integrationen        ║
 ║                                                           ║
-║ NÄCHSTER SCHRITT: /workflow:plan --only=backlog           ║
-║ DANACH: /workflow:start 1                                 ║
+║ NÄCHSTER SCHRITT: /bear-workflow:plan --only=backlog           ║
+║ DANACH: /bear-workflow:start 1                                 ║
 ╚══════════════════════════════════════════════════════════╝
 ```
 
-Das Backlog liest `project-management/prd.md` und, sobald vorhanden, `project-management/tech-spec.md`. Nach dem Design `/workflow:plan --only=backlog` und anschließend `/workflow:start 1` empfehlen.
+Das Backlog liest `project-management/prd.md` und, sobald vorhanden, `project-management/tech-spec.md`. Nach dem Design `/bear-workflow:plan --only=backlog` und anschließend `/bear-workflow:start 1` empfehlen.
 
 ## Workflow: Constitution (`--constitution`)
 
@@ -176,7 +180,7 @@ Den Nutzer themenweise befragen, um Lücken zu schließen:
 
 Ausgabe: `project-management/constitution.md` mit den Abschnitten Vision & Mission, Technische Constraints, Designprinzipien, Nicht-funktionale Anforderungen, Grenzen, Änderungsprozess. Anbieten, festgeschriebene Entscheidungen anzupassen, Constraints zu ergänzen oder Grenzen zu schärfen. Optionale Erkundungsnotizen landen in `project-management/analysis/discovery-notes.md`.
 
-Die Constitution ist die von `/gate:check alignment` genutzte Referenz. Nächste Schritte: `/workflow:plan --only=prd`, falls noch kein PRD existiert, andernfalls das Standard-`/workflow:design` ausführen.
+Die Constitution ist die von `/bear-gate:check alignment` genutzte Referenz. Nächste Schritte: `/bear-workflow:plan --only=prd`, falls noch kein PRD existiert, andernfalls das Standard-`/bear-workflow:design` ausführen.
 
 ## Beteiligte Agents
 
@@ -201,7 +205,7 @@ Die Constitution ist die von `/gate:check alignment` genutzte Referenz. Nächste
 ## Beispielsitzung
 
 ```
-User: /workflow:design
+User: /bear-workflow:design
 
 Claude: Lade project-management/prd.md: 12 FR, 8 NFR.
 Erkannt: Symfony + React + PostgreSQL.
@@ -209,14 +213,14 @@ Erkannt: Symfony + React + PostgreSQL.
 > REST beibehalten
 [... interaktive Q&A ...]
 ✅ Tech-Spec erzeugt: project-management/tech-spec.md
-Weiter: /workflow:plan --only=backlog, dann /workflow:start 1
+Weiter: /bear-workflow:plan --only=backlog, dann /bear-workflow:start 1
 ```
 
 ## Verwandte Befehle
 
-- `/workflow:plan` - Vorherige Phase (`--only=prd`, `--only=backlog`)
-- `/workflow:start` - Den ersten Sprint starten
-- `/workflow:implement` - Implementierungsphase
-- `/workflow:status` - Fortschritt prüfen
-- `/gate:check` - Quality Gates (`alignment` nutzt die Constitution)
-- `/common:architecture-decision` - Einzelne ADRs erstellen
+- `/bear-workflow:plan` - Vorherige Phase (`--only=prd`, `--only=backlog`)
+- `/bear-workflow:start` - Den ersten Sprint starten
+- `/bear-workflow:implement` - Implementierungsphase
+- `/bear-workflow:status` - Fortschritt prüfen
+- `/bear-gate:check` - Quality Gates (`alignment` nutzt die Constitution)
+- `/bear-common:architecture-decision` - Einzelne ADRs erstellen

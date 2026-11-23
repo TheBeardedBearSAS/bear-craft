@@ -352,7 +352,7 @@ public function show(Order $order): Response {
 }
 
 // MAJEUR : secret hardcodé
-$apiKey = 'sk-live-abcdef123456'; // INTERDIT
+$apiKey = '<YOUR_API_KEY>'; // INTERDIT
 
 // BON : Symfony Secrets ou .env
 $apiKey = $this->getParameter('stripe_api_key');

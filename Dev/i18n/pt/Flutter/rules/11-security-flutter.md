@@ -39,7 +39,7 @@ final prefs = await SharedPreferences.getInstance();
 prefs.setString('password', password); // NÃO CRIPTOGRAFADO!
 
 // Hardcode de secrets
-const apiKey = 'sk_live_1234567890'; // NUNCA!
+const apiKey = 'sk_live_<REDACTED>'; // NUNCA!
 
 // Armazenar em texto claro
 final file = File('token.txt');

@@ -417,7 +417,7 @@ data = UserModel.model_validate_json(user_input)
 result = eval(user_expression)  # CODE EXECUTION
 
 # CRITICAL: hardcoded secret
-API_KEY = "sk-live-abcdef123456"
+API_KEY = "<YOUR_API_KEY>"
 
 # GOOD: environment variable
 from pydantic_settings import BaseSettings

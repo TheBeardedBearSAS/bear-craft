@@ -140,7 +140,7 @@ Vulnérabilités XSS détectées :
 
 Secrets exposés détectés :
 • Fichier : src/config/api.ts:5
-  Problème : Clé API en dur "sk_live_xxxx"
+  Problème : Clé API en dur "sk_live_<REDACTED>"
   Risque : CRITIQUE
   Solution : Déplacer vers VITE_API_KEY dans .env
 

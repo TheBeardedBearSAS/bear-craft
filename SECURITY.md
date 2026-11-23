@@ -4,6 +4,9 @@
 
 | Version | Supported          |
 |---------|--------------------|
+| 10.1.x  | :white_check_mark: |
+| 10.0.x  | :white_check_mark: |
+| 9.4.x   | :white_check_mark: |
 | 9.3.x   | :white_check_mark: |
 | 9.2.x   | :white_check_mark: |
 | 9.1.x   | :white_check_mark: |
@@ -13,7 +16,7 @@
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability in Claude Craft, please report it responsibly.
+If you discover a security vulnerability in Bear Craft, please report it responsibly.
 
 **Email:** security@the-bearded-bear.com
 
@@ -45,16 +48,16 @@ If you discover a security vulnerability in Claude Craft, please report it respo
 
 ## Security Best Practices
 
-When using Claude Craft:
+When using Bear Craft:
 
-- Keep Claude Code at or above the security minimum (2.1.321+; 2.1.322 recommended).
+- Keep Claude Code at or above the security minimum (2.1.325+; 2.1.326 recommended).
 - Review agent permissions in `.claude/settings.json` before granting access.
 - Never commit sensitive data (API keys, tokens) in BMAD configuration files.
 - Use the sandbox mode to restrict skill directory writes.
 
 ### Known CVE Fixes (Claude Code)
 
-Claude Code v2.1.321+ (claude-craft security minimum) includes critical security fixes:
+Claude Code v2.1.325+ (bear-craft security minimum) includes critical security fixes:
 
 | CVE | Severity | Fixed In | Description |
 |-----|----------|----------|-------------|
@@ -68,8 +71,10 @@ Claude Code v2.1.321+ (claude-craft security minimum) includes critical security
 | CVE-2026-103435 | High | v2.1.129 | Arbitrary file write via symlink following, TOCTOU (GHSA-5j29-h97v-84ch) |
 | CVE-2026-55607 | High | v2.1.163 | Sandbox escape via git worktree path confusion (GHSA-7835-87q9-rgvv) |
 | CVE-2026-86063 | High | v2.1.179 | Plugin commit SHA pin bypass installs attacker code (GHSA-pq7j-f95f-qfcv) |
+| CVE-2026-88968 | High | v2.1.251 | Edit tool TOCTOU (GHSA-5xjx-9qx6-jcrv) |
 | CVE-2026-103012 | Low | v2.1.260 | Managed settings not applied with a stored API key (GHSA-gfvf-j8jh-jxxw) |
 | — (no GHSA) | — | v2.1.321 | Bash read-only command outside the sandbox without a prompt, writes evaluated from the wrong directory, deny rules bypassed by `cp`/`mv` into a directory, MCP OAuth refresh token sent to another host after a redirect |
+| — (no GHSA) | — | v2.1.325 | Bash deny/ask rules missed through `sudo`/`env` wrappers, `sandbox.excludedCommands` too permissive, Write/Edit on a path covered by a `Read` deny rule (2.1.323); a Bash allow rule running a different program than the one it names, compound commands run without a prompt, sandbox not protecting a worktree's settings/hooks and shared git folder (2.1.325) |
 
 **Incident**: Claude Code v2.1.88 exposed source code via `.map` file (59.8 MB). Fixed in v2.1.89.
 
@@ -83,7 +88,7 @@ Claude Code v2.1.321+ (claude-craft security minimum) includes critical security
 
 ## Software Supply Chain Security
 
-Claude Craft follows modern supply chain security practices to ensure the integrity and provenance of published packages.
+Bear Craft follows modern supply chain security practices to ensure the integrity and provenance of published packages.
 
 ### npm Provenance (SLSA Build Level 1 — npm provenance via `--provenance` flag)
 
@@ -100,7 +105,7 @@ Starting with version 8.1.0, all npm releases ship **npm provenance attestations
 npm audit signatures
 
 # View provenance for a specific version
-npm view @the-bearded-bear/claude-craft@latest dist.attestations
+npm view @the-bearded-bear/bear-craft@latest dist.attestations
 ```
 
 > **Scope note (audit 2026-05-18 QW-SLSA)** : the previous wording in this section
@@ -115,13 +120,13 @@ Every release includes a **CycloneDX SBOM** (JSON format) for full dependency tr
 
 - **Format**: CycloneDX 1.6+ (JSON)
 - **Generation**: Automated via GitHub Actions using `CycloneDX/gh-node-module-generatebom`
-- **Availability**: Attached to each GitHub Release as `claude-craft-sbom.json`
+- **Availability**: Attached to each GitHub Release as `bear-craft-sbom.json`
 - **Retention**: 90 days as GitHub Actions artifact
 
 **How to verify SBOM:**
 
-1. Go to the [Releases page](https://github.com/TheBeardedBearSAS/claude-craft/releases)
-2. Download `claude-craft-sbom.json` from the release assets
+1. Go to the [Releases page](https://github.com/TheBeardedBearSAS/bear-craft/releases)
+2. Download `bear-craft-sbom.json` from the release assets
 3. Validate using a CycloneDX-compatible tool:
 
 ```bash
@@ -129,7 +134,7 @@ Every release includes a **CycloneDX SBOM** (JSON format) for full dependency tr
 npm install -g @cyclonedx/cyclonedx-cli
 
 # Validate SBOM
-cyclonedx validate --input-file claude-craft-sbom.json
+cyclonedx validate --input-file bear-craft-sbom.json
 ```
 
 **SBOM contents:**
@@ -151,16 +156,16 @@ All npm packages published since version 8.1.0 are signed using **Sigstore keyle
 **How to verify signatures:**
 
 ```bash
-# Verify all installed dependencies including claude-craft
+# Verify all installed dependencies including bear-craft
 npm audit signatures
 
 # Check specific package integrity
-npm view @the-bearded-bear/claude-craft@latest dist.integrity
+npm view @the-bearded-bear/bear-craft@latest dist.integrity
 ```
 
 ### Compliance Standards
 
-Claude Craft supply chain practices align with:
+Bear Craft supply chain practices align with:
 
 - **SLSA Framework**: npm provenance ships SLSA Build Level 1 attestations for the published tarball (via `npm publish --provenance`). Full SLSA L3 via `slsa-github-generator` is **not** integrated yet.
 - **NIS2 Directive**: Software supply chain security requirements (EU)
