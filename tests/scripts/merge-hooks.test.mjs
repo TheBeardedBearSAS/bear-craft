@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach, afterAll } from 'vitest';
 import { spawnSync } from 'child_process';
 import fs from 'fs';
 import path from 'path';
-import { addHooks, removeHooks } from '../../Dev/scripts/lib/merge-hooks.mjs';
+import { addHooks, removeHooks, removeDenyRules } from '../../Dev/scripts/lib/merge-hooks.mjs';
 
 const PROJECT_ROOT = path.resolve(import.meta.dirname, '../..');
 const CLI = path.join(PROJECT_ROOT, 'Dev/scripts/lib/merge-hooks.mjs');
@@ -57,6 +57,30 @@ describe('addHooks', () => {
   });
 });
 
+describe('addHooks — mise à niveau onFailure', () => {
+  const guard = (extra = {}) => ({ ...h('guard'), ...extra });
+  const fragment = frag({ PreToolUse: [{ matcher: 'Bash', hooks: [guard({ onFailure: 'block' })] }] });
+
+  it('complète onFailure sur un handler déjà installé qui ne l’a pas', () => {
+    const user = { hooks: { PreToolUse: [{ matcher: 'Bash', hooks: [guard()] }] } };
+    const { settings, added, upgraded } = addHooks(user, fragment);
+    expect([added, upgraded]).toEqual([0, 1]);
+    expect(settings.hooks.PreToolUse[0].hooks).toEqual([guard({ onFailure: 'block' })]);
+  });
+
+  it('ne remplace jamais un onFailure choisi par l’utilisateur', () => {
+    const user = { hooks: { PreToolUse: [{ matcher: 'Bash', hooks: [guard({ onFailure: 'continue' })] }] } };
+    const { settings, upgraded } = addHooks(user, fragment);
+    expect(upgraded).toBe(0);
+    expect(settings.hooks.PreToolUse[0].hooks[0].onFailure).toBe('continue');
+  });
+
+  it('est idempotent', () => {
+    const once = addHooks({}, fragment).settings;
+    expect(addHooks(once, fragment)).toMatchObject({ added: 0, upgraded: 0, settings: once });
+  });
+});
+
 describe('removeHooks', () => {
   it('retire seulement les handlers qui contiennent la chaîne puis nettoie les groupes et événements vides', () => {
     const s = {
@@ -103,6 +127,18 @@ describe('CLI', () => {
     expect(fs.readFileSync(settingsPath(), 'utf8')).toBe(before);
   });
 
+  it('add écrit la mise à niveau onFailure d’un handler déjà installé', () => {
+    fs.writeFileSync(settingsPath(), JSON.stringify(frag({ Stop: [{ matcher: '', hooks: [h('a')] }] })));
+    fs.writeFileSync(
+      fragPath(),
+      JSON.stringify(frag({ Stop: [{ matcher: '', hooks: [{ ...h('a'), onFailure: 'block' }] }] }))
+    );
+    const r = cli('add', '--settings', settingsPath(), '--fragment', fragPath());
+    expect(r.status).toBe(0);
+    expect(r.stdout).toMatch(/upgraded 1 handlers/);
+    expect(JSON.parse(fs.readFileSync(settingsPath(), 'utf8')).hooks.Stop[0].hooks[0].onFailure).toBe('block');
+  });
+
   it('add --dry-run annonce sans écrire', () => {
     const r = cli('add', '--settings', settingsPath(), '--fragment', fragPath(), '--dry-run');
     expect(r.status).toBe(0);
@@ -138,5 +174,30 @@ describe('CLI', () => {
 
   it('refuse une commande inconnue', () => {
     expect(cli('bogus').status).toBe(1);
+  });
+});
+
+describe('removeDenyRules on non-object input', () => {
+  it.each([null, 42, 'x', []])('does not throw on %j', (input) => {
+    expect(removeDenyRules(input, ['a']).removed).toBe(0);
+  });
+});
+
+describe('removeDenyRules', () => {
+  it('retire par égalité stricte et compte les règles retirées', () => {
+    const input = { permissions: { deny: ['Read(**/.env)', 'Read(**/*credentials*)', 'Read(**/credentials.json)'] } };
+    const { settings, removed } = removeDenyRules(input, ['Read(**/*credentials*)']);
+    expect(removed).toBe(1);
+    expect(settings.permissions.deny).toEqual(['Read(**/.env)', 'Read(**/credentials.json)']);
+  });
+
+  it('ne mute pas l’entrée et ignore un settings sans deny', () => {
+    const input = { permissions: { allow: ['Bash(ls)'] } };
+    const { settings, removed } = removeDenyRules(input, ['x']);
+    expect(removed).toBe(0);
+    expect(settings).toEqual(input);
+    const withDeny = { permissions: { deny: ['a', 'b'] } };
+    removeDenyRules(withDeny, ['a']);
+    expect(withDeny.permissions.deny).toEqual(['a', 'b']);
   });
 });

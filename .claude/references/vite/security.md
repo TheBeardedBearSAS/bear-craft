@@ -22,7 +22,7 @@ VITE_APP_TITLE=My App
 
 # ❌ NEVER prefix secrets with VITE_ — they ship straight to the browser
 VITE_DATABASE_URL=postgres://user:pass@host/db
-VITE_STRIPE_SECRET_KEY=sk_live_xxx
+VITE_STRIPE_SECRET_KEY=sk_live_<REDACTED>
 VITE_JWT_SIGNING_SECRET=xxx
 ```
 

@@ -1,0 +1,9 @@
+title = "bear-craft gitleaks config"
+
+[extend]
+useDefault = true
+
+# Faux positifs justifiés : clés d'idempotence (UUID de test) du serveur kanban, pas des secrets.
+[allowlist]
+description = "UUID d'idempotence dans les tests kanban"
+paths = ['''tests/kanban/.*\.test\.js''']

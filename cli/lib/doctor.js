@@ -7,64 +7,14 @@ import fs from 'fs';
 import path from 'path';
 import os from 'os';
 import { execSync } from 'child_process';
-import { fileURLToPath } from 'url';
-import * as yaml from 'js-yaml';
 import c from './colors.js';
 import { listDirs } from './fs-utils.js';
 import { assertSafeTarget } from './path-safety.js';
-
-/**
- * Read a Claude Code version from config/versions.yaml (`claudeCode.<key>`).
- * Falls back to the given hardcoded value if the file is unavailable.
- * @param {'minimum'|'recommended'} key
- * @param {string} fallback
- * @returns {string}
- */
-function loadClaudeCodeVersion(key, fallback) {
-  try {
-    const __dirname = path.dirname(fileURLToPath(import.meta.url));
-    const versionsPath = path.resolve(__dirname, '..', '..', 'config', 'versions.yaml');
-    if (!fs.existsSync(versionsPath)) return fallback;
-    const parsed = yaml.load(fs.readFileSync(versionsPath, 'utf8'));
-    return parsed?.claudeCode?.[key] ?? fallback;
-  } catch {
-    return fallback;
-  }
-}
-
-// Security floor: plugin SHA-pin bypass (CVE-2026-86063, fixed 2.1.179), symlink
-// TOCTOU write (CVE-2026-103435, 2.1.129), managed settings bypass (CVE-2026-103012, 2.1.260),
-// Bash permission and MCP OAuth fixes (2.1.321, no GHSA published).
-const MIN_CLAUDE_CODE = loadClaudeCodeVersion('minimum', '2.1.321');
-const RECOMMENDED_CLAUDE_CODE = loadClaudeCodeVersion('recommended', '2.1.322');
-
-/**
- * Compare two semver-ish version strings (`major.minor.patch`).
- * Returns -1 if a < b, 0 if equal, 1 if a > b.
- * @param {string} a
- * @param {string} b
- * @returns {-1|0|1}
- */
-function semverCmp(a, b) {
-  const pa = a.split('.').map((n) => Number.parseInt(n, 10));
-  const pb = b.split('.').map((n) => Number.parseInt(n, 10));
-  for (let i = 0; i < 3; i++) {
-    const da = pa[i] || 0;
-    const db = pb[i] || 0;
-    if (da !== db) return da < db ? -1 : 1;
-  }
-  return 0;
-}
-
-/**
- * Extract the first `X.Y.Z` triple from a free-form `claude --version` output.
- * @param {string} output
- * @returns {string|null}
- */
-function extractSemver(output) {
-  const m = output.match(/(?<!\d)(\d+)\.(\d+)\.(\d+)/);
-  return m ? m[0] : null;
-}
+import { MIN_CLAUDE_CODE, RECOMMENDED_CLAUDE_CODE, assessClaude } from './claude-code.js';
+import { removeDenyRules } from '../../Dev/scripts/lib/merge-hooks.mjs';
+import { diagnosePlugins, readInstallJson } from './plugin-install.js';
+import * as yaml from 'js-yaml';
+import { countPlaceholderTimestamps } from '../kanban/shared/timestamps.js';
 
 /**
  * OS-specific yq installation hints. Returned as a list of one-liner instructions
@@ -90,6 +40,110 @@ function yqInstallHints() {
 }
 
 /**
+ * Read `permissions.allow` of the project's .claude/settings.json (empty when absent or invalid).
+ * @param {string} targetPath
+ * @returns {string[]}
+ */
+function readAllowRules(targetPath) {
+  return readPermissionList(targetPath, 'allow');
+}
+
+const LEGACY_CREDENTIALS_DENY = 'Read(**/*credentials*)';
+
+const REPLACEMENT_CREDENTIALS_DENY = ['Read(**/credentials.json)', 'Read(**/.credentials*)'];
+
+/**
+ * Migrate the legacy `Read(**\/*credentials*)` deny rule: back up settings.json (same mode), drop only that rule,
+ * add the narrower replacements. Invalid JSON or a failed write never alters the original file.
+ * @param {string} targetPath
+ * @returns {'fixed'|'unchanged'|'failed'}
+ */
+function fixLegacyCredentialsDeny(targetPath) {
+  const file = path.join(targetPath, '.claude', 'settings.json');
+  const fail = (msg) => {
+    console.log(`  ${c.red}[FAIL]${c.reset} ${msg}`);
+    return 'failed';
+  };
+  let raw;
+  let settings;
+  try {
+    raw = fs.readFileSync(file, 'utf8');
+    settings = JSON.parse(raw);
+  } catch {
+    return fail('.claude/settings.json is invalid JSON — not modified, fix it by hand');
+  }
+  if (settings === null || typeof settings !== 'object' || Array.isArray(settings)) {
+    return fail('.claude/settings.json is invalid JSON (not an object) — not modified, fix it by hand');
+  }
+  const { settings: next, removed } = removeDenyRules(settings, [LEGACY_CREDENTIALS_DENY]);
+  if (removed === 0) return 'unchanged';
+  for (const rule of REPLACEMENT_CREDENTIALS_DENY) {
+    if (!next.permissions.deny.includes(rule)) next.permissions.deny.push(rule);
+  }
+  const stamp = new Date().toISOString().replaceAll(/[-:.]/g, '');
+  const backup = `${file}.bak-${stamp}`;
+  const tmp = `${file}.tmp-${process.pid}`;
+  try {
+    const mode = fs.statSync(file).mode & 0o777;
+    fs.writeFileSync(backup, raw, { mode });
+    fs.chmodSync(backup, mode);
+    fs.writeFileSync(tmp, `${JSON.stringify(next, null, 2)}\n`, { mode });
+    fs.chmodSync(tmp, mode);
+    fs.renameSync(tmp, file);
+  } catch (error) {
+    fs.rmSync(tmp, { force: true });
+    fs.rmSync(backup, { force: true });
+    return fail(`Could not write .claude/settings.json (${error.code || error.message}) — original left intact`);
+  }
+  console.log(
+    `  ${c.green}[FIXED]${c.reset} Replaced ${LEGACY_CREDENTIALS_DENY} with ${REPLACEMENT_CREDENTIALS_DENY.join(', ')} (backup: ${path.basename(backup)})`
+  );
+  return 'fixed';
+}
+
+function readDenyRules(targetPath) {
+  return readPermissionList(targetPath, 'deny');
+}
+
+function readPermissionList(targetPath, key) {
+  try {
+    const settings = JSON.parse(fs.readFileSync(path.join(targetPath, '.claude', 'settings.json'), 'utf8'));
+    return Array.isArray(settings?.permissions?.[key]) ? settings.permissions[key] : [];
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * Whether Claude Code recorded the workspace (or a parent directory) as trusted in ~/.claude.json.
+ * Headless runs (`claude -p`) skip the trust dialog and silently ignore project permissions on an untrusted workspace.
+ * @param {string} targetPath
+ * @param {string} claudeJsonPath
+ * @returns {boolean}
+ */
+function isWorkspaceTrusted(targetPath, claudeJsonPath) {
+  let projects;
+  try {
+    projects = JSON.parse(fs.readFileSync(claudeJsonPath, 'utf8'))?.projects ?? {};
+  } catch {
+    return false;
+  }
+  const candidates = new Set([path.resolve(targetPath)]);
+  try {
+    candidates.add(fs.realpathSync(targetPath));
+  } catch {
+    // keep the resolved path only
+  }
+  for (const start of candidates) {
+    for (let dir = start; ; dir = path.dirname(dir)) {
+      if (projects[dir]?.hasTrustDialogAccepted === true) return true;
+      if (path.dirname(dir) === dir) break;
+    }
+  }
+  return false;
+}
+
+/**
  * Run a shell command and return the trimmed output, or null on failure.
  * @param {string} cmd - Shell command to execute
  * @returns {string|null}
@@ -101,6 +155,23 @@ function tryExec(cmd) {
     return null;
   }
 }
+
+// --- Placeholder timestamps check (#272) ---
+const STATUS_FILES = ['sprint-status.yaml', 'workflow-status.yaml'];
+
+function countPlaceholderTimestampsInStatusFiles(targetPath) {
+  let total = 0;
+  for (const name of STATUS_FILES) {
+    try {
+      const text = fs.readFileSync(path.join(targetPath, '.bmad', name), 'utf8');
+      total += countPlaceholderTimestamps(yaml.load(text));
+    } catch {
+      // absent or malformed: nothing to report here
+    }
+  }
+  return total;
+}
+// --- end placeholder timestamps check ---
 
 /**
  * Run the doctor command against a target directory.
@@ -116,7 +187,7 @@ function runDoctor(targetPath, deps = {}) {
   let failed = 0;
   let warned = 0;
 
-  console.log(`\n${c.bold}Claude Craft Doctor — Environment Diagnostics${c.reset}`);
+  console.log(`\n${c.bold}Bear Craft Doctor — Environment Diagnostics${c.reset}`);
   console.log(`${c.dim}Directory: ${safeTarget}${c.reset}\n`);
   targetPath = safeTarget;
 
@@ -143,27 +214,29 @@ function runDoctor(targetPath, deps = {}) {
 
   // 3. Claude Code installed and >= MIN_CLAUDE_CODE (security baseline)
   const claudeVerRaw = exec('claude --version');
-  if (claudeVerRaw) {
-    const semver = extractSemver(claudeVerRaw);
-    if (semver && semverCmp(semver, MIN_CLAUDE_CODE) < 0) {
+  const claude = assessClaude(claudeVerRaw);
+  if (claude.found) {
+    if (claude.tooOld) {
       console.log(
-        `  ${c.red}[FAIL]${c.reset} Claude Code ${semver} — requires >= ${MIN_CLAUDE_CODE} (security fixes: CVE-2026-86063, CVE-2026-103435, CVE-2026-103012)`
+        `  ${c.red}[FAIL]${c.reset} Claude Code ${claude.version} — requires >= ${MIN_CLAUDE_CODE} (security fixes: CVE-2026-86063, CVE-2026-103435, CVE-2026-103012)`
       );
       console.log(`         Upgrade: ${c.cyan}npm install -g @anthropic-ai/claude-code@latest${c.reset}`);
       failed++;
-    } else if (semver && semverCmp(semver, RECOMMENDED_CLAUDE_CODE) < 0) {
+    } else if (claude.belowRecommended) {
       console.log(
-        `  ${c.yellow}[WARN]${c.reset} Claude Code ${semver} — recommended ${RECOMMENDED_CLAUDE_CODE} (latest permission fixes)`
+        `  ${c.yellow}[WARN]${c.reset} Claude Code ${claude.version} — recommended ${RECOMMENDED_CLAUDE_CODE} (latest permission fixes)`
       );
       warned++;
     } else {
-      console.log(`  ${c.green}[OK]${c.reset} Claude Code ${semver || claudeVerRaw}`);
+      console.log(`  ${c.green}[OK]${c.reset} Claude Code ${claude.version || claude.raw}`);
       passed++;
     }
   } else {
-    console.log(`  ${c.yellow}[WARN]${c.reset} Claude Code not found (optional for install, required for usage)`);
+    console.log(
+      `  ${c.red}[FAIL]${c.reset} Claude Code not found (required: bear-craft installs its plugins through it)`
+    );
     console.log(`         Install: ${c.cyan}npm install -g @anthropic-ai/claude-code${c.reset}`);
-    warned++;
+    failed++;
   }
 
   // 4. Git available
@@ -197,8 +270,9 @@ function runDoctor(targetPath, deps = {}) {
     console.log(`  ${c.green}[OK]${c.reset} .claude/ directory exists`);
     passed++;
 
-    // Check required subdirs
-    const requiredDirs = ['commands', 'agents', 'references', 'skills'];
+    // Check required subdirs: a plugin installation (.bear-craft/install.json) only copies references
+    const pluginInstall = readInstallJson(targetPath) !== null;
+    const requiredDirs = pluginInstall ? ['references'] : ['commands', 'agents', 'references', 'skills'];
     for (const dir of requiredDirs) {
       if (fs.existsSync(path.join(claudeDir, dir))) {
         console.log(`  ${c.green}[OK]${c.reset} .claude/${dir}/`);
@@ -220,6 +294,56 @@ function runDoctor(targetPath, deps = {}) {
   } else {
     console.log(`  ${c.yellow}[WARN]${c.reset} .claude/ directory not found (not installed here)`);
     warned++;
+  }
+
+  // 6a. Workspace trust: permissions.allow is ignored by headless runs on an untrusted workspace
+  if (readAllowRules(targetPath).length > 0) {
+    const claudeJsonPath =
+      deps.claudeJsonPath || path.join(process.env.CLAUDE_CONFIG_DIR || os.homedir(), '.claude.json');
+    if (isWorkspaceTrusted(targetPath, claudeJsonPath)) {
+      console.log(`  ${c.green}[OK]${c.reset} Workspace trusted (permissions.allow applies)`);
+      passed++;
+    } else {
+      console.log(
+        `  ${c.yellow}[WARN]${c.reset} Workspace not trusted — permissions.allow in .claude/settings.json is silently ignored by headless runs (claude -p)`
+      );
+      console.log(`         Open ${c.cyan}claude${c.reset} once in this directory and accept the trust dialog`);
+      warned++;
+    }
+  }
+
+  // 6a'. Legacy deny rule that blocks writing docs/ADR/stories mentioning "credentials" (#275)
+  if (deps.fix === true && fs.existsSync(path.join(targetPath, '.claude', 'settings.json'))) {
+    if (fixLegacyCredentialsDeny(targetPath) === 'failed') failed++;
+  }
+  if (readDenyRules(targetPath).includes(LEGACY_CREDENTIALS_DENY)) {
+    console.log(
+      `  ${c.yellow}[WARN]${c.reset} .claude/settings.json still denies ${LEGACY_CREDENTIALS_DENY} (blocks docs, ADRs and stories whose name contains "credentials")`
+    );
+    console.log(
+      `         Run ${c.cyan}bear-craft doctor --fix${c.reset} (or replace it with Read(**/credentials.json) and Read(**/.credentials*) in permissions.deny)`
+    );
+    warned++;
+  }
+
+  // 6b. Plugins: marketplace copy, settings.json entries and registration on this machine
+  const runFn =
+    deps.runFn ||
+    ((cmd, args) => {
+      const out = exec([cmd, ...args].join(' '));
+      return { status: out === null ? 1 : 0, stdout: out ?? '', stderr: '' };
+    });
+  for (const { level, message } of diagnosePlugins(targetPath, { execFn: runFn })) {
+    if (level === 'ok') {
+      console.log(`  ${c.green}[OK]${c.reset} ${message}`);
+      passed++;
+    } else if (level === 'warn') {
+      console.log(`  ${c.yellow}[WARN]${c.reset} ${message}`);
+      warned++;
+    } else {
+      console.log(`  ${c.red}[FAIL]${c.reset} ${message}`);
+      failed++;
+    }
   }
 
   // 7. Shell scripts have execute permissions
@@ -247,6 +371,15 @@ function runDoctor(targetPath, deps = {}) {
     } catch {
       // scriptsDir not readable
     }
+  }
+
+  // 7b. Placeholder timestamps in status files (#272) — warning only
+  const placeholders = countPlaceholderTimestampsInStatusFiles(targetPath);
+  if (placeholders > 0) {
+    console.log(
+      `  ${c.yellow}[WARN]${c.reset} ${placeholders} placeholder timestamp(s) (T00:00:00Z) in .bmad/sprint-status.yaml / workflow-status.yaml — use the real current time`
+    );
+    warned++;
   }
 
   // 8. i18n base dirs

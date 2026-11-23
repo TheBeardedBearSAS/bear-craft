@@ -101,7 +101,7 @@ Status: ✅ SECURE | ⚠️ RISKS FOUND | ❌ EXPOSED
 Findings:
 [⚫ CRITICAL] API key in source code
     File: src/services/analytics.ts:5
-    Code: const API_KEY = 'sk_live_xxx'
+    Code: const API_KEY = 'sk_live_<REDACTED>'
     Fix: Move to environment variable (non-VITE_)
 
 [🟡 MEDIUM] Sensitive user data in Pinia store

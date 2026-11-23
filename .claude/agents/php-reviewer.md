@@ -388,7 +388,7 @@ $hash = password_hash($password, PASSWORD_ARGON2ID);
 
 ```php
 // MAUVAIS : secret dans le code
-const API_KEY = 'sk_live_abc123';
+const API_KEY = 'sk_live_<REDACTED>';
 
 // BON : variable d'environnement
 $apiKey = $_ENV['API_KEY'];

@@ -99,6 +99,21 @@ describe('Repository.diagnostics — sprint-status', () => {
     expect(repo.diagnostics().sprint_status).toEqual({ state: 'ok', issues: [] });
   });
 
+  it('stays ok but warns when history entries carry placeholder timestamps', async () => {
+    await putStatus(
+      'version: "1.0"\nmetadata: {sprint_id: S1, name: S1, start_date: "2026-01-01", end_date: "2026-01-10"}\n' +
+        'stories:\n  US-001:\n    title: T\n    status: backlog\n    history:\n' +
+        '      - {timestamp: "2026-01-01T00:00:00Z", to: backlog}\n' +
+        '      - {timestamp: "2026-01-02T10:30:00Z", from: backlog, to: ready-for-dev}\n'
+    );
+    const repo = new Repository(pm);
+    await repo.refresh();
+    const { sprint_status } = repo.diagnostics();
+    expect(sprint_status.state).toBe('ok');
+    expect(sprint_status.issues).toHaveLength(1);
+    expect(sprint_status.issues[0]).toMatch(/1 .*placeholder/i);
+  });
+
   it('invalid on a YAML syntax error, with the message, without crashing', async () => {
     await putStatus('metadata: [unclosed\n  stories: : :\n');
     const repo = new Repository(pm);

@@ -1,13 +1,13 @@
 # Hooks-Schnellstart
 
-Claude-Code-Hooks für automatisierte Qualitätskontrolle und Sicherheit, die claude-craft in Ihrem Projekt installiert.
+Claude-Code-Hooks für automatisierte Qualitätskontrolle und Sicherheit, die bear-craft in Ihrem Projekt installiert.
 
 ## Installation
 
 1. **Mit dem Installer installieren** (kopiert die Skripte nach `.claude/hooks/` und führt die Hooks in `.claude/settings.json` zusammen, ohne Ihre eigenen zu überschreiben):
    ```bash
    bash Dev/scripts/install-common-rules.sh --hooks=default /pfad/zum/projekt
-   # oder über die CLI: npx @the-bearded-bear/claude-craft install . --hooks=default
+   # oder über die CLI: npx @the-bearded-bear/bear-craft install . --hooks=default
    ```
    - `--hooks=default` (Standard): Sicherheitswächter, Secrets-Prüfung, Hinweise bei großen Ausgaben, Wiedereinspeisung des Kontexts nach der Compaction.
    - `--hooks=full`: `default` plus Stop-Testschranke, Lint nach Änderungen, Slack-Benachrichtigung, Sitzungsmetriken und Wiederherstellungshinweise nach Tool-Fehlern.
@@ -15,7 +15,7 @@ Claude-Code-Hooks für automatisierte Qualitätskontrolle und Sicherheit, die cl
 
 2. **Anpassen**: Bearbeiten Sie die Skripte in `.claude/hooks/` passend zu Ihren Werkzeugen. Ein erneuter Installer-Lauf entfernt oder überschreibt Ihre eigenen Hooks nie.
 
-3. **Manuell zusammenführen**, falls gewünscht: Die Fragmente heißen `hooks.default.json`, `hooks.full.json` und `hooks.memory.json` (`node <claude-craft>/Dev/scripts/lib/merge-hooks.mjs add --settings .claude/settings.json --fragment <Fragment>`). Anpassbare Beispiele werden nach `.claude/templates/hooks/` kopiert.
+3. **Manuell zusammenführen**, falls gewünscht: Die Fragmente heißen `hooks.default.json`, `hooks.full.json` und `hooks.memory.json` (`node <bear-craft>/Dev/scripts/lib/merge-hooks.mjs add --settings .claude/settings.json --fragment <Fragment>`). Anpassbare Beispiele werden nach `.claude/templates/hooks/` kopiert.
 
 ## Verfügbare Hooks
 
@@ -40,6 +40,7 @@ Claude-Code-Hooks für automatisierte Qualitätskontrolle und Sicherheit, die cl
 - Die Nutzdaten kommen als **JSON über stdin**; nur der **Exit-Code 2** blockiert (jeder andere Wert ungleich null ist ein nicht blockierender Fehler).
 - Nur `hookSpecificOutput.additionalContext` erreicht das Modell; der Klartext-stdout von PreCompact wird als Compaction-Anweisung gelesen.
 - Die Skripte brauchen `jq` oder `node`, um die Nutzdaten zu lesen: Die Sicherheitswächter blockieren, wenn keines verfügbar ist, die informativen Hooks tun nichts.
+- Die drei Sicherheitswächter (`guard-network`, `block-dangerous-commands`, `protect-sensitive-files`) setzen `"onFailure": "block"` (Claude Code 2.1.295+): Fehlt das Skript, stürzt es ab oder überschreitet es sein Timeout, wird der Tool-Aufruf blockiert statt ausgeführt. Blockiert ein Wächter nach einer defekten Installation jeden Aufruf, die Installation erneut ausführen oder die Hooks mit `--hooks=none` entfernen. Eine erneute Installation ergänzt `onFailure` bei Wächtern aus einer älteren Version und ersetzt nie einen selbst gesetzten Wert.
 
 ## Weitere Informationen
 
