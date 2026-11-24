@@ -245,7 +245,7 @@ Punkte |
 `/bear-gate:check sprint` und `/bear-workflow:implement` lesen den Sprint aus `.bmad/sprint-status.yaml`. Schreibe die Datei jetzt aus dem obigen `sprint-goal.md` und den ausgewählten US-Dateien (`project-management/backlog/user-stories/US-*.md`):
 
 1. `.bmad/` anlegen, falls nicht vorhanden.
-2. `metadata`: `sprint_id` (`sprint-{N}`), `name`, `start_date`, `end_date`, `goal`, `capacity_points`, aus `sprint-goal.md` übernommen.
+2. `metadata`: `sprint_id` (der Ordnername des Sprints `sprint-{N}-{slug}`, identisch mit der `sprint_id` der Stories, nie das kurze `sprint-{N}`), `name`, `start_date`, `end_date`, `goal`, `capacity_points`, aus `sprint-goal.md` übernommen.
 3. `stories`: ein Eintrag pro ausgewählter US: `title`, `status: ready-for-dev`, `story_points`, `epic_id`, `priority` (MoSCoW), `dependencies`, `tasks`, `history: []`.
 4. Datei für **dieselbe** `sprint_id` bereits vorhanden: bestehende Status beibehalten (eine Story nie zurücksetzen) und nur neue US ergänzen.
 5. Datei für einen **anderen** Sprint vorhanden: zuerst nur die **abgeschlossenen (`done`) Stories dieses vorherigen Sprints** nach `archived_sprints.<alte sprint_id>` (`status`, `points`) verschieben — nie die von `/bear-workflow:plan` erfassten Backlog-Stories —, dann den neuen Sprint schreiben. Nicht abgeschlossene Stories bleiben in `stories` (mit aktualisierter `sprint_id`, falls dieser Schlüssel verwendet wird).
@@ -254,7 +254,7 @@ Punkte |
 # .bmad/sprint-status.yaml
 version: "1.0"
 metadata:
-  sprint_id: "sprint-2"
+  sprint_id: "sprint-2-user-management"
   name: "Benutzerverwaltung"
   start_date: "2026-11-02"
   end_date: "2026-11-13"
@@ -271,7 +271,7 @@ stories:
     tasks: { total: 0, completed: 0, list: [] }
     history: []
 archived_sprints:
-  sprint-1:
+  sprint-1-walking-skeleton:
     stories:
       US-001: { status: "done", points: 5 }
 ```

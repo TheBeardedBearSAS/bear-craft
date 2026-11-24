@@ -3,7 +3,8 @@ import { readFile } from 'node:fs/promises';
 import { scan, groupByCategory } from './file-scanner.js';
 import { loadYaml, parseAndValidate } from './frontmatter.js';
 import { storyIdFromFilename } from '../../shared/ids.js';
-import { deriveStoryData, deriveEpicData } from './markdown-metadata.js';
+import { sameSprint } from './sprint-ops.js';
+import { deriveStoryData, deriveEpicData, deriveTaskData } from './markdown-metadata.js';
 import { revOf } from './status-store.js';
 import { readStatusText } from './sprint-cache.js';
 import {
@@ -105,7 +106,7 @@ export class Repository {
     }
 
     for (const f of groups.task ?? []) {
-      const res = await parseSafe(f.path, TaskFrontmatterSchema);
+      const res = await parseSafe(f.path, TaskFrontmatterSchema, deriveTaskData);
       this.#recordErrors(next, f, res);
       const entry = { path: f.path, mtime: f.mtime, sprintId: f.sprintId, ...res };
       if (res.ok) next.tasks.set(res.data.id, entry);
@@ -148,7 +149,7 @@ export class Repository {
     for (const [, entry] of this.stories) {
       if (!entry.ok) continue;
       const d = entry.data;
-      if (sprintId && d.sprint_id !== sprintId) continue;
+      if (sprintId && !sameSprint(d.sprint_id, sprintId)) continue;
       if (status && d.status !== status) continue;
       if (epicId && d.epic_id !== epicId) continue;
       out.push(view(entry));

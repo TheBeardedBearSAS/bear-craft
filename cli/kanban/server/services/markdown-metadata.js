@@ -37,6 +37,20 @@ const LABELS = {
   'depend de': 'dependencies',
   'depende de': 'dependencies',
   'hangt ab von': 'dependencies',
+  // Task template (Project/i18n/<lang>/templates/task.md)
+  us: 'us_id',
+  type: 'type',
+  tipo: 'type',
+  typ: 'type',
+  estimation: 'estimation',
+  estimacion: 'estimation',
+  schatzung: 'estimation',
+  estimativa: 'estimation',
+  'time spent': 'actual',
+  'temps passe': 'actual',
+  'tiempo gastado': 'actual',
+  'aufgewendete zeit': 'actual',
+  'tempo gasto': 'actual',
 };
 
 // Status values stay English across the 5 template languages ("🔴 To Do").
@@ -49,6 +63,15 @@ const STORY_STATUS = {
   'in progress': 'in-progress',
   review: 'review',
   'in review': 'review',
+  done: 'done',
+  completed: 'done',
+  blocked: 'blocked',
+};
+
+const TASK_STATUS = {
+  'to do': 'to-do',
+  todo: 'to-do',
+  'in progress': 'in-progress',
   done: 'done',
   completed: 'done',
   blocked: 'blocked',
@@ -152,6 +175,34 @@ export function deriveStoryData(body) {
     story_points: raw.story_points === undefined ? undefined : points(raw.story_points),
     priority: raw.priority === undefined ? undefined : mapBmadPriority(raw.priority),
     dependencies: parseDependencyRefs((raw.dependencies ?? '').split(',')),
+  });
+}
+
+/** "[OPS]" -> "OPS"; "{TYPE}" placeholders are already dropped. */
+const bareType = (value) => value?.replace(/^[[\s`]+|[\]\s`]+$/g, '').toUpperCase();
+
+/** "2.5h" -> 2.5 */
+const hours = (value) => {
+  const n = Number.parseFloat(value ?? '');
+  return Number.isNaN(n) ? undefined : n;
+};
+
+/**
+ * @param {string} body - markdown file content (no frontmatter)
+ * @returns {object} candidate TaskFrontmatterSchema data ({} when nothing found)
+ */
+export function deriveTaskData(body) {
+  const raw = parseMetadataList(body);
+  if (Object.keys(raw).length === 0) return {};
+  // The template's status line ("tracked in .bmad/sprint-status.yaml") is not a status: schema default applies.
+  const status = raw.status === undefined ? undefined : TASK_STATUS[statusKey(raw.status)];
+  return dropUndefined({
+    id: raw.id,
+    us_id: raw.us_id,
+    type: bareType(raw.type),
+    status,
+    estimation_hours: hours(raw.estimation),
+    actual_hours: hours(raw.actual),
   });
 }
 
