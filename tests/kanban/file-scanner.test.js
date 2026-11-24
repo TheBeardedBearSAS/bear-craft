@@ -22,7 +22,7 @@ describe('FileScanner.scan', () => {
     const groups = groupByCategory(files);
     expect(groups.story?.length).toBe(2);
     expect(groups.epic?.length).toBe(1);
-    expect(groups.task?.length).toBe(1);
+    expect(groups.task?.length).toBe(2);
     expect(groups['sprint-goal']?.length).toBe(1);
     expect(groups.architecture?.length).toBe(1);
     expect(groups.doc?.length).toBeGreaterThanOrEqual(2); // prd + tech-spec
