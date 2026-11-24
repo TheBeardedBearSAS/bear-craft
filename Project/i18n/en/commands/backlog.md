@@ -522,7 +522,7 @@ Process:
    2. Update `stories.<US>.status`
    3. Set the timestamps
    4. Update `stories.<US>.tdd_phase` if applicable
-   5. Append an entry to `stories.<US>.history` (`timestamp`, `from`, `to`, `by`, `reason`)
+   5. Append an entry to `stories.<US>.history` (`timestamp`, `from`, `to`, `by`, `reason`) (`timestamp` taken with `date -u +%Y-%m-%dT%H:%M:%SZ`, never estimated)
 5. **Apply the side effects**: `→ in-progress`: `tdd_phase: red`, `current_task` = first task | `→ review`: `tdd_phase: refactor`, clear `current_task` | `→ done`: clear `tdd_phase`, record the completion time | `→ blocked`: store `blocked_reason` and `previous_status`
 6. **Apply the routing rules**: after every transition, evaluate `routing.auto_transitions` (see `move story --auto` below) so that the dependent transitions are chained
 

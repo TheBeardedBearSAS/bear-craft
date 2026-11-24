@@ -522,7 +522,7 @@ Ablauf:
    2. `stories.<US>.status` aktualisieren
    3. Zeitstempel setzen
    4. `stories.<US>.tdd_phase` aktualisieren, falls zutreffend
-   5. Einen Eintrag an `stories.<US>.history` anhängen (`timestamp`, `from`, `to`, `by`, `reason`)
+   5. Einen Eintrag an `stories.<US>.history` anhängen (`timestamp`, `from`, `to`, `by`, `reason`) (`timestamp` erfasst mit `date -u +%Y-%m-%dT%H:%M:%SZ`, nie geschätzt)
 5. **Nebeneffekte anwenden**: `→ in-progress`: `tdd_phase: red`, `current_task` = erster Task | `→ review`: `tdd_phase: refactor`, `current_task` löschen | `→ done`: `tdd_phase` löschen, Abschlusszeit erfassen | `→ blocked`: `blocked_reason` und `previous_status` speichern
 6. **Routing-Regeln anwenden**: nach jedem Übergang `routing.auto_transitions` auswerten (siehe `move story --auto` unten), damit abhängige Übergänge verkettet werden
 

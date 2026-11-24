@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- **`implement` invented the actual time under `--auto`** (#291): step 3.6 never asks nor estimates in headless mode; `time_spent` is derived from `date -u` timestamps (`started_at`) or left empty with a "time not measured" report.
+- **`implement` / `backlog move` wrote estimated timestamps** (#292): every `history[].timestamp` and checkpoint timestamp is taken with `date -u +%Y-%m-%dT%H:%M:%SZ`.
+- **`implement` ended at review without PR/CI verification** (#293): when a CI workflow exists, story validation opens the PR, waits for `gh pr checks --watch`, and the `done` transition happens after the merge (otherwise "pending merge").
+- **`/bear-gate:check story` could never pass after `implement`** (#294): story validation now writes `acceptance_criteria.validated` and `review.approved` to `.bmad/sprint-status.yaml`.
+
 ## [10.1.1] - 2026-11-23
 
 ### Fixed
