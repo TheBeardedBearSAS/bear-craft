@@ -46,13 +46,34 @@ jobs:
           restore-keys: |
             stryker-incremental-${{ github.base_ref }}-
 
+      # Seed the incremental cache from the default branch: a pull request cache is only readable by that
+      # pull request, so without a cache saved here every first PR run is a full run (70-90 min, timeouts).
+      - name: Restore incremental cache (weekly / dispatch)
+        if: github.event_name != 'pull_request'
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # pinned: v5
+        with:
+          path: reports/mutation/stryker-incremental.json
+          key: stryker-incremental-main-unused
+          restore-keys: |
+            stryker-incremental-main-
+
       - name: Run Stryker (weekly full)
         if: github.event_name != 'pull_request'
+        env:
+          NODE_OPTIONS: --max-old-space-size=4096
         # Weekly: tolerant — informational signal only. The full report goes to the Stryker dashboard
         # (README mutation badge); Stryker derives the project and the version (branch) from GitHub Actions.
-        run: ./node_modules/.bin/stryker run --reporters progress,clear-text,html,json,dashboard || true
+        run: ./node_modules/.bin/stryker run --incremental --reporters progress,clear-text,html,json,dashboard || true
         env:
           STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
+          NODE_OPTIONS: --max-old-space-size=4096
+
+      - name: Save incremental cache (weekly / dispatch)
+        if: github.event_name != 'pull_request' && always()
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # pinned: v5
+        with:
+          path: reports/mutation/stryker-incremental.json
+          key: stryker-incremental-main-${{ github.sha }}
 
       - name: Run Stryker (PR incremental — mutate only changed files)
         if: github.event_name == 'pull_request'
@@ -60,6 +81,8 @@ jobs:
         # configured in stryker.config.mjs. CI fails if the score falls
         # below the `break` threshold.
         run: ./node_modules/.bin/stryker run --incremental
+        env:
+          NODE_OPTIONS: --max-old-space-size=4096
 
       - name: Upload mutation report
         if: always()
