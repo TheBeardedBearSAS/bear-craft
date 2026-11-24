@@ -7,6 +7,7 @@
   import { tweaks, initTweaks } from './lib/tweaks.svelte.js';
   import { t, tn, initI18n } from './lib/i18n/index.svelte.js';
   import { computeSprintProgress } from './lib/progress.js';
+  import { currentSprintState } from './lib/sprints.js';
   import {
     isLiveSearchView,
     isSearchShortcut,
@@ -136,6 +137,7 @@
 
   // ---- progression du sprint actif ------------------------------------------
   let progress = $derived(computeSprintProgress(store.stories, store.sprint?.sprint_id));
+  let footerState = $derived(currentSprintState(store.sprint));
   // Compteur du Board : stories du sprint actif, sinon toutes.
   let boardCount = $derived(
     store.sprint?.sprint_id
@@ -178,7 +180,7 @@
       <div class="proj-card">
         <div class="row">
           <div class="pname">{sprintName ?? t('app.sprint.fallback')}</div>
-          {#if store.sprint}<span class="si-state active">{t('app.sprint.active')}</span>{/if}
+          {#if footerState}<span class="si-state {footerState}">{t(`sprint.state.${footerState}`)}</span>{/if}
         </div>
         <div class="pmeta">{t('app.sprint.points', { done: progress.donePoints, total: progress.totalPoints })}</div>
         <div

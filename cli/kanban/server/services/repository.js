@@ -13,6 +13,7 @@ import {
   TaskFrontmatterSchema,
   SprintStatusSchema,
 } from '../../shared/schemas.js';
+import { legacyShapeWarnings } from '../../shared/sprint-status-shapes.js';
 import { mapBmadPriority } from '../../shared/priority.js';
 import { parseDependencyRefs } from '../../shared/deps.js';
 import { countPlaceholderTimestamps } from '../../shared/timestamps.js';
@@ -290,7 +291,11 @@ async function readSprintStatus(projectRoot) {
     const parsed = text.trim() === '' ? null : loadYaml(text);
     const result = SprintStatusSchema.safeParse(parsed);
     if (result.success) {
-      return { ss: result.data, raw: parsed.stories ?? {}, diag: { state: 'ok', issues: placeholderWarnings(parsed) } };
+      return {
+        ss: result.data,
+        raw: parsed.stories ?? {},
+        diag: { state: 'ok', issues: [...placeholderWarnings(parsed), ...legacyShapeWarnings(parsed)] },
+      };
     }
     const issues = result.error.issues.map(formatIssue);
     return { ss: { ...parsed, _invalid: true }, raw: {}, diag: { state: 'invalid', issues } };

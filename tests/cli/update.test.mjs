@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { existsSync, mkdtempSync, mkdirSync, readdirSync, readFileSync, writeFileSync, rmSync } from 'fs';
+import { cpSync, existsSync, mkdtempSync, mkdirSync, readdirSync, readFileSync, writeFileSync, rmSync } from 'fs';
 import { join } from 'path';
 import { tmpdir } from 'os';
 
@@ -126,6 +126,21 @@ describe('runUpdate', () => {
     expect(output).toContain('Symfony');
     expect(output).toContain('React');
     expect(output).toContain('Update complete');
+  });
+
+  // #307: data written by 10.1.1 is not migrated silently: update names it and gives the fix.
+  it('warns about the 10.1.1 sprint-status shapes after a successful update', () => {
+    mkdirSync(join(tempDir, '.claude'));
+    cpSync(join(import.meta.dirname, '..', 'fixtures', 'sprint-status-10.1.1'), tempDir, { recursive: true });
+    mkdirSync(join(cliRoot, 'Dev', 'scripts'), { recursive: true });
+    writeFileSync(join(cliRoot, 'Dev', 'scripts', 'install-common-rules.sh'), '#!/bin/bash');
+
+    runUpdate(tempDir, {}, cliRoot);
+
+    const output = consoleSpy.mock.calls.map((c) => c[0]).join('\n');
+    expect(output).toContain('Update complete');
+    expect(output).toMatch(/\[WARN\].*metadata\.sprint_id.*"sprint-1-walking_skeleton"/);
+    expect(output).toMatch(/\[WARN\].*cross_cutting_tasks/);
   });
 
   it('shows no tech warning when no references detected and common rules updated', () => {

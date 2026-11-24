@@ -5,6 +5,7 @@ import {
   sprintState,
   sprintTotals,
   groupTasksByStory,
+  currentSprintState,
 } from '../../cli/kanban/client/src/lib/sprints.js';
 
 const mkFile = (category, name) => ({
@@ -147,5 +148,20 @@ describe('groupTasksByStory', () => {
     ]);
     expect(g['US-1'].map((t) => t.id)).toEqual(['T1', 'T3']);
     expect(g['US-2']).toHaveLength(1);
+  });
+});
+
+// #307: the sidebar footer badge followed "a sprint is loaded", not its state.
+describe('currentSprintState', () => {
+  it('is null without a current sprint', () => {
+    expect(currentSprintState(null)).toBeNull();
+  });
+  it('uses the state the API sends', () => {
+    expect(currentSprintState({ sprint_id: 'sprint-1', state: 'closed' })).toBe('closed');
+    expect(currentSprintState({ sprint_id: 'sprint-1', state: 'active' })).toBe('active');
+  });
+  it('falls back on closed_date when the state is missing', () => {
+    expect(currentSprintState({ sprint_id: 'sprint-1', closed_date: '2026-12-04' })).toBe('closed');
+    expect(currentSprintState({ sprint_id: 'sprint-1' })).toBe('active');
   });
 });
