@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [10.1.2] - 2026-11-24
+
 ### Fixed
 
 - **`implement` invented the actual time under `--auto`** (#291): step 3.6 never asks nor estimates in headless mode; `time_spent` is derived from `date -u` timestamps (`started_at`) or left empty with a "time not measured" report.

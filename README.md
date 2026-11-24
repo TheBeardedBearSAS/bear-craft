@@ -32,6 +32,10 @@ Plus **11 stack-specific reviewers** (@symfony-reviewer, @react-reviewer, @pytho
 
 A comprehensive framework for AI-assisted development with [Claude Code](https://claude.ai/code). Install standardized rules, agents, and commands for your projects across multiple technology stacks — **33 specialized agents (+39 infra agents on-demand), 82 commands across 18 namespaces, 55 skills**, all token-optimized via `context: fork` and sub-agent model routing.
 
+## What's New in v10.1.2
+
+**Correctifs workflow et Kanban (2026-11-24, v10.1.2) :** `implement` n'invente plus le temps ni les horodatages, vérifie la PR et la CI avant `done` ; `/bear-gate:check story` peut passer après `implement` ; la règle `deny` par défaut n'empêche plus de lire `.env.dist` / `.env.example` ; les tâches transverses ont leur place dans `sprint-status.yaml` ; le Kanban lit les fichiers de tâches et les sprints clos. Détails : [CHANGELOG](CHANGELOG.md#1012---2026-11-24).
+
 ## What's New in v10.1.1
 
 **Correctifs `bear-craft update` (2026-11-23, v10.1.1) :** `update` conserve votre `.claude/CLAUDE.md` (et génère l'en-tête du framework, pas du PHP générique) et migre la règle `Read(**/*credentials*)` des projets déjà installés. Détails : [CHANGELOG](CHANGELOG.md#1011---2026-11-23).

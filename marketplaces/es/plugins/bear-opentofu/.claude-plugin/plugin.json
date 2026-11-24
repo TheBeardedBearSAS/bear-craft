@@ -2,7 +2,7 @@
   "name": "bear-opentofu",
   "displayName": "Bear Craft — OpenTofu",
   "description": "OpenTofu: infrastructure-as-code architecture, deployment setup, security audit and debugging.",
-  "version": "10.1.1",
+  "version": "10.1.2",
   "author": {
     "name": "The Bearded Bear",
     "url": "https://the-bearded-bear.com"
