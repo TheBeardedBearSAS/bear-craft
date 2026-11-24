@@ -55,6 +55,18 @@ export function sprintState(sprint, activeId) {
   return 'planned';
 }
 
+/**
+ * State of the current sprint (GET /api/sprints/current) for the sidebar badge (#307): the API state,
+ * else closed when metadata.closed_date is set. null without a sprint.
+ * @param {{ state?:string, closed_date?:string }|null|undefined} sprint
+ * @returns {'planned'|'active'|'closed'|null}
+ */
+export function currentSprintState(sprint) {
+  if (!sprint) return null;
+  if (STATES.includes(sprint.state)) return sprint.state;
+  return sprint.closed_date ? 'closed' : 'active';
+}
+
 /** Points, done points, story count and percent of a sprint's stories. */
 export function sprintTotals(stories) {
   const list = stories ?? [];

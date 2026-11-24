@@ -15,6 +15,7 @@ import { LEGACY_CREDENTIALS_DENY, LEGACY_ENV_DENY, fixLegacyCredentialsDeny } fr
 import { diagnosePlugins, readInstallJson } from './plugin-install.js';
 import * as yaml from 'js-yaml';
 import { countPlaceholderTimestamps } from '../kanban/shared/timestamps.js';
+import { sprintStatusShapeWarnings } from './sprint-status-check.js';
 
 /**
  * OS-specific yq installation hints. Returned as a list of one-liner instructions
@@ -335,6 +336,12 @@ function runDoctor(targetPath, deps = {}) {
     console.log(
       `  ${c.yellow}[WARN]${c.reset} ${placeholders} placeholder timestamp(s) (T00:00:00Z) in .bmad/sprint-status.yaml / workflow-status.yaml — use the real current time`
     );
+    warned++;
+  }
+
+  // 7c. Sprint-status shapes written by 10.1.1 (#307) — warning only, with the fix
+  for (const warning of sprintStatusShapeWarnings(targetPath)) {
+    console.log(`  ${c.yellow}[WARN]${c.reset} ${warning}`);
     warned++;
   }
 

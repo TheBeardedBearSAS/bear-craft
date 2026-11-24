@@ -170,12 +170,29 @@ describe('SprintStatusSchema cross_cutting_tasks (#296)', () => {
     });
   });
 
-  it('rejects an unknown task status', () => {
+  // #307: an optional root key never invalidates the whole file; the malformed block is dropped.
+  it('drops a malformed block instead of rejecting the file', () => {
     const res = SprintStatusSchema.safeParse({
       ...base,
       cross_cutting_tasks: { 'TASK-051': { title: 'x', status: 'finished' } },
     });
-    expect(res.success).toBe(false);
+    expect(res.success).toBe(true);
+    expect(res.data.cross_cutting_tasks).toBeUndefined();
+  });
+
+  it('drops the story-shaped block written by 10.1.1', () => {
+    const res = SprintStatusSchema.safeParse({
+      ...base,
+      cross_cutting_tasks: {
+        sprint_id: 'sprint-1',
+        total: 1,
+        completed: 0,
+        list: ['TASK-1'],
+        status: { 'TASK-1': 'to-do' },
+      },
+    });
+    expect(res.success).toBe(true);
+    expect(res.data.cross_cutting_tasks).toBeUndefined();
   });
 
   it('is optional', () => {

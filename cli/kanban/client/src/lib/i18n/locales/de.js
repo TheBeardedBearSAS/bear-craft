@@ -15,7 +15,6 @@ export default {
   'app.loading': 'Wird geladen…',
   'app.serverUnreachable': 'Server nicht erreichbar.',
   'app.sprint.fallback': 'Sprint',
-  'app.sprint.active': 'aktiv',
   'app.sprint.points': '{done}/{total} Pkt.',
   'app.sprint.progress': 'Sprint-Fortschritt: {done} von {total} Punkten erledigt',
   'app.sprint.pill': 'Sprint',

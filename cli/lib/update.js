@@ -20,6 +20,7 @@ import {
   readInstallJson,
 } from './plugin-install.js';
 import { migrateLegacyInstall } from './migrate-legacy.js';
+import { sprintStatusShapeWarnings } from './sprint-status-check.js';
 
 /**
  * Generate a backup of `.claude/` next to the original, returning the backup path.
@@ -241,6 +242,12 @@ function runUpdate(targetPath, options, cliRoot, deps = {}) {
         `  ${c.yellow}[WARN]${c.reset} settings.json not migrated — run bear-craft doctor --fix after fixing it`
       );
     }
+  }
+
+  // 5. Project data is the user's: name the 10.1.1 sprint-status shapes and their fix, never rewrite them (#307).
+  if (!anyFailed) {
+    for (const warning of sprintStatusShapeWarnings(safeTarget))
+      console.log(`  ${c.yellow}[WARN]${c.reset} ${warning}`);
   }
 
   // Rollback on partial failure (CC-REL-14).

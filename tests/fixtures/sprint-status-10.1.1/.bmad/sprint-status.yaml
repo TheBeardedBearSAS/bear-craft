@@ -1,0 +1,30 @@
+# Sprint status as written by Bear Craft 10.1.1 (#307): short metadata.sprint_id
+# (the folder is sprint-1-walking_skeleton) and a cross_cutting_tasks block shaped like a story.
+version: "1.0"
+metadata:
+  sprint_id: "sprint-1"
+  name: "Walking skeleton"
+  start_date: "2026-11-23"
+  end_date: "2026-12-04"
+  closed_date: "2026-12-04"
+cross_cutting_tasks:
+  sprint_id: "sprint-1"
+  total: 2
+  completed: 1
+  list:
+    - "TASK-901"
+    - "TASK-902"
+  status:
+    TASK-901: "done"
+    TASK-902: "to-do"
+stories:
+  US-001:
+    title: "Walking skeleton API"
+    status: "done"
+    story_points: 5
+    sprint_id: "sprint-1-walking_skeleton"
+  US-002:
+    title: "Walking skeleton UI"
+    status: "done"
+    story_points: 3
+    sprint_id: "sprint-1-walking_skeleton"
