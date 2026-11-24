@@ -66,6 +66,6 @@ export function sprintTotals(stories) {
 /** { 'US-1': [task, …] } from a flat task list. */
 export function groupTasksByStory(tasks) {
   const map = {};
-  for (const task of tasks ?? []) (map[task.us_id] ??= []).push(task);
+  for (const task of tasks ?? []) if (task.us_id) (map[task.us_id] ??= []).push(task);
   return map;
 }

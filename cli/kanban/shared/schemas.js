@@ -77,7 +77,8 @@ export const EpicFrontmatterSchema = z
 export const TaskFrontmatterSchema = z
   .object({
     id: taskId,
-    us_id: storyId,
+    // Absent for cross-cutting tasks (no US), see cross_cutting_tasks (#306).
+    us_id: storyId.optional(),
     type: z.enum(TASK_TYPES),
     status: z.enum(TASK_STATUSES).default('to-do'),
     estimation_hours: z.number().min(0).default(0),

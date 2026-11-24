@@ -39,6 +39,15 @@ describe('deriveTaskData (task template contract)', () => {
     expect(TaskFrontmatterSchema.parse(d)).toMatchObject({ type: 'BE', status: 'in-progress' });
   });
 
+  it('accepts a cross-cutting task with no US (issue #306)', () => {
+    const d = deriveTaskData(
+      '# TASK-051: Update CI\n\n## Metadata\n- **ID**: TASK-051\n- **US**: —\n- **Type**: [OPS]\n- **Estimation**: 1h\n'
+    );
+    const res = TaskFrontmatterSchema.safeParse(d);
+    expect(res.error?.issues).toBeUndefined();
+    expect(res.data.us_id).toBeUndefined();
+  });
+
   it('returns {} when nothing is found', () => {
     expect(deriveTaskData('just prose')).toEqual({});
   });
