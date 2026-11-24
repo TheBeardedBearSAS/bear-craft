@@ -9,6 +9,7 @@
 # PROCÉDURE DE BUMP : modifier ICI, puis propager dans les fichiers listés, puis
 # `npm run lint:versions` pour garantir l'absence de dérive.
 #
+# 2026-11-24 (release 10.1.2) : correctifs du dogfooding workflow (issues #291-#299, PRs #300-#304) : implement, gate story, règle deny .env.*, tâches transverses, Kanban. Aucun changement de modèles ni de versions Claude Code.
 # 2026-11-23 (release 10.1.1) : correctifs `bear-craft update` (issues #283 et #284, PR #285) et mises à jour Dependabot (PRs #253-#256). Aucun changement de modèles.
 # 2026-11-23 (release 10.1.0) : correctifs du dogfooding 10.0.0 (issues #265-#275, PRs #276-#278), `doctor --fix`, avertissement de timestamps placeholder, linter statique des commandes headless (PRs #279-#281). Aucun changement de versions de dépendances ni de modèles.
 # 2026-11-17 (release 10.0.0) : claude-craft devient bear-craft (paquet @the-bearded-bear/bear-craft), installation par plugins (5 langues), commandes /bear-<ns>:*, 66 commandes dépréciées retirées.

@@ -2,7 +2,7 @@
   "name": "bear-hooks",
   "displayName": "Bear Craft — Hooks",
   "description": "Default safety hooks: network guard, dangerous-command blocker, sensitive-file protection, pre-commit check and output-size hint (guards fail closed).",
-  "version": "10.1.1",
+  "version": "10.1.2",
   "author": {
     "name": "The Bearded Bear",
     "url": "https://the-bearded-bear.com"

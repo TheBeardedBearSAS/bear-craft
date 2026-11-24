@@ -2,7 +2,7 @@
   "name": "bear-angular",
   "displayName": "Bear Craft — Angular",
   "description": "Angular 22: Frontend TS with Signals, Zoneless, httpResource, Signal Forms. Audit and generation commands, reviewer agent and stack skills.",
-  "version": "10.1.1",
+  "version": "10.1.2",
   "author": {
     "name": "The Bearded Bear",
     "url": "https://the-bearded-bear.com"
