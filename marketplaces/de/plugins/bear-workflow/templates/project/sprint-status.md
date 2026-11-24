@@ -44,6 +44,14 @@ stories:
         to: "in-progress"
         by: "dev"
         reason: "Implementierung gestartet"
+cross_cutting_tasks:
+  TASK-051:
+    title: "Versionsprüfung"
+    status: "done"
+  TASK-052:
+    title: "Changelog"
+    status: "to-do"
+    epic_id: "EPIC-002"
 archived_sprints:
   sprint-1:
     stories:
@@ -69,3 +77,4 @@ routing:
 - Optionales `metadata.closed_date` (`JJJJ-MM-TT`): wird beim Abschluss eines Sprints gesetzt; ein Sprint mit `closed_date` ist nicht mehr der aktive Sprint.
 - Beim Abschluss eines Sprints werden seine `done`-Stories aus `stories` entfernt und unter `archived_sprints.<sprint_id>` mit `name`, `epic` (falls vorhanden), `closed_date`, `points_committed`, `points_delivered` und `stories` (`<id>: { status: "done", points }`) festgehalten. Nicht abgeschlossene Stories bleiben in `stories`, mit `sprint_id` auf `null` (Backlog) oder auf den Ziel-Sprint gesetzt. Die ältere Form mit nur `stories` bleibt gültig.
 - WIP-Limits werden hier nicht gespeichert: Sie stehen in `.bmad/kanban.yaml`.
+- Optionaler Root-Schlüssel `cross_cutting_tasks` (`TASK-<id>: { title, status, epic_id? }`, Status `to-do | in-progress | done | blocked`): Sprint-Tasks, die zu keiner Story gehören (Versionsprüfung, Changelog…). Sie stehen unter keinem `stories.<id>.tasks`; `/bear-workflow:status` und das Kanban (`GET /api/sprints/current` → `cross_cutting_tasks`) zählen sie mit. Niemals einen anderen Root-Schlüssel erfinden.

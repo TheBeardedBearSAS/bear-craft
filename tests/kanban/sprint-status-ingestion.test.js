@@ -30,6 +30,16 @@ function req(method, url, { origin, body } = {}) {
   return app.request(url, { method, headers, body: body ? JSON.stringify(body) : undefined });
 }
 
+describe('cross_cutting_tasks (#296)', () => {
+  it('GET /api/sprints/current counts the sprint-level tasks', async () => {
+    const res = await req('GET', '/api/sprints/current');
+    expect(res.status).toBe(200);
+    const { cross_cutting_tasks: cct } = await res.json();
+    expect(cct).toMatchObject({ total: 2, completed: 1 });
+    expect(cct.tasks.map((t) => t.id)).toEqual(['TASK-051', 'TASK-052']);
+  });
+});
+
 describe('Repository — .bmad/sprint-status.yaml ingestion', () => {
   it('surfaces YAML-only stories so the board is not empty', () => {
     const stories = repo.listStories();

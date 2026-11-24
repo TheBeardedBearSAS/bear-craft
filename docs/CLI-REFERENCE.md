@@ -177,7 +177,7 @@ Run environment diagnostics and installation health checks.
 npx @the-bearded-bear/bear-craft doctor [target-directory] [--fix]
 ```
 
-`--fix` migrates the legacy `Read(**/*credentials*)` deny rule of `.claude/settings.json`: it writes a `settings.json.bak-<timestamp>` backup, removes only that rule and adds `Read(**/credentials.json)` and `Read(**/.credentials*)` when missing. Everything else is preserved; invalid JSON is never rewritten; the command is idempotent.
+`--fix` migrates the legacy `Read(**/*credentials*)` and `Read(**/.env.*)` deny rules of `.claude/settings.json` (the latter also blocked `.env.dist` / `.env.example`): it writes a `settings.json.bak-<timestamp>` backup, removes only those rules and adds the narrower replacements (`Read(**/.env.local)`, `Read(**/.env.prod*)`, … and `Read(**/credentials.json)`, `Read(**/.credentials*)`) when missing. Everything else is preserved; invalid JSON is never rewritten; the command is idempotent.
 
 ### Description
 

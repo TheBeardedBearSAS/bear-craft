@@ -13,6 +13,7 @@ import {
   sprintSlug,
   sprintState,
   startSprint,
+  summarizeCrossCuttingTasks,
   velocity,
 } from '../services/sprint-ops.js';
 import { SPRINT_ID_RE, SprintCloseSchema, SprintCreateSchema, SprintStartSchema } from '../../shared/schemas.js';
@@ -270,6 +271,7 @@ function registerReads(app, { repository, projectRoot, loadStatusSafe }) {
         tasks: s.tasks,
       })),
       burndown: computeBurndown(sprintStatus, stories),
+      cross_cutting_tasks: summarizeCrossCuttingTasks(sprintStatus),
     });
   });
 

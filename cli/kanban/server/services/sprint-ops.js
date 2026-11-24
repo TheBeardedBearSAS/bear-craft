@@ -22,6 +22,13 @@ const usable = (ss) => (ss && !ss._invalid ? ss : null);
 const activeId = (ss) => (ss?.metadata?.sprint_id && !ss.metadata.closed_date ? ss.metadata.sprint_id : null);
 const sum = (list, pick) => list.reduce((n, item) => n + (pick(item) ?? 0), 0);
 
+/** Sprint-level tasks (`cross_cutting_tasks`) that belong to no story: the list and its done count (#296). */
+export function summarizeCrossCuttingTasks(ss) {
+  const entries = Object.entries(usable(ss)?.cross_cutting_tasks ?? {});
+  const tasks = entries.map(([id, t]) => ({ id, ...t }));
+  return { total: tasks.length, completed: tasks.filter((t) => t.status === 'done').length, tasks };
+}
+
 /** @returns {'active'|'closed'|'planned'|null} null when the sprint is unknown everywhere */
 export function sprintState(id, ss, sprintDirIds) {
   const status = usable(ss);

@@ -9,6 +9,7 @@ import {
   sprintSlug,
   sprintState,
   startSprint,
+  summarizeCrossCuttingTasks,
   velocity,
 } from '../../cli/kanban/server/services/sprint-ops.js';
 
@@ -52,6 +53,32 @@ const caught = (fn) => {
   }
   throw new Error('did not throw');
 };
+
+describe('summarizeCrossCuttingTasks (#296)', () => {
+  it('counts sprint-level tasks and the done ones', () => {
+    const ss = {
+      cross_cutting_tasks: {
+        'TASK-051': { title: 'Re-check versions', status: 'done' },
+        'TASK-052': { title: 'Changelog', status: 'to-do', epic_id: 'EPIC-001' },
+      },
+    };
+    expect(summarizeCrossCuttingTasks(ss)).toEqual({
+      total: 2,
+      completed: 1,
+      tasks: [
+        { id: 'TASK-051', title: 'Re-check versions', status: 'done' },
+        { id: 'TASK-052', title: 'Changelog', status: 'to-do', epic_id: 'EPIC-001' },
+      ],
+    });
+  });
+
+  it('is empty without the key or with an invalid file', () => {
+    const empty = { total: 0, completed: 0, tasks: [] };
+    expect(summarizeCrossCuttingTasks({})).toEqual(empty);
+    expect(summarizeCrossCuttingTasks(null)).toEqual(empty);
+    expect(summarizeCrossCuttingTasks({ _invalid: true })).toEqual(empty);
+  });
+});
 
 describe('sprintState', () => {
   it('is active for the metadata sprint without closed_date', () => {

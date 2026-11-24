@@ -270,6 +270,19 @@ describe('runUpdate', () => {
       expect(output).toContain('[FIXED]');
     });
 
+    it('replaces the legacy Read(**/.env.*) rule with explicit env rules (#295)', () => {
+      mkdirSync(join(tempDir, '.claude'));
+      writeFileSync(settingsPath(), JSON.stringify({ permissions: { deny: ['Read(**/.env)', 'Read(**/.env.*)'] } }));
+      mkdirSync(join(cliRoot, 'Dev', 'scripts'), { recursive: true });
+
+      runUpdate(tempDir, {}, cliRoot);
+
+      const { deny } = JSON.parse(readFileSync(settingsPath(), 'utf8')).permissions;
+      expect(deny).not.toContain('Read(**/.env.*)');
+      expect(deny).toContain('Read(**/.env.local)');
+      expect(deny).toContain('Read(**/.env.prod*)');
+    });
+
     it('leaves settings.json untouched when there is no legacy rule', () => {
       mkdirSync(join(tempDir, '.claude'));
       const raw = JSON.stringify({ permissions: { deny: ['Read(**/.env)'] } });

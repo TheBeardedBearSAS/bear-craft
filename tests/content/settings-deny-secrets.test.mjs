@@ -13,6 +13,51 @@ const template = JSON.parse(
 );
 const deny = template.permissions.deny;
 
+// #295 : `Read(**/.env.*)` bloquait aussi .env.dist / .env.example (gabarits sans secret).
+const globToRegex = (glob) =>
+  new RegExp(
+    '^' +
+      glob
+        .replaceAll('.', String.raw`\.`)
+        .replaceAll('**/', '@@DS@@')
+        .replaceAll('*', '[^/]*')
+        .replaceAll('@@DS@@', '(?:.*/)?') +
+      '$'
+  );
+const readDenied = (file) =>
+  deny
+    .filter((d) => d.startsWith('Read(') && d.endsWith(')'))
+    .map((d) => d.slice(5, -1))
+    .some((g) => globToRegex(g).test(file));
+
+describe('settings.json.template — deny .env (#295)', () => {
+  it.each([
+    '.env',
+    '.env.local',
+    'app/.env.local',
+    '.env.prod',
+    '.env.production',
+    '.env.prod.local',
+    '.env.staging',
+    '.env.development',
+    '.env.test',
+    '.env.test.local',
+  ])('refuse %s', (f) => {
+    expect(readDenied(f)).toBe(true);
+  });
+
+  it.each(['.env.dist', '.env.example', '.env.sample', '.env.template', 'api/.env.dist'])(
+    'autorise le gabarit %s',
+    (f) => {
+      expect(readDenied(f)).toBe(false);
+    }
+  );
+
+  it('ne contient plus le glob générique .env.*', () => {
+    expect(deny).not.toContain('Read(**/.env.*)');
+  });
+});
+
 describe('settings.json.template — deny par défaut', () => {
   it('ne contient aucun glob générique *credentials*', () => {
     expect(deny.filter((d) => /\*credentials\*/.test(d))).toEqual([]);
@@ -30,7 +75,7 @@ describe('settings.json.template — deny par défaut', () => {
     expect(deny).toContain('Read(**/*.key)');
     expect(deny).toContain('Read(**/*.pem)');
     expect(deny).toContain('Read(**/.env)');
-    expect(deny).toContain('Read(**/.env.*)');
+    expect(deny).toContain('Read(**/.env.local)');
     expect(deny).toContain('Read(**/secrets/**)');
   });
 });
