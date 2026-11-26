@@ -4,7 +4,7 @@ Texte complet de la règle 24 (`.claude/rules/24-minimal-change.md`).
 
 ## Pourquoi
 
-Mesuré sur un benchmark Claude Code headless (RFC-002, 2026-11-26, Opus 5.5) : sans consigne, l'agent construit souvent plus que demandé, par exemple un calendrier fait main (335 lignes) là où l'`Input` du dépôt avec `type="date"` suffisait (10 lignes). L'échec le plus fréquent était l'inverse : un renommage appliqué au code mais pas aux fixtures ni aux tests. Cette règle vise les deux : moins de périmètre, mais un changement complet.
+Mesuré sur un benchmark Claude Code headless (RFC-002, 2026-11-26, Opus 5.5) : sans consigne, l'agent construit souvent plus que demandé, par exemple une bibliothèque de presse-papiers et un composant d'enrobage là où `navigator.clipboard.writeText()` suffisait. L'échec le plus fréquent était l'inverse : un renommage appliqué au code mais pas aux fixtures ni aux tests. Cette règle vise les deux : moins de périmètre, mais un changement complet.
 
 Elle n'assouplit pas les autres règles : SOLID (04), KISS/DRY/YAGNI (05), TDD et la couverture de 80 % (07) et la sécurité (11) l'emportent en cas de conflit.
 
@@ -12,9 +12,9 @@ Elle n'assouplit pas les autres règles : SOLID (04), KISS/DRY/YAGNI (05), TDD e
 
 | Étape | Question | Exemple |
 |---|---|---|
-| 1 | Est-ce demandé ? | « Ajouter un filtre par date » : pas d'export, pas de préréglages enregistrés. |
+| 1 | Est-ce demandé ? | « Ajouter un bouton copier » : pas de système de toasts, pas d'historique des copies. |
 | 2 | Déjà dans le code ? | Réutiliser l'`Input`, `formatMoney()`, `UserService` existants. |
-| 3 | Bibliothèque standard / plateforme ? | `<input type="date">`, `functools.lru_cache`, `Intl.NumberFormat`. |
+| 3 | Bibliothèque standard / plateforme ? | `navigator.clipboard`, `functools.lru_cache`, `Intl.NumberFormat`. |
 | 4 | Dépendance installée ? | Le projet a déjà `date-fns` : l'utiliser, ne pas ajouter `moment`. |
 | 5 | Code minimal | Écrit dans les couches et conventions du projet, avec son test. |
 

@@ -4,7 +4,7 @@ Volltext von Regel 24 (`.claude/rules/24-minimal-change.md`).
 
 ## Warum
 
-Gemessen mit einem headless Claude-Code-Benchmark (RFC-002, 2026-11-26, Opus 5.5): Ohne Vorgabe baut der Agent oft mehr als verlangt, zum Beispiel einen handgebauten Kalender (335 Zeilen), wo das `Input` des Repositorys mit `type="date"` gereicht hätte (10 Zeilen). Der häufigste Fehler war das Gegenteil: eine Umbenennung im Code, aber nicht in Fixtures und Tests. Diese Regel zielt auf beides: weniger Umfang, aber eine vollständige Änderung.
+Gemessen mit einem headless Claude-Code-Benchmark (RFC-002, 2026-11-26, Opus 5.5): Ohne Vorgabe baut der Agent oft mehr als verlangt, zum Beispiel eine Zwischenablage-Bibliothek samt Wrapper-Komponente, wo `navigator.clipboard.writeText()` gereicht hätte. Der häufigste Fehler war das Gegenteil: eine Umbenennung im Code, aber nicht in Fixtures und Tests. Diese Regel zielt auf beides: weniger Umfang, aber eine vollständige Änderung.
 
 Sie lockert die anderen Regeln nicht: SOLID (04), KISS/DRY/YAGNI (05), TDD und die 80-%-Abdeckung (07) sowie Sicherheit (11) haben bei Konflikten Vorrang.
 
@@ -12,9 +12,9 @@ Sie lockert die anderen Regeln nicht: SOLID (04), KISS/DRY/YAGNI (05), TDD und d
 
 | Schritt | Frage | Beispiel |
 |---|---|---|
-| 1 | Wurde es verlangt? | „Einen Datumsfilter hinzufügen“: kein Export, keine gespeicherten Voreinstellungen. |
+| 1 | Wurde es verlangt? | „Einen Kopieren-Button hinzufügen“: kein Toast-System, kein Kopierverlauf. |
 | 2 | Schon im Code vorhanden? | Das vorhandene `Input`, `formatMoney()`, `UserService` wiederverwenden. |
-| 3 | Standardbibliothek / Plattform? | `<input type="date">`, `functools.lru_cache`, `Intl.NumberFormat`. |
+| 3 | Standardbibliothek / Plattform? | `navigator.clipboard`, `functools.lru_cache`, `Intl.NumberFormat`. |
 | 4 | Installierte Abhängigkeit? | Das Projekt hat bereits `date-fns`: verwenden, nicht `moment` hinzufügen. |
 | 5 | Minimaler Code | In den Schichten und Konventionen des Projekts, mit Test. |
 

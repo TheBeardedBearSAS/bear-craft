@@ -4,7 +4,7 @@ Full text of rule 24 (`.claude/rules/24-minimal-change.md`).
 
 ## Why
 
-Measured on a headless Claude Code benchmark (RFC-002, 2026-11-26, Opus 5.5): without guidance the agent often builds more than asked, for example a hand-made calendar (335 lines) where the repository's `Input` with `type="date"` was enough (10 lines). The most frequent failure was the opposite one: a rename applied to the code but not to the fixtures and tests. This rule targets both: less scope, but a complete change.
+Measured on a headless Claude Code benchmark (RFC-002, 2026-11-26, Opus 5.5): without guidance the agent often builds more than asked, for example a clipboard library and a wrapper component where `navigator.clipboard.writeText()` was enough. The most frequent failure was the opposite one: a rename applied to the code but not to the fixtures and tests. This rule targets both: less scope, but a complete change.
 
 It does not relax the other rules: SOLID (04), KISS/DRY/YAGNI (05), TDD and the 80% coverage (07) and security (11) win in case of conflict.
 
@@ -12,9 +12,9 @@ It does not relax the other rules: SOLID (04), KISS/DRY/YAGNI (05), TDD and the 
 
 | Step | Question | Example |
 |---|---|---|
-| 1 | Was it asked for? | "Add a date filter": no export, no saved presets. |
+| 1 | Was it asked for? | "Add a copy button": no toast system, no copy history. |
 | 2 | Already in the codebase? | Reuse the existing `Input`, `formatMoney()`, `UserService`. |
-| 3 | Standard library / platform? | `<input type="date">`, `functools.lru_cache`, `Intl.NumberFormat`. |
+| 3 | Standard library / platform? | `navigator.clipboard`, `functools.lru_cache`, `Intl.NumberFormat`. |
 | 4 | Installed dependency? | The project already has `date-fns`: use it, do not add `moment`. |
 | 5 | Minimum code | Written in the project's layers and conventions, with its test. |
 
