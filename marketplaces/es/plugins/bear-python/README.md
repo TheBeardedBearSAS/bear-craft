@@ -16,7 +16,7 @@ Requires Claude Code 2.1.325 or later. Version 10.1.2.
 ## Commands
 
 - `/bear-python:async-check` — Verificación de Código Asíncrono Python
-- `/bear-python:check` — Auditoría Python por eje: architecture, code-quality, security, testing, o all (agregado con puntuación)
+- `/bear-python:check` — Auditoría Python por eje: architecture, code-quality, security, testing o all (puntuado)
 - `/bear-python:dependency-audit` — Auditoría de Dependencias Python
 - `/bear-python:generate-endpoint` — Generar Endpoint FastAPI
 - `/bear-python:generate-model` — Generar Modelo SQLAlchemy

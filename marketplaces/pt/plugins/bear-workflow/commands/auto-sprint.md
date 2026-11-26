@@ -1,5 +1,5 @@
 ---
-description: Orquestrador de sprint completo de ponta a ponta (início -> decomposição -> validação -> implementação -> PR -> CI -> revisão -> retro -> merge)
+description: Orquestrador de sprint de ponta a ponta (início, implementação, PR, CI, revisão, retro, merge)
 argument-hint: "<N> [--from-prd] [--auto-merge] [--max-fix-attempts=2] [--max-workers=3] [--base=main] [--dry-run] [--overnight] [--engine=subagents|teams]"
 ---
 

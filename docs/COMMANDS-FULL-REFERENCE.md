@@ -196,11 +196,11 @@
 
 | Command | Description |
 |---------|-------------|
-| [`/bear-project:backlog`](../Project/i18n/en/commands/backlog.md) | Manage the backlog: add, list, edit and move EPICs, User Stories and Tasks, pick the next story, move story statuses and apply routing rules |
+| [`/bear-project:backlog`](../Project/i18n/en/commands/backlog.md) | Manage the backlog - EPICs, User Stories and Tasks, next story, status moves and routing rules |
 | [`/bear-project:migrate`](../Project/i18n/en/commands/migrate.md) | One-shot migration of an existing backlog to BMAD v6 (analyze, migrate, fill stories, resync) |
-| [`/bear-project:report`](../Project/i18n/en/commands/report.md) | Project analytics reports: sprint burndown, metrics dashboard, story dependency graph and critical path |
-| [`/bear-project:reverse`](../Project/i18n/en/commands/reverse.md) | Brownfield reverse-engineering pipeline: scan the codebase, then derive a draft PRD, user stories and a spec-vs-code gap analysis |
-| [`/bear-project:trace`](../Project/i18n/en/commands/trace.md) | Bidirectional traceability matrix (requirement → story → code → tests); --gaps lists uncovered requirements, --by-priority groups by MoSCoW |
+| [`/bear-project:report`](../Project/i18n/en/commands/report.md) | Project analytics reports - sprint burndown, metrics dashboard, dependency graph and critical path |
+| [`/bear-project:reverse`](../Project/i18n/en/commands/reverse.md) | Brownfield reverse-engineering - scan the codebase, derive a draft PRD, stories and spec-code gaps |
+| [`/bear-project:trace`](../Project/i18n/en/commands/trace.md) | Traceability matrix (requirement → story → code → tests); --gaps for uncovered, --by-priority MoSCoW |
 
 ## `/bear-python:*`
 

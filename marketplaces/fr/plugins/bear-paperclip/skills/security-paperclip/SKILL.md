@@ -1,6 +1,6 @@
 ---
 name: security-paperclip
-description: Sécurité Paperclip — isolation tenant, secrets, portes d'approbation, budgets stricts, capacités plugin minimales. À utiliser pour auditer ou durcir Paperclip.
+description: Sécurité Paperclip (isolation tenant, secrets). À utiliser pour auditer ou durcir Paperclip.
 ---
 
 # Sécurité Paperclip

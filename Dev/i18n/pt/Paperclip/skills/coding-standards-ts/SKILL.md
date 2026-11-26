@@ -1,6 +1,6 @@
 ---
 name: coding-standards-ts
-description: Padroes codigo TypeScript Paperclip — modo strict, arquivos kebab, sem any, logs estruturados. Use ao escrever ou revisar codigo TS Paperclip.
+description: Padrões TypeScript do Paperclip — strict, sem any, logs estruturados. Use ao escrever ou revisar TS.
 ---
 
 # Padroes de Codigo Paperclip (TypeScript)

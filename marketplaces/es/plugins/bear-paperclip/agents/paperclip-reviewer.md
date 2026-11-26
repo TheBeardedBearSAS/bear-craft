@@ -1,6 +1,6 @@
 ---
 name: paperclip-reviewer
-description: Especialista en revisión de código Paperclip — arquitectura de dos capas, contrato de adaptador, integridad de gobernanza, strictness TypeScript
+description: Especialista en revisión de código Paperclip — dos capas, contrato de adaptador, gobernanza
 model: haiku
 effort: low
 maxTurns: 6

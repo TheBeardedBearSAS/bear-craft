@@ -1,6 +1,6 @@
 ---
 name: vite-reviewer
-description: Spécialiste de revue de code Vite 8.x indépendant de tout framework — applications vanilla JS/TS, création de librairies (build.lib), applications multi-pages (rolldownOptions.input), points d'entrée Workers/WASM, configuration de plugins
+description: Revue de code Vite 8.x hors framework — apps vanilla, build.lib, multi-pages, Workers/WASM, plugins
 model: haiku
 effort: low
 maxTurns: 6

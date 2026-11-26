@@ -53,6 +53,21 @@ describe('--plugin-mode', { timeout: 120_000 }, () => {
     expect(has(/project-management\/backlog\/index\.md$/)).toBe(true);
   });
 
+  it('a common-only install gets the full text of every short rule (RFC-002)', () => {
+    const solo = path.join(TMP, 'common-only');
+    fs.mkdirSync(solo, { recursive: true });
+    const r = run('Dev/scripts/install-common-rules.sh', ['--lang=fr', '--plugin-mode', '--force', solo]);
+    expect(r.status, r.stderr + r.stdout).toBe(0);
+    const rulesDir = path.join(solo, '.claude/rules');
+    const rules = fs.readdirSync(rulesDir).filter((f) => f.endsWith('.md'));
+    expect(rules.length).toBe(8);
+    for (const f of rules) {
+      const ref = fs.readFileSync(path.join(rulesDir, f), 'utf8').match(/\.claude\/references\/base\/([a-z-]+\.md)/);
+      expect(ref, f).not.toBeNull();
+      expect(fs.existsSync(path.join(solo, '.claude/references/base', ref[1])), `${f} -> ${ref[1]}`).toBe(true);
+    }
+  });
+
   it('copies no commands, agents, skills, templates, checklists or hooks', () => {
     for (const dir of ['commands', 'agents', 'skills', 'templates', 'checklists', 'hooks']) {
       expect(fs.existsSync(path.join(project, '.claude', dir)), dir).toBe(false);

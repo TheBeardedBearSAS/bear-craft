@@ -26,6 +26,7 @@ const FILES = [
   '.claude/rules/11-security.md',
   '.claude/references/base/security.md',
   ...['en', 'fr', 'es', 'de', 'pt'].map((l) => `Dev/i18n/${l}/Common/rules/11-security.md`),
+  ...['en', 'fr', 'es', 'de', 'pt'].map((l) => `Dev/i18n/${l}/Common/references/security.md`),
 ];
 
 // Collects "rank → title" from either a markdown table row (`| A01 | Title |`)

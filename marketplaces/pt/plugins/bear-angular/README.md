@@ -15,7 +15,7 @@ Requires Claude Code 2.1.325 or later. Version 10.1.2.
 
 ## Commands
 
-- `/bear-angular:check` — Auditoria Angular por eixo: architecture, code-quality, security, testing, ou all (agregado com pontuação)
+- `/bear-angular:check` — Auditoria Angular por eixo: architecture, code-quality, security, testing ou all (nota agregada)
 - `/bear-angular:generate-component` — Generate Angular standalone component with tests
 
 ## Agents

@@ -15,11 +15,11 @@ Requires Claude Code 2.1.325 or later. Version 10.1.2.
 
 ## Commands
 
-- `/bear-project:backlog` — Manage the backlog: add, list, edit and move EPICs, User Stories and Tasks, pick the next story, move story statuses and apply routing rules
+- `/bear-project:backlog` — Manage the backlog - EPICs, User Stories and Tasks, next story, status moves and routing rules
 - `/bear-project:migrate` — One-shot migration of an existing backlog to BMAD v6 (analyze, migrate, fill stories, resync)
-- `/bear-project:report` — Project analytics reports: sprint burndown, metrics dashboard, story dependency graph and critical path
-- `/bear-project:reverse` — Brownfield reverse-engineering pipeline: scan the codebase, then derive a draft PRD, user stories and a spec-vs-code gap analysis
-- `/bear-project:trace` — Bidirectional traceability matrix (requirement → story → code → tests); --gaps lists uncovered requirements, --by-priority groups by MoSCoW
+- `/bear-project:report` — Project analytics reports - sprint burndown, metrics dashboard, dependency graph and critical path
+- `/bear-project:reverse` — Brownfield reverse-engineering - scan the codebase, derive a draft PRD, stories and spec-code gaps
+- `/bear-project:trace` — Traceability matrix (requirement → story → code → tests); --gaps for uncovered, --by-priority MoSCoW
 
 ## Agents
 

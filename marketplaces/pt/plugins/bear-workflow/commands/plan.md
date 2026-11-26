@@ -1,6 +1,6 @@
 ---
 name: workflow-plan
-description: "Executar a fase de Planejamento - pesquisa (--research), PRD (--only=prd) e backlog SCRUM (--only=backlog)"
+description: "Executar a fase de Planejamento - pesquisa (--research), PRD e backlog SCRUM (--only=prd|backlog)"
 argument-hint: "[--research] [--only=prd|backlog] [--continue]"
 arguments:
   - name: research

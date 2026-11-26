@@ -15,7 +15,7 @@ Requires Claude Code 2.1.325 or later. Version 10.1.2.
 
 ## Commands
 
-- `/bear-php:check` — PHP-Audit nach Achse: architecture, code-quality, security, testing oder all (bewertete Gesamtauswertung)
+- `/bear-php:check` — PHP-Audit nach Achse: architecture, code-quality, security, testing oder all (bewertet)
 
 ## Agents
 

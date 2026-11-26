@@ -77,45 +77,30 @@ copy_base_references() {
     local lang="$3"
     local dry_run="$4"
 
-    local common_rules_lang="${i18n_dir}/${lang}/Common/rules"
-    local common_rules_base="${i18n_dir}/base/Common/rules"
+    # Full text of the Common rules: .claude/rules/ only holds short versions that point here
+    # (RFC-002: the long rules cost ~44k tokens in every session).
+    local refs_lang="${i18n_dir}/${lang}/Common/references"
+    local refs_base="${i18n_dir}/base/Common/references"
 
-    if [[ ! -d "$common_rules_lang" ]] && [[ ! -d "$common_rules_base" ]]; then
-        log_warning "Common rules directory not found in lang or base"
+    if [[ ! -d "$refs_lang" ]] && [[ ! -d "$refs_base" ]]; then
+        log_warning "Common references directory not found in lang or base"
         return 0
     fi
 
-    # Base reference mappings (universal principles)
-    local base_mappings=(
-        "01-workflow-analysis.md:workflow-analysis.md"
-        "04-solid-principles.md:solid-principles.md"
-        "05-kiss-dry-yagni.md:kiss-dry-yagni.md"
-        "09-git-workflow.md:git-workflow.md"
-        "10-documentation.md:documentation.md"
-    )
-
     local count=0
-    for mapping in "${base_mappings[@]}"; do
-        local old_name="${mapping%%:*}"
-        local new_name="${mapping##*:}"
-        local dest_file="${target_dir}/.claude/references/base/${new_name}"
-
-        # Resolve: lang takes precedence over base
-        local src_file=""
-        if [[ -f "${common_rules_lang}/${old_name}" ]]; then
-            src_file="${common_rules_lang}/${old_name}"
-        elif [[ -f "${common_rules_base}/${old_name}" ]]; then
-            src_file="${common_rules_base}/${old_name}"
+    local src_file
+    # base first, then the language overlay (lang takes precedence)
+    for src_file in "$refs_base"/*.md "$refs_lang"/*.md; do
+        [[ -f "$src_file" ]] || continue
+        local new_name
+        new_name=$(basename "$src_file")
+        if [[ "$dry_run" = "true" ]]; then
+            log_dry_run "Copy: references/base/${new_name}"
+        else
+            mkdir -p "${target_dir}/.claude/references/base"
+            cp "$src_file" "${target_dir}/.claude/references/base/${new_name}"
         fi
-
-        if [[ -n "$src_file" ]]; then
-            if [[ "$dry_run" = "true" ]]; then
-                log_dry_run "Copy: references/base/${new_name}"
-            else
-                cp "$src_file" "$dest_file"
-            fi
-            ((count++)) || true
-        fi
+        ((count++)) || true
     done
 
     if [[ "$dry_run" = "false" ]] && [[ $count -gt 0 ]]; then

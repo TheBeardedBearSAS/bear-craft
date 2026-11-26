@@ -15,7 +15,7 @@ Requires Claude Code 2.1.325 or later. Version 10.1.2.
 
 ## Commands
 
-- `/bear-wordpress:check` — Auditoría WordPress por eje: architecture, code-quality, security, testing, o all (agregado con puntuación)
+- `/bear-wordpress:check` — Auditoría WordPress por eje: architecture, code-quality, security, testing o all (puntuado)
 
 ## Agents
 

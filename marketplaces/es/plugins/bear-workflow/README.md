@@ -15,15 +15,15 @@ Requires Claude Code 2.1.325 or later. Version 10.1.2.
 
 ## Commands
 
-- `/bear-workflow:auto-sprint` — Orquestador de sprint de extremo a extremo (inicio -> descomposición -> validación -> implementación -> PR -> CI -> revisión -> retro -> merge)
-- `/bear-workflow:design` — Ejecutar la fase de Diseño (Solutioning) - generar la especificación técnica (por defecto) o la constitución del proyecto (--constitution)
-- `/bear-workflow:implement` — Ejecutar la fase de Implementación - desarrollo TDD/BDD de un sprint, un epic, una story o la cola batch (secuencial, o paralelo vía /bear-team:delivery --phase=implementation)
+- `/bear-workflow:auto-sprint` — Orquestador de sprint completo (inicio -> implementación -> PR -> CI -> revisión -> merge)
+- `/bear-workflow:design` — Fase de Diseño (Solutioning) - especificación técnica (por defecto) o constitución (--constitution)
+- `/bear-workflow:implement` — Fase de Implementación - desarrollo TDD/BDD de un sprint, epic, story o la cola batch
 - `/bear-workflow:init` — Analizar el contexto del proyecto y recomendar el flujo de trabajo de desarrollo optimo
-- `/bear-workflow:plan` — Ejecutar la fase de Planificación - investigación (--research), PRD (--only=prd) y backlog SCRUM (--only=backlog)
+- `/bear-workflow:plan` — Fase de Planificación - investigación (--research), PRD (--only=prd) y backlog (--only=backlog)
 - `/bear-workflow:retro` — Facilitación de la Retrospectiva
 - `/bear-workflow:review` — Preparación de la Sprint Review
-- `/bear-workflow:start` — Preparación del inicio de sprint: carpeta del sprint, entradas de sprint-status.yaml y descomposición en tareas
-- `/bear-workflow:status` — Dónde estoy + siguiente acción: fase del workflow, métricas del sprint, tablero Kanban (--board), cola de lotes (--queue), daily (--standup) y gates (--gates)
+- `/bear-workflow:start` — Preparación del inicio de sprint: carpeta, entradas de sprint-status.yaml y descomposición en tareas
+- `/bear-workflow:status` — Dónde estoy + siguiente acción: fase, métricas del sprint, Kanban, cola, daily y gates
 
 ## About
 

@@ -1,6 +1,6 @@
 ---
 name: csharp-reviewer
-description: Spécialiste de la revue de code C# 14 / .NET 10 — Clean Architecture, CQRS, MediatR, EF Core, analyse de sécurité
+description: Revue de code C# 14 / .NET 10 — Clean Architecture, CQRS, MediatR, EF Core, sécurité
 model: haiku
 effort: low
 maxTurns: 6

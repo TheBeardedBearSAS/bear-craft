@@ -1,6 +1,6 @@
 ---
 name: vuejs-reviewer
-description: Spécialiste de la revue de code Vue.js 3.5+ et TypeScript — Composition API, Pinia, réactivité, performance, composables
+description: Revue de code Vue.js 3.5+ / TypeScript — Composition API, Pinia, réactivité, performance
 model: haiku
 effort: low
 maxTurns: 6

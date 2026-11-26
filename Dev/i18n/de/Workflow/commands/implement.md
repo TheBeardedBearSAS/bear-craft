@@ -1,6 +1,6 @@
 ---
 name: workflow-implement
-description: "Die Implementierungsphase durchführen - TDD/BDD-Entwicklung eines Sprints, eines Epics, einer Story oder der Batch-Queue (sequenziell oder parallel über /bear-team:delivery --phase=implementation)"
+description: "Implementierungsphase durchführen - TDD/BDD-Entwicklung von Sprint, Epic, Story oder Batch-Queue"
 argument-hint: "[<N>|--epic <EPIC>|--story <US-ID>|--queue] [--resume] [--parallel N] [--auto] [--dry-run]"
 arguments:
   - name: sprint

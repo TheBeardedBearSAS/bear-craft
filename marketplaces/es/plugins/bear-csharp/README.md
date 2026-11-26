@@ -15,7 +15,7 @@ Requires Claude Code 2.1.325 or later. Version 10.1.2.
 
 ## Commands
 
-- `/bear-csharp:check` — Auditoría C#/.NET por eje: architecture, code-quality, security, testing, o all (agregado con puntuación)
+- `/bear-csharp:check` — Auditoría C#/.NET por eje: architecture, code-quality, security, testing o all (puntuado)
 - `/bear-csharp:generate-feature` — Generate a complete feature with Clean Architecture structure
 
 ## Agents

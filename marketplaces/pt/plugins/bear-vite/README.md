@@ -16,7 +16,7 @@ Requires Claude Code 2.1.325 or later. Version 10.1.2.
 ## Commands
 
 - `/bear-vite:check-library-build` — Validate build.lib output and vite-plugin-dts .d.ts generation for a Vite library
-- `/bear-vite:check` — Auditoria Vite por eixo: architecture, code-quality, security, testing, ou all (agregado com pontuação)
+- `/bear-vite:check` — Auditoria Vite por eixo: architecture, code-quality, security, testing ou all (nota agregada)
 - `/bear-vite:scaffold-project` — Scaffold a new Vite project (vanilla-ts or lit-ts template) or a library skeleton
 
 ## Agents

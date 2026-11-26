@@ -1,6 +1,6 @@
 ---
 name: security-auditor
-description: OWASP Top 10:2025 security audit specialist — SAST, dependency scanning, secrets detection, authZ/authN review
+description: Especialista em auditoria de segurança OWASP Top 10:2025 — SAST, dependências, segredos, authN/authZ
 model: opus
 maxTurns: 6
 effort: xhigh

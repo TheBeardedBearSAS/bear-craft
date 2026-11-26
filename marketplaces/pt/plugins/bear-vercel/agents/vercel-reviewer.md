@@ -1,6 +1,6 @@
 ---
 name: vercel-reviewer
-description: Especialista em revisão de código da plataforma Vercel — configuração vercel.json, Functions (runtime Node.js/Fluid Compute), ISR, Cron Jobs, Storage, tratamento de variáveis de ambiente/segredos. Agnóstico de framework (não específico do Next.js).
+description: Especialista em revisão de código Vercel — vercel.json, Functions, ISR, Cron Jobs, Storage, segredos
 model: haiku
 effort: low
 maxTurns: 6

@@ -15,15 +15,15 @@ Requires Claude Code 2.1.325 or later. Version 10.1.2.
 
 ## Commands
 
-- `/bear-workflow:auto-sprint` — Orchestrateur de sprint de bout en bout (démarrage -> décomposition -> validation -> implémentation -> PR -> CI -> revue -> rétro -> merge)
-- `/bear-workflow:design` — Exécuter la phase de Conception (Solutioning) - générer la spécification technique (défaut) ou la constitution du projet (--constitution)
-- `/bear-workflow:implement` — Exécuter la phase d'Implémentation - développement TDD/BDD d'un sprint, d'un epic, d'une story ou de la file batch (séquentiel, ou parallèle via /bear-team:delivery --phase=implementation)
+- `/bear-workflow:auto-sprint` — Orchestrateur de sprint de bout en bout (démarrage, implémentation, PR, CI, revue, rétro, merge)
+- `/bear-workflow:design` — Exécuter la phase de Conception - spécification technique ou constitution du projet (--constitution)
+- `/bear-workflow:implement` — Exécuter la phase d'Implémentation - TDD/BDD d'un sprint, epic, story ou de la file batch
 - `/bear-workflow:init` — Analyser le contexte du projet et recommander le track de workflow optimal
-- `/bear-workflow:plan` — Exécuter la phase de Planification - recherche (--research), PRD (--only=prd) et backlog SCRUM (--only=backlog)
+- `/bear-workflow:plan` — Exécuter la phase de Planification - recherche, PRD et backlog SCRUM
 - `/bear-workflow:retro` — Facilitation Rétrospective
 - `/bear-workflow:review` — Préparation Sprint Review
-- `/bear-workflow:start` — Préparation du début de sprint : dossier de sprint, entrées sprint-status.yaml et décomposition en tâches
-- `/bear-workflow:status` — Où en suis-je + prochaine action : phase du workflow, métriques du sprint, tableau Kanban (--board), file d'attente batch (--queue), daily stand-up (--standup) et gates (--gates)
+- `/bear-workflow:start` — Préparation du début de sprint : dossier, entrées sprint-status.yaml et décomposition en tâches
+- `/bear-workflow:status` — Où en suis-je + prochaine action : phase, métriques du sprint, Kanban, file batch, stand-up, gates
 
 ## About
 

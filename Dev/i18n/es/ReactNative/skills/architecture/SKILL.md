@@ -1,6 +1,6 @@
 ---
 name: architecture
-description: Arquitectura React Native - Principios y Organización. Use when designing architecture or reviewing code structure.
+description: Arquitectura React Native - Principios. Use when designing architecture or reviewing code structure.
 ---
 
 # Arquitectura React Native - Principios y Organización

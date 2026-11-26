@@ -1,5 +1,5 @@
 ---
-description: "Analyseberichte zum Projekt: Sprint-Burndown, Metrik-Dashboard, Abhängigkeitsgraph der Stories und kritischer Pfad"
+description: "Projektberichte: Sprint-Burndown, Metrik-Dashboard, Story-Abhängigkeitsgraph, kritischer Pfad"
 argument-hint: "<burndown|metrics|deps> [--critical] [--sprint=Sprint-N] [--type=points|stories|tasks] [--format=...] [--velocity=N] [--output=path]"
 ---
 

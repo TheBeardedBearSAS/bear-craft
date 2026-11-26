@@ -1,5 +1,5 @@
 ---
-description: "Project analytics reports: sprint burndown, metrics dashboard, story dependency graph and critical path"
+description: "Project analytics reports - sprint burndown, metrics dashboard, dependency graph and critical path"
 argument-hint: "<burndown|metrics|deps> [--critical] [--sprint=Sprint-N] [--type=points|stories|tasks] [--format=...] [--velocity=N] [--output=path]"
 ---
 

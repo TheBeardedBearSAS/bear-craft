@@ -1,5 +1,5 @@
 ---
-description: "Migración puntual de un backlog existente a BMAD v6 (análisis, migración, completar stories, resincronización)"
+description: "Migración puntual de un backlog existente a BMAD v6 (análisis, migración, resincronización)"
 argument-hint: "[--analyze|--dry-run|--resync|--stories] [--force]"
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: paperclip-onboarding
-description: Onboarding de una instancia Paperclip — instalar, bootstrapear operador CEO, crear una compañía vía dashboard, contratar el primer agente, instalar un plugin. Usar al bootstrapear o cablear Claude Code en Paperclip.
+description: Onboarding de una instancia Paperclip. Usar al bootstrapear o cablear Claude Code en Paperclip.
 ---
 
 # Onboarding de Paperclip

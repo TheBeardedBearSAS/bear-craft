@@ -1,5 +1,5 @@
 ---
-description: "Flutter-Audit nach Achse: architecture, code-quality, security, testing oder all (bewertete Gesamtauswertung)"
+description: "Flutter-Audit nach Achse: architecture, code-quality, security, testing oder all (bewertet)"
 argument-hint: "<architecture|code-quality|security|testing|all> [Pfad]"
 ---
 

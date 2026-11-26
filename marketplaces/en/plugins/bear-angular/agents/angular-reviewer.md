@@ -1,6 +1,6 @@
 ---
 name: angular-reviewer
-description: Angular 22 and TypeScript code review specialist — Signals, Signal Forms (stable), standalone components, RxJS, performance, zoneless change detection (default), OnPush by default, httpResource
+description: Angular 22 / TypeScript code review specialist — Signals, Signal Forms, zoneless, OnPush, RxJS
 model: haiku
 effort: low
 maxTurns: 6

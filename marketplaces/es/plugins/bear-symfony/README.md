@@ -16,7 +16,7 @@ Requires Claude Code 2.1.325 or later. Version 10.1.2.
 ## Commands
 
 - `/bear-symfony:api-endpoint` — Creación Endpoint API Platform
-- `/bear-symfony:check` — Auditoría Symfony por eje: architecture, code-quality, security, testing, o all (agregado con puntuación)
+- `/bear-symfony:check` — Auditoría Symfony por eje: architecture, code-quality, security, testing o all (puntuado)
 - `/bear-symfony:generate-command` — Generación de Comando Symfony
 - `/bear-symfony:generate-crud` — Generación CRUD Completo
 - `/bear-symfony:migration-plan` — Planificación de Migración de Base de Datos

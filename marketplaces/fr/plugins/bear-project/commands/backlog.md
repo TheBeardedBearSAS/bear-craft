@@ -1,5 +1,5 @@
 ---
-description: "Gérer le backlog : ajouter, lister, modifier et déplacer EPICs, User Stories et Tâches, choisir la prochaine story, changer le statut des stories et appliquer les règles de routage"
+description: "Gérer le backlog : EPICs, User Stories et Tâches, prochaine story, statuts et règles de routage"
 argument-hint: "<add|list|edit|move|next> <epic|story|task> [args] | move story --auto"
 ---
 

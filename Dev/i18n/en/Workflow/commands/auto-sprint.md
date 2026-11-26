@@ -1,5 +1,5 @@
 ---
-description: End-to-end sprint orchestrator (start -> decompose -> validate -> implement -> PR -> CI -> review -> retro -> merge)
+description: End-to-end sprint orchestrator (start -> decompose -> implement -> PR -> CI -> review -> merge)
 argument-hint: "<N> [--from-prd] [--auto-merge] [--max-fix-attempts=2] [--max-workers=3] [--base=main] [--dry-run] [--overnight] [--engine=subagents|teams]"
 ---
 

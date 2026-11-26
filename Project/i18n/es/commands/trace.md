@@ -1,6 +1,6 @@
 ---
 name: trace
-description: "Matriz de trazabilidad bidireccional (requisito → historia → código → pruebas); --gaps lista los requisitos no cubiertos, --by-priority agrupa por prioridad MoSCoW"
+description: "Matriz de trazabilidad (requisito → historia → código → pruebas); --gaps, --by-priority (MoSCoW)"
 argument-hint: "[all|requirement|story|code] [ID] [--gaps] [--by-priority] [--level=story|code|test|all] [--format=table|mermaid|json]"
 ---
 

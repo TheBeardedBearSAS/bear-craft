@@ -1,6 +1,6 @@
 ---
 name: migration-specialist
-description: Database and framework migration expert — zero-downtime schema changes, data backfills, version upgrades, legacy-to-modern rewrites
+description: Experte für DB- und Framework-Migrationen — Zero-Downtime-Schemaänderungen, Backfills, Upgrades
 model: opus
 maxTurns: 6
 effort: xhigh

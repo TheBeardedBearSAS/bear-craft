@@ -15,7 +15,7 @@ Requires Claude Code 2.1.325 or later. Version 10.1.2.
 
 ## Commands
 
-- `/bear-gate:check` — Run any quality gate: document gates (PRD, tech spec, backlog, sprint, story, alignment), code gates (commit, merge, release), the full report or a phase checkpoint
+- `/bear-gate:check` — Run any quality gate - document gates, code gates (commit, merge, release), full report, checkpoint
 
 ## About
 

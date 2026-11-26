@@ -1,6 +1,6 @@
 ---
 name: paperclip-reviewer
-description: Paperclip code review specialist — two-layer architecture, adapter contract, governance integrity, TypeScript strictness
+description: Paperclip code review specialist — two-layer architecture, adapter contract, governance, strict TS
 model: haiku
 effort: low
 maxTurns: 6

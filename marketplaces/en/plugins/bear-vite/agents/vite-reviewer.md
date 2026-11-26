@@ -1,6 +1,6 @@
 ---
 name: vite-reviewer
-description: Vite 8.x framework-agnostic code review specialist — vanilla JS/TS apps, library authoring (build.lib), multi-page apps (rolldownOptions.input), Workers/WASM entries, plugin config
+description: Vite 8.x framework-agnostic code review specialist — vanilla apps, build.lib, multi-page, WASM
 model: haiku
 effort: low
 maxTurns: 6

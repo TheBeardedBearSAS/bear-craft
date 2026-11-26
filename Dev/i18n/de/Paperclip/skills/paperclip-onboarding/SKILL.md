@@ -1,6 +1,6 @@
 ---
 name: paperclip-onboarding
-description: Onboarding einer Paperclip-Instanz — installieren, CEO-Operator bootstrappen, Company via Dashboard erstellen, ersten Agent einstellen, Plugin installieren. Verwenden Sie dies beim Bootstrapping oder Verdrahten von Claude Code in Paperclip.
+description: Onboarding einer Paperclip-Instanz (Install, CEO-Operator, erster Agent). Beim Bootstrapping nutzen.
 ---
 
 # Paperclip-Onboarding

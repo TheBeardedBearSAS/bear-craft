@@ -1,6 +1,6 @@
 ---
 name: architecture
-description: Architecture Flutter - Clean Architecture & Best Practices. Use when designing architecture or reviewing code structure.
+description: Architecture Flutter - Clean Architecture. Use when designing architecture or reviewing structure.
 ---
 
 # Architecture Flutter - Clean Architecture & Best Practices

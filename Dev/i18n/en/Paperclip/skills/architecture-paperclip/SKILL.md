@@ -1,6 +1,6 @@
 ---
 name: architecture-paperclip
-description: Paperclip two-layer architecture (control plane + adapters). Use when designing or reviewing Paperclip module/adapter boundaries.
+description: Paperclip two-layer architecture (control plane + adapters). Use when designing module boundaries.
 ---
 
 # Paperclip Architecture

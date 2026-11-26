@@ -1,5 +1,5 @@
 ---
-description: "Sicherheits-Review-Team - Paralleles mehrdimensionales Sicherheitsaudit mit Sub-Agenten (Agent Teams optional)"
+description: "Sicherheits-Review-Team - Paralleles mehrdimensionales Sicherheitsaudit mit Sub-Agenten"
 argument-hint: "[--scope=full|code|deps|infra] [--max-workers=3] [--engine=subagents|teams]"
 ---
 

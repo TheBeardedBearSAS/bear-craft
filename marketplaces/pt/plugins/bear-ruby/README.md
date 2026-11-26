@@ -15,7 +15,7 @@ Requires Claude Code 2.1.325 or later. Version 10.1.2.
 
 ## Commands
 
-- `/bear-ruby:check` — Auditoria Ruby/Rails por eixo: architecture, code-quality, security, testing, ou all (agregado com pontuação)
+- `/bear-ruby:check` — Auditoria Ruby/Rails por eixo: architecture, code-quality, security, testing ou all (nota agregada)
 
 ## Agents
 

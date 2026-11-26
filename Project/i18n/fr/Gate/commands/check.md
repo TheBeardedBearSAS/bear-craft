@@ -1,5 +1,5 @@
 ---
-description: "Exécuter n'importe quelle porte qualité : portes documentaires (PRD, spec technique, backlog, sprint, story, alignement), portes de code (commit, merge, release), le rapport complet ou un checkpoint de phase"
+description: "Exécuter une porte qualité : documentaire (PRD, spec, story…), code (commit, merge, release)"
 argument-hint: "<prd|spec|backlog|sprint|story|alignment|commit|merge|release|all> [--phase=pre-sprint|pre-impl|post-impl|pre-merge] [target]"
 ---
 

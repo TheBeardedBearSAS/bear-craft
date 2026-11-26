@@ -16,8 +16,8 @@ Requires Claude Code 2.1.325 or later. Version 10.1.2.
 ## Commands
 
 - `/bear-team:audit` — Full Audit Team - Parallel multi-technology audit using sub-agents (Agent Teams optional)
-- `/bear-team:delivery` — Delivery Team - Full sprint lifecycle (writing + implementation) using sub-agents (Agent Teams optional)
-- `/bear-team:security` — Security Review Team - Parallel multi-dimension security audit using sub-agents (Agent Teams optional)
+- `/bear-team:delivery` — Delivery Team - full sprint lifecycle (writing + implementation) via sub-agents (Agent Teams opt.)
+- `/bear-team:security` — Security Review Team - parallel multi-dimension security audit via sub-agents (Agent Teams optional)
 
 ## About
 

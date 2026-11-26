@@ -1,6 +1,6 @@
 ---
 name: reactnative-reviewer
-description: Especialista em revisao de codigo React Native 0.88 e Expo SDK 58 — New Architecture, navegacao, performance mobile, analise de bundle
+description: Especialista em revisão de código React Native 0.88 / Expo SDK 58 — New Architecture, performance
 model: haiku
 effort: low
 maxTurns: 6

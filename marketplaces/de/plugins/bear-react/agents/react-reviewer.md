@@ -1,6 +1,6 @@
 ---
 name: react-reviewer
-description: Spezialist für React 19.3 + Compiler 1.0 und TypeScript Code-Reviews — Hooks, Komposition, Performance, Bundle-Analyse
+description: Spezialist für React 19.3 + Compiler 1.0 Code-Reviews — Hooks, Komposition, Performance, Bundle
 model: haiku
 effort: low
 maxTurns: 6

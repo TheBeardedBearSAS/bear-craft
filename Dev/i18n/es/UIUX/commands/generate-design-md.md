@@ -1,5 +1,5 @@
 ---
-description: "Genera un DESIGN.md en la raíz del proyecto a partir del template de Bear Craft + análisis de fuentes UI existentes (Tailwind, tokens, CSS)."
+description: "Genera un DESIGN.md en la raíz del proyecto desde el template Bear Craft y las fuentes UI existentes"
 argument-hint: "[--from-tailwind] [--from-tokens=<path>] [--interactive]"
 ---
 

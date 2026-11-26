@@ -1,6 +1,6 @@
 ---
 name: symfony-reviewer
-description: Spécialiste de la revue de code Symfony 8.1 / PHP 8.4+ (8.5 recommandé) — DDD, Doctrine, CQRS, API Platform
+description: Revue de code Symfony 8.1 / PHP 8.4+ — DDD, Doctrine, CQRS, API Platform
 model: haiku
 effort: low
 maxTurns: 6

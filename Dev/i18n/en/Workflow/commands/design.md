@@ -1,6 +1,6 @@
 ---
 name: workflow-design
-description: "Execute the Design (Solutioning) phase - generate the technical specification (default) or the project constitution (--constitution)"
+description: "Run the Design (Solutioning) phase - tech spec (default) or project constitution (--constitution)"
 argument-hint: "[--constitution] [--continue]"
 arguments:
   - name: constitution

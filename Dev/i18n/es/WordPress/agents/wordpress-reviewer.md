@@ -1,6 +1,6 @@
 ---
 name: wordpress-reviewer
-description: "Especialista en revisión de código WordPress 7.1 — estructura de plugins/temas, hooks, bloques (block.json apiVersion 3), API REST, WPCS, seguridad (capabilities, nonces, escapado, $wpdb->prepare), rendimiento (WP_Query, caché, autoload), testing (PHPUnit mediante wp-env, Jest, Playwright). Las verificaciones de WooCommerce son condicionales"
+description: "Especialista en revisión de código WordPress 7.1 — plugins/temas, hooks, bloques, REST, seguridad"
 model: haiku
 effort: low
 maxTurns: 6

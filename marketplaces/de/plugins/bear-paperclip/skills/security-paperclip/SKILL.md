@@ -1,6 +1,6 @@
 ---
 name: security-paperclip
-description: Paperclip-Sicherheit — Tenancy-Isolation, Secrets, Approval-Gates, harte Budgets, signierter Adapter-Channel. Verwenden Sie dies beim Auditing oder Härten von Paperclip.
+description: Paperclip-Sicherheit — Tenancy-Isolation, Secrets, Approval-Gates, Budgets. Beim Auditing nutzen.
 ---
 
 # Paperclip-Sicherheit

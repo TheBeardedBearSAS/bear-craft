@@ -1,5 +1,5 @@
 ---
-description: "Pipeline de engenharia reversa brownfield: escanear o código e derivar um PRD rascunho, user stories e uma análise de lacunas spec vs código"
+description: "Engenharia reversa brownfield: derivar do código um PRD rascunho, user stories e análise de lacunas"
 argument-hint: "[scan|prd|stories|gaps|all] [--scope=<scope>] [--module=<name>] [--output=<path>]"
 ---
 

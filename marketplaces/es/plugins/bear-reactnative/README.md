@@ -16,7 +16,7 @@ Requires Claude Code 2.1.325 or later. Version 10.1.2.
 ## Commands
 
 - `/bear-reactnative:app-size` — Análisis del Tamaño de Aplicación React Native
-- `/bear-reactnative:check` — Auditoría React Native por eje: architecture, code-quality, security, testing, o all (agregado con puntuación)
+- `/bear-reactnative:check` — Auditoría React Native por eje: architecture, code-quality, security, testing o all (puntuado)
 - `/bear-reactnative:deep-link` — Configuración de Deep Linking en React Native
 - `/bear-reactnative:generate-screen` — Generación de Screen en React Native
 - `/bear-reactnative:native-module` — Guía de Creación de Módulo Nativo en React Native

@@ -1,6 +1,6 @@
 ---
 name: testing-symfony
-description: Testing TDD & BDD - Atoll Tourisme. Use when writing tests, reviewing test coverage, or setting up testing.
+description: Testing TDD & BDD - Atoll Tourisme. Use when writing tests, reviewing coverage, or setting up tests.
 ---
 
 # Testing TDD & BDD - Atoll Tourisme

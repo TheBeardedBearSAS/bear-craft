@@ -1,5 +1,5 @@
 ---
-description: "Préparation du début de sprint : dossier de sprint, entrées sprint-status.yaml et décomposition en tâches"
+description: "Préparation du début de sprint : dossier, entrées sprint-status.yaml et décomposition en tâches"
 argument-hint: "<N> [--tasks-only]"
 ---
 

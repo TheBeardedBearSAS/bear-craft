@@ -1,6 +1,6 @@
 ---
 name: testing-flutter
-description: Testing Flutter - Stratégie Complète. Use when writing tests, reviewing test coverage, or setting up testing.
+description: Stratégie de tests Flutter. Use when writing tests, reviewing test coverage, or setting up testing.
 ---
 
 # Testing Flutter - Stratégie Complète

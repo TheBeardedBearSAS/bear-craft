@@ -17,7 +17,7 @@ Requires Claude Code 2.1.325 or later. Version 10.1.2.
 
 - `/bear-react:accessibility-check` — Auditoria de Acessibilidade
 - `/bear-react:bundle-analyze` — Análise do Tamanho do Bundle
-- `/bear-react:check` — Auditoria React por eixo: architecture, code-quality, security, testing, ou all (agregado com pontuação)
+- `/bear-react:check` — Auditoria React por eixo: architecture, code-quality, security, testing ou all (nota agregada)
 - `/bear-react:generate-component` — Gerar Componente React
 - `/bear-react:generate-hook` — Gerar Hook Personalizado
 - `/bear-react:storybook-story` — Gerar Story do Storybook

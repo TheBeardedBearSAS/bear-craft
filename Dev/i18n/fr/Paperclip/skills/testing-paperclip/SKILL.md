@@ -1,6 +1,6 @@
 ---
 name: testing-paperclip
-description: Stratégie de tests Paperclip — Vitest, harness plugin de @paperclipai/plugin-sdk/testing, tests d'intégration sur un vrai Postgres, isolation multi-tenant. À utiliser pour écrire ou revoir les tests Paperclip.
+description: Tests Paperclip (Vitest, harness plugin, vrai Postgres). À utiliser pour écrire ou revoir les tests.
 ---
 
 # Tests Paperclip

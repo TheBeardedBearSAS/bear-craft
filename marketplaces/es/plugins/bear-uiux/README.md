@@ -20,7 +20,7 @@ Requires Claude Code 2.1.325 or later. Version 10.1.2.
 - `/bear-uiux:audit` — Auditoría Completa UI/UX/Accesibilidad
 - `/bear-uiux:component-spec` — Especificación Completa de Componente UI/UX/A11y
 - `/bear-uiux:design-tokens` — Definición de Design Tokens
-- `/bear-uiux:generate-design-md` — Genera un DESIGN.md en la raíz del proyecto a partir del template de Bear Craft + análisis de fuentes UI existentes (Tailwind, tokens, CSS).
+- `/bear-uiux:generate-design-md` — Genera un DESIGN.md en la raíz del proyecto desde el template Bear Craft y las fuentes UI existentes
 - `/bear-uiux:user-flow` — Diseño de Flujo de Usuario
 
 ## About
