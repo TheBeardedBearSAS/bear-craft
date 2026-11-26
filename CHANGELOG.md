@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Rule 24 — minimal change** (RFC-002, 5 languages, ~1.5 KB): build only what the task needs (not asked → skip; reuse the codebase, then the standard library/platform, then installed dependencies; never a new dependency for a few lines), finish everything the change breaks (callers, tests, fixtures), `shortcut:` comments for deliberate limits, a "never cut" list, and a closing line on what was skipped and the risks. SOLID, TDD and the 80% coverage still win. Full text in `.claude/references/base/minimal-change.md`. Adapted from Ponytail (MIT).
+- **`SubagentStart` hook for the Plan subagent** (`subagent-plan-rules.sh`, default hooks): measured on 2026-11-26, the built-in Plan and Explore subagents do not load `.claude/rules/` while general-purpose and custom agents do; Plan decides the scope of a change, so the hook hands it rule 24.
+
 ### Changed
 
 - **Startup context of an installed project cut by 85%** (RFC-002): measured with a headless `claude -p` bench (Opus 5.5, `--tech=python,react`), the first model call of a fresh install drops from 68,796 to 24,605 tokens (+7,531 over an empty project instead of +51,722). `bear-craft update` replaces the rules and installs the references, but keeps an existing project `CLAUDE.md` (user file), so an updated project gets about −80%.

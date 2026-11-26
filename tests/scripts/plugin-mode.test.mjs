@@ -60,7 +60,8 @@ describe('--plugin-mode', { timeout: 120_000 }, () => {
     expect(r.status, r.stderr + r.stdout).toBe(0);
     const rulesDir = path.join(solo, '.claude/rules');
     const rules = fs.readdirSync(rulesDir).filter((f) => f.endsWith('.md'));
-    expect(rules.length).toBe(8);
+    const shipped = fs.readdirSync(path.join(ROOT, 'Dev/i18n/fr/Common/rules')).filter((f) => f.endsWith('.md'));
+    expect(rules.sort()).toEqual(shipped.sort());
     for (const f of rules) {
       const ref = fs.readFileSync(path.join(rulesDir, f), 'utf8').match(/\.claude\/references\/base\/([a-z-]+\.md)/);
       expect(ref, f).not.toBeNull();

@@ -17,4 +17,6 @@ Prioridade absoluta. Referência: OWASP Top 10:2025.
 
 Inegociável: validar toda entrada no servidor; nunca concatenar SQL; nunca MD5/SHA1 para senhas; tokens em cookies HTTP-only, secure, SameSite (nunca localStorage); JWT com expiração curta e algoritmo fixado no verificador; nunca segredos no código; nunca registrar senhas, tokens ou dados pessoais completos.
 
+Senhas: Argon2id (mínimo OWASP 19 MiB, t=2, p=1; aqui 128 MiB, t≥3, p=1); bcrypt apenas como alternativa legacy (custo ≥ 12); mínimo 15 caracteres (8 dentro de um MFA), aceitar ≥ 64, bloquear senhas comuns/comprometidas. Sessões expiram após 15-30 min de inatividade. JWT: access token de 15 min, refresh token ≤ 7 dias armazenado com segurança, nunca HS256 com segredo fraco. Headers obrigatórios: CSP, X-Content-Type-Options nosniff, X-Frame-Options DENY, HSTS, Referrer-Policy estrita, COOP/COEP/CORP, Permissions-Policy.
+
 Detalhes (headers, supply chain, MCP/plugins, checklists): `${CLAUDE_PLUGIN_ROOT}/references/base/security.md`
