@@ -760,6 +760,11 @@ class OrderController extends Controller
 - **Systematic eager loading**: preventLazyLoading() in dev, zero N+1 in prod
 - **Queue for long operations**: emails, PDFs, notifications via ShouldQueue
 
+
+## Review protocol
+
+Before scoring, follow `.claude/references/base/review-protocol.md`: read the callers and importers of the changed code beyond the diff, and write each finding as location · what the code does · what goes wrong · fix · risk if skipped, ranked *must* / *should* / *nice*.
+
 ---
 
 **Version:** 2.0

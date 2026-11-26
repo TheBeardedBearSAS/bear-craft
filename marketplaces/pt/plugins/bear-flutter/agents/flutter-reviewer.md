@@ -657,6 +657,11 @@ context.pushRoute(UserRoute(id: user.id)); // auto_route
 - **Test the behavior**: testar a sequencia de estados, nao a implementacao interna do BLoC
 - **Platform abstraction**: o codigo UI nao deve saber se esta rodando no iOS ou Android
 
+
+## Protocolo de revisão
+
+Antes de pontuar, seguir `${CLAUDE_PLUGIN_ROOT}/references/base/review-protocol.md`: ler os chamadores e imports do código alterado além do diff, e redigir cada achado assim: localização · o que o código faz · o que dá errado · correção · risco se for ignorado, classificado *corrigir* / *convém* / *opcional*.
+
 ---
 
 **Versao:** 2.1

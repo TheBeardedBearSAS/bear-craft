@@ -21,7 +21,7 @@ Examinar organización de pruebas:
 - [ ] Fixtures de pytest en `conftest.py`
 - [ ] Separación de pruebas unit / integration / e2e
 
-**Referencia**: `rules/07-testing.md` sección "Organización de Pruebas"
+**Referencia**: `.claude/references/base/testing.md` sección "Organización de Pruebas"
 
 ### Paso 2: Cobertura de Código
 
@@ -34,7 +34,7 @@ Medir cobertura de pruebas:
 
 **Comando**: Ejecutar `docker run --rm -v $(pwd):/app python:3.15 sh -c "pip install pytest pytest-cov && pytest /app --cov=/app --cov-report=term-missing"`
 
-**Referencia**: `rules/07-testing.md` sección "Cobertura de Código"
+**Referencia**: `.claude/references/base/testing.md` sección "Cobertura de Código"
 
 ### Paso 3: Pruebas Unitarias
 
@@ -46,7 +46,7 @@ Analizar calidad de pruebas unitarias:
 - [ ] Nomenclatura descriptiva: `test_should_X_when_Y`
 - [ ] Patrón AAA (Arrange, Act, Assert)
 
-**Referencia**: `rules/07-testing.md` sección "Pruebas Unitarias"
+**Referencia**: `.claude/references/base/testing.md` sección "Pruebas Unitarias"
 
 ### Paso 4: Pruebas de Integración
 
@@ -57,7 +57,7 @@ Verificar pruebas de integración:
 - [ ] Limpieza después de cada prueba (teardown)
 - [ ] Pruebas aisladas e independientes
 
-**Referencia**: `rules/07-testing.md` sección "Pruebas de Integración"
+**Referencia**: `.claude/references/base/testing.md` sección "Pruebas de Integración"
 
 ### Paso 5: Aserciones y Calidad de Pruebas
 
@@ -69,7 +69,7 @@ Verificar calidad de aserciones:
 - [ ] Pruebas de errores y excepciones
 - [ ] Sin pruebas deshabilitadas sin razón (skip/xfail)
 
-**Referencia**: `rules/07-testing.md` sección "Aserciones y Calidad de Pruebas"
+**Referencia**: `.claude/references/base/testing.md` sección "Aserciones y Calidad de Pruebas"
 
 ### Paso 6: Fixtures y Parametrización
 
@@ -80,7 +80,7 @@ Evaluar uso de fixtures de pytest:
 - [ ] Factories para objetos de prueba complejos
 - [ ] Sin duplicación en fixtures
 
-**Referencia**: `rules/07-testing.md` sección "Fixtures de Pytest"
+**Referencia**: `.claude/references/base/testing.md` sección "Fixtures de Pytest"
 
 ### Paso 7: Rendimiento y Ejecución
 
@@ -93,7 +93,7 @@ Analizar rendimiento de pruebas:
 
 **Comando**: Ejecutar `docker run --rm -v $(pwd):/app python:3.15 sh -c "pip install pytest && pytest /app -v --duration=10"`
 
-**Referencia**: `rules/07-testing.md` sección "Rendimiento de Pruebas"
+**Referencia**: `.claude/references/base/testing.md` sección "Rendimiento de Pruebas"
 
 ### Paso 8: Test-Driven Development (TDD)
 
@@ -103,7 +103,7 @@ Verificar adopción de TDD:
 - [ ] Pruebas guiando el diseño
 - [ ] Sin código sin probar en producción
 
-**Referencia**: `rules/01-workflow-analysis.md` sección "Flujo de Trabajo TDD"
+**Referencia**: `.claude/references/base/workflow-analysis.md` sección "Flujo de Trabajo TDD"
 
 ### Paso 9: Calcular Puntuación
 

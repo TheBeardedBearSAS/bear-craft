@@ -10,7 +10,7 @@ $ARGUMENTS
 
 ## MISSÃO
 
-Você é um especialista em auditoria de segurança React Native. Sua missão é analisar as práticas de segurança de acordo com os padrões definidos em `${CLAUDE_PLUGIN_ROOT}/rules/11-security.md`.
+Você é um especialista em auditoria de segurança React Native. Sua missão é analisar as práticas de segurança de acordo com os padrões definidos em `${CLAUDE_PLUGIN_ROOT}/references/base/security.md`.
 
 ### Etapa 1: Análise de dependências e configuração
 
@@ -425,7 +425,7 @@ gem install fastlane
 
 ## 📚 Referências
 
-- `${CLAUDE_PLUGIN_ROOT}/rules/11-security.md` - Padrões de segurança
+- `${CLAUDE_PLUGIN_ROOT}/references/base/security.md` - Padrões de segurança
 - [OWASP Mobile Top 10](https://owasp.org/www-project-mobile-top-10/)
 - [React Native Security](https://reactnative.dev/docs/security)
 - [Expo Security](https://docs.expo.dev/guides/security/)

@@ -10,7 +10,7 @@ $ARGUMENTS
 
 ## MISSION
 
-You are a React Native code quality audit expert. Your mission is to analyze code compliance according to the standards defined in `.claude/rules/03-coding-standards.md`, `${CLAUDE_PLUGIN_ROOT}/rules/04-solid-principles.md` and `${CLAUDE_PLUGIN_ROOT}/rules/05-kiss-dry-yagni.md`.
+You are a React Native code quality audit expert. Your mission is to analyze code compliance according to the standards defined in `.claude/rules/03-coding-standards.md`, `${CLAUDE_PLUGIN_ROOT}/references/base/solid-principles.md` and `${CLAUDE_PLUGIN_ROOT}/references/base/kiss-dry-yagni.md`.
 
 ### Step 1: Configuration analysis
 
@@ -101,7 +101,7 @@ package.json
 
 ### Step 5: SOLID Principles (4 points)
 
-Reference: `${CLAUDE_PLUGIN_ROOT}/rules/04-solid-principles.md`
+Reference: `${CLAUDE_PLUGIN_ROOT}/references/base/solid-principles.md`
 
 Analyze 3-5 main components or modules:
 
@@ -119,7 +119,7 @@ src/hooks/**/*.ts
 
 ### Step 6: KISS, DRY, YAGNI Principles (5 points)
 
-Reference: `${CLAUDE_PLUGIN_ROOT}/rules/05-kiss-dry-yagni.md`
+Reference: `${CLAUDE_PLUGIN_ROOT}/references/base/kiss-dry-yagni.md`
 
 - [ ] **(2 pts)** **KISS (Keep It Simple)**: Simple and readable code, no over-engineering
 - [ ] **(2 pts)** **DRY (Don't Repeat Yourself)**: No code duplication, reuse via hooks/utils
@@ -277,8 +277,8 @@ If SonarQube or other tool available:
 ## 📚 References
 
 - `.claude/rules/03-coding-standards.md` - Code standards
-- `${CLAUDE_PLUGIN_ROOT}/rules/04-solid-principles.md` - SOLID principles
-- `${CLAUDE_PLUGIN_ROOT}/rules/05-kiss-dry-yagni.md` - KISS, DRY, YAGNI principles
+- `${CLAUDE_PLUGIN_ROOT}/references/base/solid-principles.md` - SOLID principles
+- `${CLAUDE_PLUGIN_ROOT}/references/base/kiss-dry-yagni.md` - KISS, DRY, YAGNI principles
 - `.claude/rules/06-tooling.md` - Tool configuration
 
 ---

@@ -16,7 +16,7 @@ Tu es un expert Flutter chargé d'auditer la stratégie et la couverture de test
 
 - [ ] Localiser le dossier `/test/` et sa structure
 - [ ] Vérifier les dépendances de test dans `pubspec.yaml` (flutter_test, mockito, bloc_test)
-- [ ] Référencer les règles depuis `/rules/07-testing.md`
+- [ ] Référencer les règles depuis `${CLAUDE_PLUGIN_ROOT}/references/base/testing.md`
 - [ ] Référencer les outils depuis `/rules/08-quality-tools.md`
 - [ ] Vérifier la configuration de couverture
 

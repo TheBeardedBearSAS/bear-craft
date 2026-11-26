@@ -716,6 +716,11 @@ build: {
 - **Plugin naming convention**: vite-plugin-* with an explicit `name` property
 - **Verify the build, not just the source code**: test the actually published dist/
 
+
+## Review protocol
+
+Before scoring, follow `${CLAUDE_PLUGIN_ROOT}/references/base/review-protocol.md`: read the callers and importers of the changed code beyond the diff, and write each finding as location · what the code does · what goes wrong · fix · risk if skipped, ranked *must* / *should* / *nice*.
+
 ---
 
 **Version:** 1.0

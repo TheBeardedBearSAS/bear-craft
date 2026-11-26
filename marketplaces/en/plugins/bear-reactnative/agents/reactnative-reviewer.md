@@ -515,6 +515,11 @@ import { format } from 'date-fns';
 - **Type safety end-to-end**: from API schema (Zod) to navigation params
 - **Strict separation**: UI in components, logic in hooks, data in services
 
+
+## Review protocol
+
+Before scoring, follow `${CLAUDE_PLUGIN_ROOT}/references/base/review-protocol.md`: read the callers and importers of the changed code beyond the diff, and write each finding as location · what the code does · what goes wrong · fix · risk if skipped, ranked *must* / *should* / *nice*.
+
 ---
 
 **Version:** 2.0

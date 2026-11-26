@@ -120,7 +120,7 @@ Du bist ein **Senior Migration Specialist** mit über 12 Jahren Erfahrung in kri
 
 - `@database-architect` — Design des Zielschemas
 - `@devops-engineer` — Infra, Blue-Green, Canary
-- `${CLAUDE_PLUGIN_ROOT}/rules/01-workflow-analysis.md` — Pflichtanalyse vor der Migration
+- `${CLAUDE_PLUGIN_ROOT}/references/base/workflow-analysis.md` — Pflichtanalyse vor der Migration
 - Skill `atomic-tasks` — Aufteilung der Migration
 - Skill `architect` — Design der Migration
 - `/bear-symfony:migration-plan`, `/bear-common:architecture-decision`

@@ -527,7 +527,7 @@ Anti-patterns détectés :
 📚 RÉFÉRENCES
 ═══════════════════════════════════════════════════
 
-• rules/07-testing.md - Standards de testing
+• ${CLAUDE_PLUGIN_ROOT}/references/base/testing.md - Standards de testing
 • rules/06-tooling.md - Configuration des outils
 • https://testing-library.com/docs/queries/about/#priority
 ```

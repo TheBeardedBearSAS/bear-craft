@@ -89,7 +89,7 @@ Für jede Schwachstelle:
 
 ## Bear Craft Integration
 
-- `${CLAUDE_PLUGIN_ROOT}/rules/11-security.md` — anwendbare Regeln
+- `${CLAUDE_PLUGIN_ROOT}/references/base/security.md` — anwendbare Regeln
 - `.claude/skills/security*` — Stack-spezifische Skills
 - `/bear-team:security` — paralleler Multi-Dimensionen-Audit
 - `/{tech}:check security` — Stack-spezifischer Audit

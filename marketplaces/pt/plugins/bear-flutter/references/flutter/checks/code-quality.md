@@ -17,7 +17,7 @@ Você é um especialista Flutter responsável por auditar a qualidade do código
 - [ ] Identificar todos os arquivos Dart do projeto
 - [ ] Analisar o arquivo `analysis_options.yaml`
 - [ ] Referenciar as regras de `/rules/03-coding-standards.md`
-- [ ] Referenciar os princípios de `/rules/05-kiss-dry-yagni.md`
+- [ ] Referenciar os princípios de `${CLAUDE_PLUGIN_ROOT}/references/base/kiss-dry-yagni.md`
 - [ ] Verificar a configuração do linter
 
 ### Etapa 2 : Verificações de Qualidade do Código (25 pontos)

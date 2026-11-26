@@ -661,6 +661,11 @@ Todos os comandos rodam dentro do container, por exemplo `docker compose exec ap
 - **Testar o comportamento**: testar o comportamento de negócio, não a implementação; todo bug corrigido ganha um teste de regressão
 - **Seguro por padrão**: strong params, queries com escopo, saída escapada, Brakeman verde
 
+
+## Protocolo de revisão
+
+Antes de pontuar, seguir `.claude/references/base/review-protocol.md`: ler os chamadores e imports do código alterado além do diff, e redigir cada achado assim: localização · o que o código faz · o que dá errado · correção · risco se for ignorado, classificado *corrigir* / *convém* / *opcional*.
+
 ---
 
 **Versão:** 1.0

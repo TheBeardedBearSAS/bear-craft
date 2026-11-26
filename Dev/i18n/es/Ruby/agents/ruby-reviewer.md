@@ -661,6 +661,11 @@ Todos los comandos se ejecutan dentro del contenedor, por ejemplo `docker compos
 - **Probar el comportamiento**: probar el comportamiento de negocio, no la implementación; cada bug corregido recibe un test de regresión
 - **Seguro por defecto**: strong params, consultas acotadas, salida escapada, Brakeman en verde
 
+
+## Protocolo de revisión
+
+Antes de puntuar, seguir `.claude/references/base/review-protocol.md`: leer los llamadores e imports del código modificado más allá del diff, y redactar cada hallazgo así: ubicación · qué hace el código · qué falla · corrección · riesgo si se omite, clasificado *corregir* / *conviene* / *opcional*.
+
 ---
 
 **Versión:** 1.0

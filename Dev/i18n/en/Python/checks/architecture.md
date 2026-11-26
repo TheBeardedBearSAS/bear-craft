@@ -74,7 +74,7 @@ Verify application of SOLID principles:
 - [ ] Interface Segregation: Specific and minimal interfaces
 - [ ] Dependency Inversion: Dependency on abstractions
 
-**Reference**: `rules/04-solid-principles.md`
+**Reference**: `.claude/references/base/solid-principles.md`
 
 ### Step 7: Calculate Score
 

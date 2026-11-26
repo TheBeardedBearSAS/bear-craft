@@ -74,7 +74,7 @@ Verificar aplicación de principios SOLID:
 - [ ] Segregación de Interfaces: Interfaces específicas y mínimas
 - [ ] Inversión de Dependencias: Dependencia de abstracciones
 
-**Referencia**: `rules/04-solid-principles.md`
+**Referencia**: `.claude/references/base/solid-principles.md`
 
 ### Paso 7: Calcular Puntuación
 

@@ -16,7 +16,7 @@ Você é um especialista Flutter responsável por auditar a segurança do projet
 
 - [ ] Examinar `pubspec.yaml` para dependências de segurança
 - [ ] Procurar arquivos de configuração (`.env`, `config.dart`)
-- [ ] Referenciar as regras de `/rules/11-security.md`
+- [ ] Referenciar as regras de `${CLAUDE_PLUGIN_ROOT}/references/base/security.md`
 - [ ] Verificar `.gitignore` para secrets
 - [ ] Escanear arquivos Dart para credenciais hardcoded
 

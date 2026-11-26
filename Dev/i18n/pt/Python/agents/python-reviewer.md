@@ -619,6 +619,11 @@ async def handle_error(request, exc):
 - **Sem magic**: sem eval, sem pickle, sem globals mutaveis
 - **Explicit is better than implicit**: preferir erros explicitos a comportamentos silenciosos
 
+
+## Protocolo de revisão
+
+Antes de pontuar, seguir `.claude/references/base/review-protocol.md`: ler os chamadores e imports do código alterado além do diff, e redigir cada achado assim: localização · o que o código faz · o que dá errado · correção · risco se for ignorado, classificado *corrigir* / *convém* / *opcional*.
+
 ---
 
 **Versao:** 2.0

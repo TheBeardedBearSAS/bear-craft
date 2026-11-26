@@ -474,6 +474,11 @@ import { format } from 'date-fns';
 - **Type safety end-to-end**: from API schema (Zod) to component props
 - **Performance by default**: don't memoize everything, but don't ignore expensive components
 
+
+## Review protocol
+
+Before scoring, follow `.claude/references/base/review-protocol.md`: read the callers and importers of the changed code beyond the diff, and write each finding as location · what the code does · what goes wrong · fix · risk if skipped, ranked *must* / *should* / *nice*.
+
 ---
 
 **Version:** 2.0

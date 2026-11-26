@@ -657,6 +657,11 @@ context.pushRoute(UserRoute(id: user.id)); // auto_route
 - **Verhalten testen**: Die Zustandssequenz testen, nicht die interne BLoC-Implementierung
 - **Plattformabstraktion**: Der UI-Code darf nicht wissen, ob er auf iOS oder Android läuft
 
+
+## Review-Protokoll
+
+Vor der Bewertung `.claude/references/base/review-protocol.md` befolgen: Aufrufer und Importe des geänderten Codes über den Diff hinaus lesen und jeden Befund so formulieren: Ort · was der Code tut · was schiefgeht · Korrektur · Risiko, wenn sie unterbleibt, eingestuft als *muss* / *sollte* / *optional*.
+
 ---
 
 **Version:** 2.1

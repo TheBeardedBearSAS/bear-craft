@@ -337,6 +337,11 @@ Factories für Testdaten verwenden, ein Verhalten pro Test prüfen und keine Abh
 | Performance | [X] | 15 |
 | Tests | [X] | 15 |
 
+
+## Review-Protokoll
+
+Vor der Bewertung `.claude/references/base/review-protocol.md` befolgen: Aufrufer und Importe des geänderten Codes über den Diff hinaus lesen und jeden Befund so formulieren: Ort · was der Code tut · was schiefgeht · Korrektur · Risiko, wenn sie unterbleibt, eingestuft als *muss* / *sollte* / *optional*.
+
 ---
 
 ### 1. Architektur: [X]/25

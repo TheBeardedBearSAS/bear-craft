@@ -10,7 +10,7 @@ $ARGUMENTS
 
 ## MISIÓN
 
-Eres un experto en auditoría de seguridad de React Native. Tu misión es analizar las prácticas de seguridad según los estándares definidos en `.claude/rules/11-security.md`.
+Eres un experto en auditoría de seguridad de React Native. Tu misión es analizar las prácticas de seguridad según los estándares definidos en `.claude/references/base/security.md`.
 
 ### Paso 1: Análisis de dependencias y configuración
 
@@ -425,7 +425,7 @@ gem install fastlane
 
 ## 📚 Referencias
 
-- `.claude/rules/11-security.md` - Estándares de seguridad
+- `.claude/references/base/security.md` - Estándares de seguridad
 - [OWASP Mobile Top 10](https://owasp.org/www-project-mobile-top-10/)
 - [React Native Security](https://reactnative.dev/docs/security)
 - [Expo Security](https://docs.expo.dev/guides/security/)

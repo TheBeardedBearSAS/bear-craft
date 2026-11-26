@@ -208,14 +208,14 @@ Générer un rapport exécutif structuré :
    🔧 Action : Implémenter DOMPurify.sanitize()
    ⏱️  Effort : 2-4 heures
    💥 Impact : Sécurité critique
-   📚 Référence : rules/11-security.md
+   📚 Référence : .claude/references/base/security.md
 
 2. [HAUTE - Testing] Augmenter le coverage de XX% à 80%
    📍 Composants : UserProfile, Dashboard, AuthForm
    🔧 Action : Ajouter tests unitaires et d'intégration
    ⏱️  Effort : 2-3 jours
    💥 Impact : Qualité et maintenabilité
-   📚 Référence : rules/07-testing.md
+   📚 Référence : .claude/references/base/testing.md
 
 3. [HAUTE - Architecture] Refactorer la structure des features
    📍 Dossiers : /src/components, /src/utils
@@ -309,17 +309,17 @@ Générer un rapport exécutif structuré :
 ═══════════════════════════════════════════════════
 
 📖 Règles du projet :
-   • rules/01-workflow-analysis.md - Workflow de développement
+   • .claude/references/base/workflow-analysis.md - Workflow de développement
    • rules/02-architecture.md - Architecture React
    • rules/03-coding-standards.md - Standards de code
-   • rules/04-solid-principles.md - Principes SOLID
-   • rules/05-kiss-dry-yagni.md - Simplicité et DRY
+   • .claude/references/base/solid-principles.md - Principes SOLID
+   • .claude/references/base/kiss-dry-yagni.md - Simplicité et DRY
    • rules/06-tooling.md - Outils et configuration
-   • rules/07-testing.md - Stratégie de testing
+   • .claude/references/base/testing.md - Stratégie de testing
    • rules/08-quality-tools.md - Outils de qualité
-   • rules/09-git-workflow.md - Git et CI/CD
-   • rules/10-documentation.md - Documentation
-   • rules/11-security.md - Sécurité
+   • .claude/references/base/git-workflow.md - Git et CI/CD
+   • .claude/references/base/documentation.md - Documentation
+   • .claude/references/base/security.md - Sécurité
 
 🔗 Ressources externes :
    • React Best Practices : https://react.dev/learn

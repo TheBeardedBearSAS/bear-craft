@@ -101,7 +101,7 @@ Prioriser : économie élevée × effort faible × risque faible.
 
 - `@devops-engineer` — infrastructure
 - `@performance-auditor` — arbitrage performance vs coût
-- `.claude/rules/12-context-management.md` — optimisation des tokens Claude Code
+- `.claude/references/base/context-management.md` — optimisation des tokens Claude Code
 - `/bear-common:setup-rtk` — RTK 60-90% d'économies sur les tokens
 - Skill `atomic-tasks` — sous-agent frais = moins de tokens
 

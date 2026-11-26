@@ -337,6 +337,11 @@ Apply `.claude/skills/woocommerce/checklist.md`. Minimum signals: HPOS (custom o
 | Performance | [X] | 15 |
 | Testing | [X] | 15 |
 
+
+## Review protocol
+
+Before scoring, follow `.claude/references/base/review-protocol.md`: read the callers and importers of the changed code beyond the diff, and write each finding as location · what the code does · what goes wrong · fix · risk if skipped, ranked *must* / *should* / *nice*.
+
 ---
 
 ### 1. Architecture: [X]/25

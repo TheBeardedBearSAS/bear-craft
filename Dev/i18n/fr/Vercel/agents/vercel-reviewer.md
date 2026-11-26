@@ -856,6 +856,11 @@ describe('api/cron/daily', () => {
 - **Tester le contrat, pas seulement le chemin nominal** : chaque handler protégé nécessite un test d'échec d'authentification
 - **Périmètre indépendant de tout framework** : ne jamais évaluer le routage/rendu/récupération de données spécifiques à Next.js — cela relève du stack propre au framework
 
+
+## Protocole de revue
+
+Avant de noter, suivre `.claude/references/base/review-protocol.md` : lire les appelants et les imports du code modifié au-delà du diff, et rédiger chaque constat ainsi : emplacement · ce que fait le code · ce qui ne va pas · correctif · risque si on l'ignore, classé *à corriger* / *à envisager* / *optionnel*.
+
 ---
 
 **Version :** 1.0

@@ -93,7 +93,12 @@ Reporté : les agents d'audit et `checks/*.md` citent les règles comme checklis
 - Priorité : 12-context-management (≈ 30 Ko), 11-security (≈ 19 Ko), 05, 04, 09, 07.
 - Tests : budget de taille cumulée par langue (nouveau test de contenu), liens quick-ref → référence valides, parité 0,80 maintenue.
 
-### Phase 3 — Carte du code et revue
+### Phase 3 — Carte du code et revue (réalisée 2026-11-26, branche `feat/review-protocol`)
+
+- **Carte du code : non livrée.** Prototype (`bear-craft-bench/proto/session-map.sh`) mesuré sur 3 tâches `tmpl-*` × 3 : lignes −56 % contre −66 % sans carte, tours +13 % contre +28 %, coût +9 % contre +12 % (intervalles très larges).
+  Gain non démontré pour ~600 tokens par session : écartée.
+- **Protocole de revue : livré**, additif (grilles et formats inchangés) ; checklists et agents Common reciblés vers `references/base/`.
+  Effet non mesuré : sur une casse plantée hors du diff, l'ancien et le nouveau reviewer la trouvent 2/2 (test trop facile pour départager) ; la revue coûte 0,07 $ contre 0,29 $ grâce à la phase 2.
 
 - **Carte** : `session-init.sh` ajoute une liste compacte (≤ 2 Ko) des composants/helpers/services et dépendances installées ; budget 3 s, échec silencieux, désactivable (`BEAR_MAP=0`).
 - **Revue** : les 11 reviewers et `/bear-gate:check` lisent le code touché hors diff (appelants, imports) et structurent chaque constat : *ce que fait le code / ce qui casse / correctif / risque si ignoré*, classés « à corriger / à envisager / optionnel ».

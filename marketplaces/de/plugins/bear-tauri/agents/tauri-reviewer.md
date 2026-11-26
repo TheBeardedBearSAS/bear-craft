@@ -449,6 +449,11 @@ Werkzeuge nach Möglichkeit im Container ausführen (`docker compose exec app ..
 - **Updates sind eine Einbahnstraße**: den Signaturschlüssel schützen, den Update-Pfad testen
 - **Im Umfang bleiben**: UI gehört zu den Frontend-Stacks, allgemeines Rust zum Stack `rust`
 
+
+## Review-Protokoll
+
+Vor der Bewertung `${CLAUDE_PLUGIN_ROOT}/references/base/review-protocol.md` befolgen: Aufrufer und Importe des geänderten Codes über den Diff hinaus lesen und jeden Befund so formulieren: Ort · was der Code tut · was schiefgeht · Korrektur · Risiko, wenn sie unterbleibt, eingestuft als *muss* / *sollte* / *optional*.
+
 ---
 
 **Version:** 1.0

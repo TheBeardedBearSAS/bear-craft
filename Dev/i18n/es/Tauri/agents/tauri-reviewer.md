@@ -449,6 +449,11 @@ Ejecutar las herramientas dentro del contenedor siempre que sea posible (`docker
 - **Las actualizaciones son una puerta de un solo sentido**: proteger la clave de firma, testear la ruta de actualización
 - **Mantenerse en el alcance**: la interfaz pertenece a los stacks de frontend, el Rust general al stack `rust`
 
+
+## Protocolo de revisión
+
+Antes de puntuar, seguir `.claude/references/base/review-protocol.md`: leer los llamadores e imports del código modificado más allá del diff, y redactar cada hallazgo así: ubicación · qué hace el código · qué falla · corrección · riesgo si se omite, clasificado *corregir* / *conviene* / *opcional*.
+
 ---
 
 **Versión:** 1.0

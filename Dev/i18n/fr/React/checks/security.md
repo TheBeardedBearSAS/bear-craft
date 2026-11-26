@@ -242,7 +242,7 @@ Si des vulnérabilités CRITIQUES sont détectées :
 📚 RÉFÉRENCES
 ═══════════════════════════════════════════════════
 
-• rules/11-security.md - Standards de sécurité
+• .claude/references/base/security.md - Standards de sécurité
 • https://owasp.org/www-project-top-ten/
 • https://cheatsheetseries.owasp.org/cheatsheets/React_Security_Cheat_Sheet.html
 • https://www.npmjs.com/package/dompurify

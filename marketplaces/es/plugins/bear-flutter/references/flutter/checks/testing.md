@@ -16,7 +16,7 @@ Eres un experto en Flutter encargado de auditar la estrategia y la cobertura de 
 
 - [ ] Localizar la carpeta `/test/` y su estructura
 - [ ] Verificar las dependencias de test en `pubspec.yaml` (flutter_test, mockito, bloc_test)
-- [ ] Referenciar las reglas desde `/rules/07-testing.md`
+- [ ] Referenciar las reglas desde `${CLAUDE_PLUGIN_ROOT}/references/base/testing.md`
 - [ ] Referenciar las herramientas desde `/rules/08-quality-tools.md`
 - [ ] Verificar la configuración de cobertura
 

@@ -101,7 +101,7 @@ Prioritize: high savings × low effort × low risk.
 
 - `@devops-engineer` — infrastructure
 - `@performance-auditor` — performance vs cost trade-off
-- `${CLAUDE_PLUGIN_ROOT}/rules/12-context-management.md` — Claude Code token optimization
+- `${CLAUDE_PLUGIN_ROOT}/references/base/context-management.md` — Claude Code token optimization
 - `/bear-common:setup-rtk` — RTK 60-90% token savings
 - Skill `atomic-tasks` — fresh subagent = fewer tokens
 

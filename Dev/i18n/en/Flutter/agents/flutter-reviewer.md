@@ -657,6 +657,11 @@ context.pushRoute(UserRoute(id: user.id)); // auto_route
 - **Test the behavior**: test the state sequence, not the internal implementation of the BLoC
 - **Platform abstraction**: UI code should not know whether it runs on iOS or Android
 
+
+## Review protocol
+
+Before scoring, follow `.claude/references/base/review-protocol.md`: read the callers and importers of the changed code beyond the diff, and write each finding as location · what the code does · what goes wrong · fix · risk if skipped, ranked *must* / *should* / *nice*.
+
 ---
 
 **Version:** 2.1

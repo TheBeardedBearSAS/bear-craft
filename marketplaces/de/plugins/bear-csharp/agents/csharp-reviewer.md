@@ -513,6 +513,11 @@ await context.Orders.Where(o => o.Id == id)
 - **Type Safety**: Nullable Reference Types aktiv, Records für DTOs, Value Objects für die Domain
 - **EF Core Performance**: AsNoTracking als Standard, Select-Projektionen, keine N+1
 
+
+## Review-Protokoll
+
+Vor der Bewertung `${CLAUDE_PLUGIN_ROOT}/references/base/review-protocol.md` befolgen: Aufrufer und Importe des geänderten Codes über den Diff hinaus lesen und jeden Befund so formulieren: Ort · was der Code tut · was schiefgeht · Korrektur · Risiko, wenn sie unterbleibt, eingestuft als *muss* / *sollte* / *optional*.
+
 ---
 
 **Version:** 2.0

@@ -337,6 +337,11 @@ Aplica `${CLAUDE_PLUGIN_ROOT}/skills/woocommerce/checklist.md`. Señales mínima
 | Performance | [X] | 15 |
 | Testing | [X] | 15 |
 
+
+## Protocolo de revisión
+
+Antes de puntuar, seguir `${CLAUDE_PLUGIN_ROOT}/references/base/review-protocol.md`: leer los llamadores e imports del código modificado más allá del diff, y redactar cada hallazgo así: ubicación · qué hace el código · qué falla · corrección · riesgo si se omite, clasificado *corregir* / *conviene* / *opcional*.
+
 ---
 
 ### 1. Architecture: [X]/25

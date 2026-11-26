@@ -17,7 +17,7 @@ Du bist ein Flutter-Experte, der beauftragt ist, die Projektarchitektur gemäß 
 - [ ] Ordnerstruktur des Projekts identifizieren
 - [ ] Dateien `pubspec.yaml` und `analysis_options.yaml` lokalisieren
 - [ ] Regeln aus `/rules/02-architecture.md` referenzieren
-- [ ] SOLID-Prinzipien aus `/rules/04-solid-principles.md` referenzieren
+- [ ] SOLID-Prinzipien aus `${CLAUDE_PLUGIN_ROOT}/references/base/solid-principles.md` referenzieren
 
 ### Schritt 2: Architektur-Prüfungen (25 Punkte)
 

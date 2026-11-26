@@ -74,7 +74,7 @@ Code-Einfachheit und -Klarheit analysieren:
 - [ ] Einzelne Abstraktionsebene pro Funktion
 - [ ] Frühe Returns zur Komplexitätsreduzierung
 
-**Referenz**: `rules/05-kiss-dry-yagni.md`
+**Referenz**: `${CLAUDE_PLUGIN_ROOT}/references/base/kiss-dry-yagni.md`
 
 ### Schritt 6: Kommentare und Dokumentation
 

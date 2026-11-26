@@ -89,7 +89,7 @@ For each vulnerability:
 
 ## Bear Craft Integration
 
-- `.claude/rules/11-security.md` — applicable rules
+- `.claude/references/base/security.md` — applicable rules
 - `.claude/skills/security*` — per-stack skills
 - `/bear-team:security` — parallel multi-dimension audit
 - `/{tech}:check security` — per-stack audit

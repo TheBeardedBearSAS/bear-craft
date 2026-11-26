@@ -513,6 +513,11 @@ await context.Orders.Where(o => o.Id == id)
 - **Type safety**: nullable reference types ativos, records para DTOs, Value Objects para o dominio
 - **Performance EF Core**: AsNoTracking por padrao, projecoes Select, sem N+1
 
+
+## Protocolo de revisão
+
+Antes de pontuar, seguir `.claude/references/base/review-protocol.md`: ler os chamadores e imports do código alterado além do diff, e redigir cada achado assim: localização · o que o código faz · o que dá errado · correção · risco se for ignorado, classificado *corrigir* / *convém* / *opcional*.
+
 ---
 
 **Versao:** 2.0

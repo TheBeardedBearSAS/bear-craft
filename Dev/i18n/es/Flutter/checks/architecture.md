@@ -17,7 +17,7 @@ Eres un experto en Flutter encargado de auditar la arquitectura del proyecto seg
 - [ ] Identificar la estructura de carpetas del proyecto
 - [ ] Localizar los archivos `pubspec.yaml` y `analysis_options.yaml`
 - [ ] Referenciar las reglas desde `/rules/02-architecture.md`
-- [ ] Referenciar los principios SOLID desde `/rules/04-solid-principles.md`
+- [ ] Referenciar los principios SOLID desde `.claude/references/base/solid-principles.md`
 
 ### Paso 2: Verificaciones Arquitectura (25 puntos)
 

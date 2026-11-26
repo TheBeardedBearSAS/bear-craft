@@ -644,6 +644,11 @@ import { signal, computed } from '@angular/core';
 - **OnPush by default (22.0.0+)**: do not opt out with `ChangeDetectionStrategy.Eager` without a documented reason
 - **Strategic @defer**: granular lazy loading for secondary content
 
+
+## Review protocol
+
+Before scoring, follow `.claude/references/base/review-protocol.md`: read the callers and importers of the changed code beyond the diff, and write each finding as location · what the code does · what goes wrong · fix · risk if skipped, ranked *must* / *should* / *nice*.
+
 ---
 
 **Version:** 2.2

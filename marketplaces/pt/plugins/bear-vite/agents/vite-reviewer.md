@@ -716,6 +716,11 @@ build: {
 - **Convenção de nomeação de plugins**: vite-plugin-* com uma propriedade `name` explícita
 - **Verificar o build, não apenas o código-fonte**: testar o dist/ realmente publicado
 
+
+## Protocolo de revisão
+
+Antes de pontuar, seguir `${CLAUDE_PLUGIN_ROOT}/references/base/review-protocol.md`: ler os chamadores e imports do código alterado além do diff, e redigir cada achado assim: localização · o que o código faz · o que dá errado · correção · risco se for ignorado, classificado *corrigir* / *convém* / *opcional*.
+
 ---
 
 **Versão:** 1.0

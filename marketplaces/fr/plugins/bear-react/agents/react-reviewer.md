@@ -474,6 +474,11 @@ import { format } from 'date-fns';
 - **Type safety end-to-end** : du schéma API (Zod) jusqu'aux props du composant
 - **Performance by default** : ne pas mémoïser tout, mais ne pas ignorer les composants coûteux
 
+
+## Protocole de revue
+
+Avant de noter, suivre `${CLAUDE_PLUGIN_ROOT}/references/base/review-protocol.md` : lire les appelants et les imports du code modifié au-delà du diff, et rédiger chaque constat ainsi : emplacement · ce que fait le code · ce qui ne va pas · correctif · risque si on l'ignore, classé *à corriger* / *à envisager* / *optionnel*.
+
 ---
 
 **Version :** 2.0
