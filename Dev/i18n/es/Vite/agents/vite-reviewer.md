@@ -1,6 +1,6 @@
 ---
 name: vite-reviewer
-description: Especialista en revisión de código Vite 8.x agnóstico de framework — aplicaciones vanilla JS/TS, creación de librerías (build.lib), aplicaciones multi-página (rolldownOptions.input), entradas Workers/WASM, configuración de plugins
+description: Especialista en revisión de código Vite 8.x agnóstico — vanilla, build.lib, multipágina, Workers
 model: haiku
 effort: low
 maxTurns: 6

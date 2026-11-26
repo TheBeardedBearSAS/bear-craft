@@ -1,6 +1,6 @@
 ---
 name: security-paperclip
-description: Seguridad de Paperclip — aislamiento de tenencia, secretos, compuertas de aprobación, presupuestos duros, canal de adaptador firmado. Usar al auditar o endurecer Paperclip.
+description: Seguridad de Paperclip — tenencia, secretos, aprobaciones. Usar al auditar o endurecer Paperclip.
 ---
 
 # Seguridad de Paperclip

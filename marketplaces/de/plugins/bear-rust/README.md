@@ -15,7 +15,7 @@ Requires Claude Code 2.1.325 or later. Version 10.1.2.
 
 ## Commands
 
-- `/bear-rust:check` — Rust/Axum-Audit nach Achse: architecture, code-quality, security, testing oder all (bewerteter Gesamtbericht)
+- `/bear-rust:check` — Rust/Axum-Audit nach Achse: architecture, code-quality, security, testing oder all (bewertet)
 
 ## Agents
 

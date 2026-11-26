@@ -453,6 +453,9 @@ install_rules() {
     [[ -d "$base_rules" ]] && copy_directory "$base_rules" "$dest_rules" "*.md.template"
     [[ -d "$lang_rules" ]] && copy_directory "$lang_rules" "$dest_rules" "*.md"
     [[ -d "$lang_rules" ]] && copy_directory "$lang_rules" "$dest_rules" "*.md.template"
+
+    # Full text of the short rules above, read on demand (RFC-002)
+    copy_base_references "$target_dir" "$I18N_DIR" "$lang" "$dry_run"
 }
 
 install_agents() {

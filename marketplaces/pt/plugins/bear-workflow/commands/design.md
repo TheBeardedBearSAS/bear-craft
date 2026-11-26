@@ -1,6 +1,6 @@
 ---
 name: workflow-design
-description: "Executar a fase de Design (Solutioning) - gerar a especificação técnica (padrão) ou a constituição do projeto (--constitution)"
+description: "Executar a fase de Design - gerar a especificação técnica ou a constituição (--constitution)"
 argument-hint: "[--constitution] [--continue]"
 arguments:
   - name: constitution

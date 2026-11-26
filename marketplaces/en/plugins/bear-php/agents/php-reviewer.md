@@ -1,6 +1,6 @@
 ---
 name: php-reviewer
-description: PHP 8.5 and Clean Architecture code review specialist — DDD, hexagonal, PER-CS 3.0, PHPStan, security analysis
+description: PHP 8.5 Clean Architecture code review specialist — DDD, hexagonal, PER-CS 3.0, PHPStan, security
 model: haiku
 effort: low
 maxTurns: 6

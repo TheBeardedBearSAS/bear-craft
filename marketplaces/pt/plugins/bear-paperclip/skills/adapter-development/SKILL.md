@@ -1,6 +1,6 @@
 ---
 name: adapter-development
-description: Construir uma extensao Paperclip — um plugin via @paperclipai/plugin-sdk ou um adapter built-in sob packages/adapters. Use ao adicionar runtimes AI ou plugins feature.
+description: Construir um plugin ou adapter Paperclip (plugin-sdk). Use ao adicionar runtimes de IA ou plugins.
 ---
 
 # Desenvolvimento de Extensoes Paperclip

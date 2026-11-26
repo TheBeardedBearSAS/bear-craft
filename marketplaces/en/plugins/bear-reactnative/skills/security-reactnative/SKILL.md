@@ -1,6 +1,6 @@
 ---
 name: security-reactnative
-description: Security - React Native Best Practices. Use when reviewing security, implementing auth, or hardening code.
+description: React Native security best practices. Use when reviewing security, implementing auth, or hardening.
 ---
 
 # Security - React Native Best Practices

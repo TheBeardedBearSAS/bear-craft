@@ -1,6 +1,6 @@
 ---
 name: rust-reviewer
-description: Rust 1.99 / Axum 0.8 code review specialist — layered architecture, ownership, error handling, Tokio, SQLx, Tower, cargo-nextest, clippy and cargo-deny security analysis
+description: Rust 1.99 / Axum 0.8 code review specialist — ownership, errors, Tokio, SQLx, clippy, cargo-deny
 model: haiku
 effort: low
 maxTurns: 6

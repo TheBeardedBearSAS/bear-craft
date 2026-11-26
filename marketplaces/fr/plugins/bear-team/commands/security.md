@@ -1,5 +1,5 @@
 ---
-description: Équipe de Revue de Sécurité - Audit de sécurité multi-dimension parallèle par sous-agents (Agent Teams en option)
+description: Équipe de Revue de Sécurité - audit multi-dimension parallèle par sous-agents
 argument-hint: "[--scope=full|code|deps|infra] [--max-workers=3] [--engine=subagents|teams]"
 ---
 

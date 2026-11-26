@@ -1,5 +1,5 @@
 ---
-description: "Rapports analytiques du projet : burndown du sprint, tableau de bord de métriques, graphe de dépendances des stories et chemin critique"
+description: "Rapports projet : burndown du sprint, métriques, graphe de dépendances et chemin critique"
 argument-hint: "<burndown|metrics|deps> [--critical] [--sprint=Sprint-N] [--type=points|stories|tasks] [--format=...] [--velocity=N] [--output=path]"
 ---
 

@@ -1,5 +1,5 @@
 ---
-description: "Pack la codebase en un fichier AI-friendly (Repomix wrapper + fallback shell). Token counting inclus."
+description: "Pack la codebase en un fichier AI-friendly (wrapper Repomix + fallback shell), avec comptage tokens"
 argument-hint: "[--format=xml|markdown|plain] [--output=<path>] [--compress] [--fallback]"
 ---
 

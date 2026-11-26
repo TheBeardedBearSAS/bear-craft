@@ -1,6 +1,6 @@
 ---
 name: trace
-description: "Matrice de traçabilité bidirectionnelle (exigence → story → code → tests) ; --gaps liste les exigences non couvertes, --by-priority regroupe par priorité MoSCoW"
+description: "Matrice de traçabilité exigence → story → code → tests ; --gaps exigences non couvertes"
 argument-hint: "[all|requirement|story|code] [ID] [--gaps] [--by-priority] [--level=story|code|test|all] [--format=table|mermaid|json]"
 ---
 

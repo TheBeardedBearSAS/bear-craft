@@ -1,6 +1,6 @@
 ---
 name: architecture
-description: Architecture React - Principes et Organisation. Use when designing architecture or reviewing code structure.
+description: Architecture React - Principes. Use when designing architecture or reviewing code structure.
 ---
 
 # Architecture React - Principes et Organisation

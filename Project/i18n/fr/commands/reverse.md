@@ -1,5 +1,5 @@
 ---
-description: "Pipeline de rétro-ingénierie brownfield : scanner le code, puis dériver un PRD brouillon, des user stories et une analyse d'écarts spec vs code"
+description: "Rétro-ingénierie brownfield : scanner le code, dériver PRD, user stories et écarts spec vs code"
 argument-hint: "[scan|prd|stories|gaps|all] [--scope=<scope>] [--module=<name>] [--output=<path>]"
 ---
 

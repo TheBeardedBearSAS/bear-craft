@@ -1,5 +1,5 @@
 ---
-description: "Equipo de Auditoria Completa - Auditoria paralela multi-tecnologia con subagentes (Agent Teams opcional)"
+description: "Equipo de Auditoría Completa - auditoría paralela multitecnología con subagentes"
 argument-hint: "[--techs=auto|tech1,tech2] [--max-workers=4] [--engine=subagents|teams]"
 ---
 

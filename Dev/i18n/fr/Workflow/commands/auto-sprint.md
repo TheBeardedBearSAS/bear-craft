@@ -1,5 +1,5 @@
 ---
-description: Orchestrateur de sprint de bout en bout (démarrage -> décomposition -> validation -> implémentation -> PR -> CI -> revue -> rétro -> merge)
+description: Orchestrateur de sprint de bout en bout (démarrage, implémentation, PR, CI, revue, rétro, merge)
 argument-hint: "<N> [--from-prd] [--auto-merge] [--max-fix-attempts=2] [--max-workers=3] [--base=main] [--dry-run] [--overnight] [--engine=subagents|teams]"
 ---
 

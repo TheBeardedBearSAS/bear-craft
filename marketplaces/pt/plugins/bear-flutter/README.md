@@ -16,7 +16,7 @@ Requires Claude Code 2.1.325 or later. Version 10.1.2.
 ## Commands
 
 - `/bear-flutter:analyze-performance` — Análise de Performance Flutter
-- `/bear-flutter:check` — Auditoria Flutter por eixo: architecture, code-quality, security, testing, ou all (agregado com pontuação)
+- `/bear-flutter:check` — Auditoria Flutter por eixo: architecture, code-quality, security, testing ou all (nota agregada)
 - `/bear-flutter:generate-feature` — Geração de Feature Flutter Completa
 - `/bear-flutter:generate-widget` — Geração de Widget Flutter com Testes
 - `/bear-flutter:golden-update` — Atualização dos Golden Tests

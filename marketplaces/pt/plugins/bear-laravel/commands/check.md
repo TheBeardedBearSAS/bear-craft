@@ -1,5 +1,5 @@
 ---
-description: "Auditoria Laravel por eixo: architecture, code-quality, security, testing, ou all (agregado com pontuação)"
+description: "Auditoria Laravel por eixo: architecture, code-quality, security, testing ou all (nota agregada)"
 argument-hint: "<architecture|code-quality|security|testing|all> [caminho]"
 ---
 

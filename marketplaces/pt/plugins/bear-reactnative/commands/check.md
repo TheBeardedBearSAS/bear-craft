@@ -1,5 +1,5 @@
 ---
-description: "Auditoria React Native por eixo: architecture, code-quality, security, testing, ou all (agregado com pontuação)"
+description: "Auditoria React Native por eixo: architecture, code-quality, security, testing ou all (com nota)"
 argument-hint: "<architecture|code-quality|security|testing|all> [caminho]"
 ---
 

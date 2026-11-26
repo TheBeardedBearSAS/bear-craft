@@ -1,6 +1,6 @@
 ---
 name: architecture-paperclip
-description: Arquitectura de dos capas de Paperclip (control plane + adaptadores). Usar al diseñar o revisar límites de módulo/adaptador de Paperclip.
+description: Arquitectura de dos capas de Paperclip. Usar al diseñar o revisar límites de módulo/adaptador.
 ---
 
 # Arquitectura Paperclip

@@ -1,5 +1,5 @@
 ---
-description: "Preparación del inicio de sprint: carpeta del sprint, entradas de sprint-status.yaml y descomposición en tareas"
+description: "Preparación del inicio de sprint: carpeta, entradas de sprint-status.yaml y descomposición en tareas"
 argument-hint: "<N> [--tasks-only]"
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: flutter-reviewer
-description: Especialista em revisao de codigo Flutter 3.47 / Dart 3.13 — BLoC, Riverpod, otimizacao de widgets, codigo platform-specific
+description: Especialista em revisão de código Flutter 3.47 / Dart 3.13 — BLoC, Riverpod, otimização de widgets
 model: haiku
 effort: low
 maxTurns: 6

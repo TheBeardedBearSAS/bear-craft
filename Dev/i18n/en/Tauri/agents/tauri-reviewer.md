@@ -1,6 +1,6 @@
 ---
 name: tauri-reviewer
-description: "Tauri v2 (2.12) code review specialist — IPC commands, capabilities and permissions, CSP and Isolation, state and async, plugins, updater signing, testing (mock runtime, mockIPC, WebdriverIO), build/CI, desktop vs mobile. Frontend-agnostic"
+description: "Tauri 2.12 code review specialist — IPC, capabilities, CSP/Isolation, plugins, updater, mobile"
 model: haiku
 effort: low
 maxTurns: 6

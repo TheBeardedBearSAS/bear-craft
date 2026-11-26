@@ -1,6 +1,6 @@
 ---
 name: "woocommerce"
-description: "WooCommerce extension development (HPOS, CRUD, Store API, Cart/Checkout blocks). Use when the project extends WooCommerce: Requires Plugins: woocommerce, wc_* APIs, orders, products, checkout."
+description: "WooCommerce extension development (HPOS, Store API, blocks). Use when a project extends WooCommerce"
 allowed-tools:
   - Read
   - Glob

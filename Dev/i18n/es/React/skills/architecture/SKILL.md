@@ -1,6 +1,6 @@
 ---
 name: architecture
-description: Arquitectura React - Organización y Patrones. Use when designing architecture or reviewing code structure.
+description: Arquitectura React - Organización y Patrones. Use when designing architecture or reviewing code.
 ---
 
 # Arquitectura React - Organización y Patrones

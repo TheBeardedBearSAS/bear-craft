@@ -1,6 +1,6 @@
 ---
 name: architecture-paperclip
-description: Paperclip-Two-Layer-Architektur (Control-Plane + Adapter). Verwenden Sie dies beim Entwerfen oder Reviewen von Paperclip-Modul-/Adapter-Grenzen.
+description: Paperclip-Two-Layer-Architektur (Control-Plane + Adapter). Beim Entwerfen von Modulgrenzen nutzen.
 ---
 
 # Paperclip-Architektur

@@ -1,6 +1,6 @@
 ---
 name: vercel-reviewer
-description: Spécialiste de revue de code pour la plateforme Vercel — configuration vercel.json, Functions (runtime Node.js/Fluid Compute), ISR, Cron Jobs, Storage, gestion des variables d'environnement/secrets. Indépendant de tout framework (pas spécifique à Next.js).
+description: Revue de code plateforme Vercel — vercel.json, Functions, ISR, Cron Jobs, Storage, secrets
 model: haiku
 effort: low
 maxTurns: 6

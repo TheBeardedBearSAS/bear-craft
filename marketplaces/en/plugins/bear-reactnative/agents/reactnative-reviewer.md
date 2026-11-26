@@ -1,6 +1,6 @@
 ---
 name: reactnative-reviewer
-description: React Native 0.88 and Expo code review specialist — New Architecture, navigation, mobile performance, bundle analysis
+description: React Native 0.88 / Expo code review specialist — New Architecture, navigation, mobile performance
 model: haiku
 effort: low
 maxTurns: 6

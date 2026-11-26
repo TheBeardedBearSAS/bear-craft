@@ -1,6 +1,6 @@
 ---
 name: coding-standards-ts
-description: Estándares de codificación TypeScript de Paperclip — modo strict, archivos kebab, sin any, logs estructurados. Usar al escribir o revisar código TS de Paperclip.
+description: Estándares TypeScript de Paperclip (strict). Usar al escribir o revisar código TS de Paperclip.
 ---
 
 # Estándares de Codificación de Paperclip (TypeScript)

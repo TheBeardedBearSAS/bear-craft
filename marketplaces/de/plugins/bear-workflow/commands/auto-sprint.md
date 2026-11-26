@@ -1,5 +1,5 @@
 ---
-description: End-to-End-Sprint-Orchestrator (Start -> Zerlegung -> Validierung -> Implementierung -> PR -> CI -> Review -> Retro -> Merge)
+description: End-to-End-Sprint-Orchestrator (Start -> Zerlegung -> Implementierung -> PR -> CI -> Merge)
 argument-hint: "<N> [--from-prd] [--auto-merge] [--max-fix-attempts=2] [--max-workers=3] [--base=main] [--dry-run] [--overnight] [--engine=subagents|teams]"
 ---
 

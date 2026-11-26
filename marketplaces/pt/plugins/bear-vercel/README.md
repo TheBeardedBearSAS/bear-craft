@@ -15,7 +15,7 @@ Requires Claude Code 2.1.325 or later. Version 10.1.2.
 
 ## Commands
 
-- `/bear-vercel:check` — Auditoria Vercel por eixo: architecture, code-quality, security, testing, ou all (agregado com pontuação)
+- `/bear-vercel:check` — Auditoria Vercel por eixo: architecture, code-quality, security, testing ou all (nota agregada)
 - `/bear-vercel:deploy-config` — Detect the project's Vercel deployment shape and generate or validate a tailored vercel.json
 
 ## Agents

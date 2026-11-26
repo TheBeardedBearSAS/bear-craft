@@ -1,5 +1,5 @@
 ---
-description: "Bootstrap the Bear-Craft structure for a new project, or analyze the codebase and configure the project context (--context)"
+description: "Bootstrap Bear-Craft in a new project, or analyze the codebase to set project context (--context)"
 argument-hint: "[--context [--auto|--full]]"
 ---
 

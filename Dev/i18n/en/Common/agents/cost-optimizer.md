@@ -1,6 +1,6 @@
 ---
 name: cost-optimizer
-description: Cloud and LLM cost optimization specialist — FinOps, right-sizing, caching strategies, Claude/OpenAI token reduction
+description: Cloud and LLM cost optimization specialist — FinOps, right-sizing, caching, token reduction
 model: haiku
 maxTurns: 4
 effort: low

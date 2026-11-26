@@ -1,6 +1,6 @@
 ---
 name: adapter-development
-description: Construire une extension Paperclip — un plugin via @paperclipai/plugin-sdk, ou un adaptateur interne sous packages/adapters. À utiliser pour ajouter un runtime IA ou un plugin de fonctionnalité.
+description: Créer un plugin ou un adaptateur Paperclip. À utiliser pour ajouter un runtime IA ou un plugin.
 ---
 
 # Développement d'extensions Paperclip

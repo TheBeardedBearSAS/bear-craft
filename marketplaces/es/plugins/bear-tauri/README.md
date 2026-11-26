@@ -15,7 +15,7 @@ Requires Claude Code 2.1.325 or later. Version 10.1.2.
 
 ## Commands
 
-- `/bear-tauri:check` — Auditoría Tauri v2 por eje: architecture, code-quality, security, testing, o all (agregado con puntuación)
+- `/bear-tauri:check` — Auditoría Tauri v2 por eje: architecture, code-quality, security, testing o all (puntuado)
 
 ## Agents
 

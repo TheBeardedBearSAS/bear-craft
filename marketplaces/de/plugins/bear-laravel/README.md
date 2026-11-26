@@ -15,7 +15,7 @@ Requires Claude Code 2.1.325 or later. Version 10.1.2.
 
 ## Commands
 
-- `/bear-laravel:check` — Laravel-Audit nach Achse: architecture, code-quality, security, testing oder all (bewertete Gesamtauswertung)
+- `/bear-laravel:check` — Laravel-Audit nach Achse: architecture, code-quality, security, testing oder all (bewertet)
 - `/bear-laravel:generate-controller` — Generate a Laravel controller following best practices
 
 ## Agents

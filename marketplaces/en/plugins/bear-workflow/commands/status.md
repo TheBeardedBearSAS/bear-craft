@@ -1,6 +1,6 @@
 ---
 name: workflow-status
-description: "Where am I + next action: workflow phase, sprint metrics, Kanban board (--board), batch queue (--queue), stand-up (--standup) and gates (--gates)"
+description: "Where am I + next action - workflow phase, sprint metrics, board, queue, stand-up and gates"
 argument-hint: "[--board|--queue|--standup|--gates] [--sprint N] [--verbose]"
 arguments:
   - name: view

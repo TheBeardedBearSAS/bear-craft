@@ -1,6 +1,6 @@
 ---
 name: python-reviewer
-description: Especialista en revisión de código Python 3.14+ — async correctness, Pydantic v2, FastAPI, SQLAlchemy, type safety
+description: Especialista en revisión de código Python 3.14+ — async, Pydantic v2, FastAPI, SQLAlchemy, tipado
 model: haiku
 effort: low
 maxTurns: 6

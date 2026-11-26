@@ -1,6 +1,6 @@
 ---
 name: architecture-clean-ddd
-description: Clean Architecture + DDD + Hexagonal - Atoll Tourisme. Use when designing architecture or reviewing code structure.
+description: Clean Architecture + DDD + Hexagonal - Atoll Tourisme. Use when designing architecture.
 ---
 
 # Clean Architecture + DDD + Hexagonal - Atoll Tourisme

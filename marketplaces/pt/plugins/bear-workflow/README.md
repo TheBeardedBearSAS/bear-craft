@@ -15,15 +15,15 @@ Requires Claude Code 2.1.325 or later. Version 10.1.2.
 
 ## Commands
 
-- `/bear-workflow:auto-sprint` — Orquestrador de sprint completo de ponta a ponta (início -> decomposição -> validação -> implementação -> PR -> CI -> revisão -> retro -> merge)
-- `/bear-workflow:design` — Executar a fase de Design (Solutioning) - gerar a especificação técnica (padrão) ou a constituição do projeto (--constitution)
-- `/bear-workflow:implement` — Executar a fase de Implementação - desenvolvimento TDD/BDD de um sprint, de um epic, de uma story ou da fila batch (sequencial, ou paralelo via /bear-team:delivery --phase=implementation)
+- `/bear-workflow:auto-sprint` — Orquestrador de sprint de ponta a ponta (início, implementação, PR, CI, revisão, retro, merge)
+- `/bear-workflow:design` — Executar a fase de Design - gerar a especificação técnica ou a constituição (--constitution)
+- `/bear-workflow:implement` — Executar a fase de Implementação - desenvolvimento TDD/BDD de sprint, epic, story ou fila batch
 - `/bear-workflow:init` — Analisar o contexto do projeto e recomendar o track de desenvolvimento ideal
-- `/bear-workflow:plan` — Executar a fase de Planejamento - pesquisa (--research), PRD (--only=prd) e backlog SCRUM (--only=backlog)
+- `/bear-workflow:plan` — Executar a fase de Planejamento - pesquisa (--research), PRD e backlog SCRUM (--only=prd|backlog)
 - `/bear-workflow:retro` — Facilitação de Retrospectiva
 - `/bear-workflow:review` — Preparação da Sprint Review
-- `/bear-workflow:start` — Preparação do início de sprint: pasta do sprint, entradas do sprint-status.yaml e decomposição em tarefas
-- `/bear-workflow:status` — Onde estou + próxima ação: fase do workflow, métricas do sprint, quadro Kanban (--board), fila de lotes (--queue), stand-up (--standup) e gates (--gates)
+- `/bear-workflow:start` — Preparação do início de sprint: pasta do sprint, sprint-status.yaml e decomposição em tarefas
+- `/bear-workflow:status` — Onde estou + próxima ação: fase, métricas do sprint, Kanban, fila, stand-up e gates
 
 ## About
 

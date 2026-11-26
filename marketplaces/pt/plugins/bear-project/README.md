@@ -15,11 +15,11 @@ Requires Claude Code 2.1.325 or later. Version 10.1.2.
 
 ## Commands
 
-- `/bear-project:backlog` — Gerenciar o backlog: adicionar, listar, editar e mover EPICs, User Stories e Tarefas, escolher a próxima story, alterar o status das stories e aplicar as regras de roteamento
-- `/bear-project:migrate` — Migração pontual de um backlog existente para BMAD v6 (análise, migração, completar stories, ressincronização)
-- `/bear-project:report` — Relatórios analíticos do projeto: burndown do sprint, painel de métricas, grafo de dependências das histórias e caminho crítico
-- `/bear-project:reverse` — Pipeline de engenharia reversa brownfield: escanear o código e derivar um PRD rascunho, user stories e uma análise de lacunas spec vs código
-- `/bear-project:trace` — Matriz de rastreabilidade bidirecional (requisito → story → código → testes); --gaps lista os requisitos não cobertos, --by-priority agrupa por prioridade MoSCoW
+- `/bear-project:backlog` — Gerenciar o backlog: EPICs, User Stories e Tarefas, próxima story, status e regras de roteamento
+- `/bear-project:migrate` — Migração pontual de um backlog existente para BMAD v6 (análise, migração, stories, ressincronização)
+- `/bear-project:report` — Relatórios do projeto: burndown do sprint, métricas, grafo de dependências e caminho crítico
+- `/bear-project:reverse` — Engenharia reversa brownfield: derivar do código um PRD rascunho, user stories e análise de lacunas
+- `/bear-project:trace` — Matriz de rastreabilidade (requisito → story → código → testes); --gaps e --by-priority (MoSCoW)
 
 ## Agents
 

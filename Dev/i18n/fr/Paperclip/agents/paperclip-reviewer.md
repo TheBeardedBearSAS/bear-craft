@@ -1,6 +1,6 @@
 ---
 name: paperclip-reviewer
-description: Spécialiste de revue de code Paperclip — architecture à deux couches, contrat d'adaptateur, intégrité de gouvernance, rigueur TypeScript
+description: Revue de code Paperclip — architecture bi-couche, contrat d'adaptateur, gouvernance, TypeScript
 model: haiku
 effort: low
 maxTurns: 6

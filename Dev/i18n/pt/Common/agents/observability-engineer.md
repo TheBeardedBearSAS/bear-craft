@@ -1,6 +1,6 @@
 ---
 name: observability-engineer
-description: OpenTelemetry, distributed tracing, structured logging, metrics specialist — Grafana, Datadog, Prometheus
+description: Especialista em OpenTelemetry, tracing distribuído, logs estruturados e métricas (Grafana)
 model: sonnet
 maxTurns: 6
 effort: medium

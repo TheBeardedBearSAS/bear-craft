@@ -1,6 +1,6 @@
 ---
 name: security-symfony
-description: Seguridad & RGPD - Atoll Tourisme. Use when reviewing security, implementing auth, or hardening code.
+description: Seguridad y RGPD Symfony. Use when reviewing security, implementing auth, or hardening code.
 ---
 
 # Seguridad & RGPD - Atoll Tourisme

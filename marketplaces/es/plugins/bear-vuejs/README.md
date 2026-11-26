@@ -15,7 +15,7 @@ Requires Claude Code 2.1.325 or later. Version 10.1.2.
 
 ## Commands
 
-- `/bear-vuejs:check` — Auditoría Vue.js por eje: architecture, code-quality, security, testing, o all (agregado con puntuación)
+- `/bear-vuejs:check` — Auditoría Vue.js por eje: architecture, code-quality, security, testing o all (puntuado)
 - `/bear-vuejs:generate-component` — Generate a Vue.js component with TypeScript, tests, and Storybook
 
 ## Agents

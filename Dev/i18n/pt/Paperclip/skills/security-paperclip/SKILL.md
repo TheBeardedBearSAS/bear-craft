@@ -1,6 +1,6 @@
 ---
 name: security-paperclip
-description: Seguranca Paperclip — isolamento tenancy, secrets, gates aprovacao, orcamentos rigidos, canal adapter assinado. Use ao auditar ou fortalecer Paperclip.
+description: Segurança Paperclip — isolamento de tenants, segredos, gates de aprovação. Use ao auditar.
 ---
 
 # Seguranca Paperclip

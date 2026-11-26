@@ -1,6 +1,6 @@
 ---
 name: ruby-reviewer
-description: Especialista en revisión de código Ruby 4.0 / Rails 8.1 — Rails Way, service objects, Active Record, Hotwire, RSpec/Minitest, análisis de seguridad con Brakeman
+description: Especialista en revisión de código Ruby 4.0 / Rails 8.1 — Rails Way, Active Record, Hotwire
 model: haiku
 effort: low
 maxTurns: 6

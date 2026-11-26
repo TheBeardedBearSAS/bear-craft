@@ -1,5 +1,5 @@
 ---
-description: Delivery-Team - Vollständiger Sprint-Lebenszyklus (Schreiben + Implementierung) mit Sub-Agenten (Agent Teams optional)
+description: Delivery-Team - Vollständiger Sprint-Lebenszyklus (Schreiben + Implementierung) mit Sub-Agenten
 argument-hint: <sprint-name|prd-path> [--phase=all|writing|implementation] [--max-workers=3] [--engine=subagents|teams] [--ralph-mode]
 ---
 

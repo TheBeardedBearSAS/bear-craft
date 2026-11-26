@@ -1,6 +1,6 @@
 ---
 name: architecture
-description: Architecture Python - Clean Architecture & Hexagonale. Use when designing architecture or reviewing code structure.
+description: Architecture Python - Clean & Hexagonale. Use when designing architecture or reviewing structure.
 ---
 
 # Architecture Python - Clean Architecture & Hexagonale

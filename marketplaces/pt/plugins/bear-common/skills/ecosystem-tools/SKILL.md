@@ -1,6 +1,6 @@
 ---
 name: ecosystem-tools
-description: Third-party Claude Code token/context/code-review tools. Use when choosing or recommending an external tool to reduce token usage, manage context, or review large codebases.
+description: Third-party Claude Code token/context/review tools. Use when picking an external tool to save tokens
 allowed-tools:
   - Read
   - Glob

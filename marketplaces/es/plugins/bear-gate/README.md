@@ -15,7 +15,7 @@ Requires Claude Code 2.1.325 or later. Version 10.1.2.
 
 ## Commands
 
-- `/bear-gate:check` — Ejecutar cualquier quality gate: gates documentales (PRD, tech spec, backlog, sprint, story, alineación), gates de código (commit, merge, release), el informe completo o un checkpoint de fase
+- `/bear-gate:check` — Ejecutar cualquier quality gate: documentales, de código (commit, merge, release) o checkpoint
 
 ## About
 

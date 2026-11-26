@@ -19,8 +19,8 @@ Requires Claude Code 2.1.325 or later. Version 10.1.2.
 - `/bear-common:architecture-decision` — Architecture Decision Record (ADR)
 - `/bear-common:generate-changelog` — Génération Automatique du Changelog
 - `/bear-common:getting-started` — Visite guidée interactive de 10 minutes pour les nouveaux utilisateurs Bear Craft
-- `/bear-common:init` — Bootstrap the Bear-Craft structure for a new project, or analyze the codebase and configure the project context (--context)
-- `/bear-common:pack-repo` — Pack la codebase en un fichier AI-friendly (Repomix wrapper + fallback shell). Token counting inclus.
+- `/bear-common:init` — Bootstrap Bear-Craft in a new project, or analyze the codebase to set project context (--context)
+- `/bear-common:pack-repo` — Pack la codebase en un fichier AI-friendly (wrapper Repomix + fallback shell), avec comptage tokens
 - `/bear-common:ralph-run` — Exécuter Claude en boucle continue jusqu'à la complétion de la tâche (Ralph Wiggum v2.0)
 - `/bear-common:search` — Search commands, skills and agents by keyword
 - `/bear-common:setup-ci` — Configuration CI/CD

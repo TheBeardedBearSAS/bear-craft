@@ -1,6 +1,6 @@
 ---
 name: parallel-worktrees
-description: Parallel git worktrees for concurrent Claude Code sessions. Use when working on multiple features or writer/reviewer workflows.
+description: Parallel git worktrees for concurrent Claude Code sessions. Use for multi-feature or writer/reviewer
 allowed-tools:
   - Read
   - Glob

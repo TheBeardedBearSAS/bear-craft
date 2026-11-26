@@ -1,6 +1,6 @@
 ---
 name: workflow-design
-description: "Die Designphase (Solutioning) durchführen - technische Spezifikation (Standard) oder Projekt-Constitution (--constitution) erzeugen"
+description: "Designphase (Solutioning) durchführen - Tech-Spezifikation (Standard) oder Constitution erzeugen"
 argument-hint: "[--constitution] [--continue]"
 arguments:
   - name: constitution

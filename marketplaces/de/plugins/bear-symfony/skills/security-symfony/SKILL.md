@@ -1,6 +1,6 @@
 ---
 name: security-symfony
-description: Sicherheit & DSGVO - Atoll Tourisme. Use when reviewing security, implementing auth, or hardening code.
+description: Sicherheit & DSGVO - Atoll Tourisme. Use when reviewing security or implementing auth.
 ---
 
 # Sicherheit & DSGVO - Atoll Tourisme

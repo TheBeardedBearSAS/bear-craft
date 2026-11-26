@@ -1,5 +1,5 @@
 ---
-description: Orquestador de sprint de extremo a extremo (inicio -> descomposición -> validación -> implementación -> PR -> CI -> revisión -> retro -> merge)
+description: Orquestador de sprint completo (inicio -> implementación -> PR -> CI -> revisión -> merge)
 argument-hint: "<N> [--from-prd] [--auto-merge] [--max-fix-attempts=2] [--max-workers=3] [--base=main] [--dry-run] [--overnight] [--engine=subagents|teams]"
 ---
 

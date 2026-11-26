@@ -1,5 +1,5 @@
 ---
-description: "Auditoria WordPress por eixo: architecture, code-quality, security, testing, ou all (agregado com pontuação)"
+description: "Auditoria WordPress por eixo: architecture, code-quality, security, testing ou all (nota agregada)"
 argument-hint: "<architecture|code-quality|security|testing|all> [caminho]"
 ---
 

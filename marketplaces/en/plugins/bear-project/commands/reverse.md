@@ -1,5 +1,5 @@
 ---
-description: "Brownfield reverse-engineering pipeline: scan the codebase, then derive a draft PRD, user stories and a spec-vs-code gap analysis"
+description: "Brownfield reverse-engineering - scan the codebase, derive a draft PRD, stories and spec-code gaps"
 argument-hint: "[scan|prd|stories|gaps|all] [--scope=<scope>] [--module=<name>] [--output=<path>]"
 ---
 

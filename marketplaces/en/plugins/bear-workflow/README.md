@@ -15,15 +15,15 @@ Requires Claude Code 2.1.325 or later. Version 10.1.2.
 
 ## Commands
 
-- `/bear-workflow:auto-sprint` — End-to-end sprint orchestrator (start -> decompose -> validate -> implement -> PR -> CI -> review -> retro -> merge)
-- `/bear-workflow:design` — Execute the Design (Solutioning) phase - generate the technical specification (default) or the project constitution (--constitution)
-- `/bear-workflow:implement` — Execute the Implementation phase - TDD/BDD development of a sprint, an epic, a story or the batch queue (sequential, or parallel via /bear-team:delivery --phase=implementation)
+- `/bear-workflow:auto-sprint` — End-to-end sprint orchestrator (start -> decompose -> implement -> PR -> CI -> review -> merge)
+- `/bear-workflow:design` — Run the Design (Solutioning) phase - tech spec (default) or project constitution (--constitution)
+- `/bear-workflow:implement` — Run the Implementation phase - TDD/BDD development of a sprint, epic, story or the batch queue
 - `/bear-workflow:init` — Analyze project context and recommend the optimal development workflow track
-- `/bear-workflow:plan` — Execute the Planning phase - research (--research), PRD (--only=prd) and SCRUM backlog (--only=backlog)
+- `/bear-workflow:plan` — Run the Planning phase - research (--research), PRD (--only=prd) and SCRUM backlog (--only=backlog)
 - `/bear-workflow:retro` — Retrospective Facilitation
 - `/bear-workflow:review` — Sprint Review Preparation
 - `/bear-workflow:start` — Sprint Start Preparation: sprint folder, sprint-status.yaml entries and task decomposition
-- `/bear-workflow:status` — Where am I + next action: workflow phase, sprint metrics, Kanban board (--board), batch queue (--queue), stand-up (--standup) and gates (--gates)
+- `/bear-workflow:status` — Where am I + next action - workflow phase, sprint metrics, board, queue, stand-up and gates
 
 ## About
 

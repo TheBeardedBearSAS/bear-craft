@@ -15,7 +15,7 @@ Requires Claude Code 2.1.325 or later. Version 10.1.2.
 
 ## Commands
 
-- `/bear-paperclip:check` — Auditoría Paperclip por eje: architecture, code-quality, security, testing, o all (agregado con puntuación)
+- `/bear-paperclip:check` — Auditoría Paperclip por eje: architecture, code-quality, security, testing o all (puntuado)
 - `/bear-paperclip:generate-adapter` — Scaffoldear una extensión Paperclip (plugin vía create-paperclip-plugin, o adaptador built-in)
 - `/bear-paperclip:generate-agent-config` — Redactar un payload de contratación de agente Paperclip (para la API o el dashboard)
 - `/bear-paperclip:setup-company` — Bootstrapear una nueva compañía Paperclip (onboarding + primer agente)

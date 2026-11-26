@@ -11,7 +11,7 @@ const PROJECT_ROOT = path.resolve(__dirname, '../..');
 // PR #174). Source: https://code.claude.com/docs/en/sub-agents
 const FILES = [
   '.claude/rules/12-context-management.md',
-  ...['en', 'fr', 'es', 'de', 'pt'].map((l) => `Dev/i18n/${l}/Common/rules/12-context-management.md`),
+  ...['en', 'fr', 'es', 'de', 'pt'].map((l) => `Dev/i18n/${l}/Common/references/context-management.md`),
   'docs/FAQ.md',
 ];
 

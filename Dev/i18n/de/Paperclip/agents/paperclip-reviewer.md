@@ -1,6 +1,6 @@
 ---
 name: paperclip-reviewer
-description: Paperclip-Code-Review-Spezialist — Two-Layer-Architektur, Adapter-Vertrag, Governance-Integrität, TypeScript-Strenge
+description: Paperclip-Code-Review-Spezialist — Two-Layer-Architektur, Adapter-Vertrag, Governance, TypeScript
 model: haiku
 effort: low
 maxTurns: 6

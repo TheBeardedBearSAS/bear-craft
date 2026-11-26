@@ -1,5 +1,5 @@
 ---
-description: "Auditoría Vue.js por eje: architecture, code-quality, security, testing, o all (agregado con puntuación)"
+description: "Auditoría Vue.js por eje: architecture, code-quality, security, testing o all (puntuado)"
 argument-hint: "<architecture|code-quality|security|testing|all> [ruta]"
 ---
 

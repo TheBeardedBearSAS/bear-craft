@@ -1,6 +1,6 @@
 ---
 name: workflow-design
-description: "Exécuter la phase de Conception (Solutioning) - générer la spécification technique (défaut) ou la constitution du projet (--constitution)"
+description: "Exécuter la phase de Conception - spécification technique ou constitution du projet (--constitution)"
 argument-hint: "[--constitution] [--continue]"
 arguments:
   - name: constitution

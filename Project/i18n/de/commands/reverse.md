@@ -1,5 +1,5 @@
 ---
-description: "Brownfield-Reverse-Engineering-Pipeline: Codebasis scannen, dann einen PRD-Entwurf, User Stories und eine Lückenanalyse Spezifikation vs. Code ableiten"
+description: "Brownfield-Reverse-Engineering: Codebasis scannen, PRD-Entwurf, Stories und Lückenanalyse ableiten"
 argument-hint: "[scan|prd|stories|gaps|all] [--scope=<scope>] [--module=<name>] [--output=<path>]"
 ---
 

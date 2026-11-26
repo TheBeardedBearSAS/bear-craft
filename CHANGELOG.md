@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- **Startup context of an installed project cut by 85%** (RFC-002): measured with a headless `claude -p` bench (Opus 5.5, `--tech=python,react`), the first model call of a fresh install drops from 68,796 to 24,605 tokens (+7,531 over an empty project instead of +51,722). `bear-craft update` replaces the rules and installs the references, but keeps an existing project `CLAUDE.md` (user file), so an updated project gets about −80%.
+  - The 8 Common rules (`.claude/rules/`, ~109 KB, ~44k tokens per session) are now short imperative versions (~6 KB) that keep every normative threshold. The full text moved to `Dev/i18n/<lang>/Common/references/` and is installed in `.claude/references/base/`, read on demand; every rule points to it. Common-only installs now get these references too.
+  - The project `CLAUDE.md` scaffold (~6 KB of Scrum/BMAD guide) is reduced to the stack, quality gates and a pointer; the guide moved to `project-management/README.md`.
+  - Command, skill and agent descriptions are capped at 100 characters (listed to the model in every session).
+  - New content tests: rules budget, rule → reference pointers, scaffold size, description length.
+
 ## [10.1.2] - 2026-11-24
 
 ### Fixed

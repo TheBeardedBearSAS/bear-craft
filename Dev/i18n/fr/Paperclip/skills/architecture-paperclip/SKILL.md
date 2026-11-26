@@ -1,6 +1,6 @@
 ---
 name: architecture-paperclip
-description: Architecture bi-couche Paperclip (control plane + adapters). À utiliser pour concevoir ou revoir les limites modules/adapters d'un projet Paperclip.
+description: Architecture bi-couche Paperclip. À utiliser pour concevoir ou revoir les limites modules/adapters.
 ---
 
 # Architecture Paperclip

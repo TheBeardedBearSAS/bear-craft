@@ -1,6 +1,6 @@
 ---
 name: laravel-reviewer
-description: Especialista em revisao de codigo Laravel 13 e PHP 8.5 — padrao Actions, Pest PHP, Eloquent, Sanctum, otimizacao de performance
+description: Especialista em revisão de código Laravel 13 / PHP 8.5 — Actions, Pest, Eloquent, Sanctum
 model: haiku
 effort: low
 maxTurns: 6

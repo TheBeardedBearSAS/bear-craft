@@ -1,6 +1,6 @@
 ---
 name: coding-standards-ts
-description: Standards de code TypeScript Paperclip — strict mode, fichiers kebab, no any, logs structurés. À utiliser pour écrire ou revoir du code TS Paperclip.
+description: Standards TypeScript Paperclip (strict, no any). À utiliser pour écrire ou revoir du code TS.
 ---
 
 # Standards de code Paperclip (TypeScript)

@@ -1,6 +1,6 @@
 ---
 name: adapter-development
-description: Erstellen Sie eine Paperclip-Extension — ein Plugin via @paperclipai/plugin-sdk oder einen Built-in-Adapter unter packages/adapters. Verwenden Sie dies beim Hinzufügen von AI-Runtimes oder Feature-Plugins.
+description: Paperclip-Extension erstellen (Plugin-SDK oder Built-in-Adapter). Beim Hinzufügen von AI-Runtimes.
 ---
 
 # Paperclip-Extension-Development

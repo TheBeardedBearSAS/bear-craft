@@ -1,5 +1,5 @@
 ---
-description: "Ejecutar cualquier quality gate: gates documentales (PRD, tech spec, backlog, sprint, story, alineación), gates de código (commit, merge, release), el informe completo o un checkpoint de fase"
+description: "Ejecutar cualquier quality gate: documentales, de código (commit, merge, release) o checkpoint"
 argument-hint: "<prd|spec|backlog|sprint|story|alignment|commit|merge|release|all> [--phase=pre-sprint|pre-impl|post-impl|pre-merge] [target]"
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: security-reactnative
-description: Segurança - Melhores Práticas React Native. Use when reviewing security, implementing auth, or hardening code.
+description: Segurança - boas práticas React Native. Use when reviewing security, implementing auth or hardening.
 ---
 
 # Segurança - Melhores Práticas React Native

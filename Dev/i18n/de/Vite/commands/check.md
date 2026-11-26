@@ -1,5 +1,5 @@
 ---
-description: "Vite-Audit nach Achse: architecture, code-quality, security, testing oder all (bewertete Gesamtauswertung)"
+description: "Vite-Audit nach Achse: architecture, code-quality, security, testing oder all (bewertet)"
 argument-hint: "<architecture|code-quality|security|testing|all> [Pfad]"
 ---
 
