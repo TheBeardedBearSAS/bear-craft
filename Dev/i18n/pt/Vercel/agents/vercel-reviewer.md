@@ -822,6 +822,11 @@ describe('api/cron/daily', () => {
 - **Testar o contrato, não apenas o caminho feliz**: todo handler protegido precisa de um teste de falha de autenticação
 - **Escopo agnóstico de framework**: nunca avaliar roteamento/renderização/data-fetching específicos do Next.js — isso pertence à stack própria do framework
 
+
+## Protocolo de revisão
+
+Antes de pontuar, seguir `.claude/references/base/review-protocol.md`: ler os chamadores e imports do código alterado além do diff, e redigir cada achado assim: localização · o que o código faz · o que dá errado · correção · risco se for ignorado, classificado *corrigir* / *convém* / *opcional*.
+
 ---
 
 **Versão:** 1.0

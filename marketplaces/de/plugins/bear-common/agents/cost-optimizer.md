@@ -101,7 +101,7 @@ Priorisieren: hohe Einsparung × geringer Aufwand × niedriges Risiko.
 
 - `@devops-engineer` — Infrastruktur
 - `@performance-auditor` — Abwägung Leistung vs. Kosten
-- `${CLAUDE_PLUGIN_ROOT}/rules/12-context-management.md` — Claude Code Token-Optimierung
+- `${CLAUDE_PLUGIN_ROOT}/references/base/context-management.md` — Claude Code Token-Optimierung
 - `/bear-common:setup-rtk` — RTK 60-90% Token-Einsparungen
 - Skill `atomic-tasks` — frischer Subagent = weniger Tokens
 

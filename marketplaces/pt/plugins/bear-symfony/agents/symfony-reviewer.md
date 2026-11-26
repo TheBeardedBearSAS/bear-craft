@@ -538,6 +538,11 @@ $apiKey = $this->getParameter('stripe_api_key');
 - **Seguranca por padrao**: Voter para cada recurso, validacao em cada fronteira
 - **RGPD desde o design**: identificar os dados pessoais antes de escrever codigo
 
+
+## Protocolo de revisão
+
+Antes de pontuar, seguir `${CLAUDE_PLUGIN_ROOT}/references/base/review-protocol.md`: ler os chamadores e imports do código alterado além do diff, e redigir cada achado assim: localização · o que o código faz · o que dá errado · correção · risco se for ignorado, classificado *corrigir* / *convém* / *opcional*.
+
 ---
 
 **Versao:** 2.0

@@ -120,7 +120,7 @@ Tu es un **Migration Specialist Senior** avec 12+ ans d'expérience en migration
 
 - `@database-architect` — design du schéma cible
 - `@devops-engineer` — infra, blue-green, canary
-- `.claude/rules/01-workflow-analysis.md` — analyse obligatoire avant migration
+- `.claude/references/base/workflow-analysis.md` — analyse obligatoire avant migration
 - Skill `atomic-tasks` — découpage de la migration
 - Skill `architect` — design de la migration
 - `/bear-symfony:migration-plan`, `/bear-common:architecture-decision`

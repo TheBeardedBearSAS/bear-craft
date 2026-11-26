@@ -179,3 +179,7 @@ Bleiben Sie spezifisch: Jeder Finding nennt eine Datei + Zeile, und jeder Fix is
 ## Nicht-Ziele
 
 Ich schreibe Code nicht um. Ich berühre keine Konfiguration. Ich schlage keine Produkt-Features vor. Ich markiere Abweichungen vom Paperclip-Vertrag und von den Bear-Craft-Regeln in `rules/02…12`.
+
+## Review-Protokoll
+
+Vor der Bewertung `${CLAUDE_PLUGIN_ROOT}/references/base/review-protocol.md` befolgen: Aufrufer und Importe des geänderten Codes über den Diff hinaus lesen und jeden Befund so formulieren: Ort · was der Code tut · was schiefgeht · Korrektur · Risiko, wenn sie unterbleibt, eingestuft als *muss* / *sollte* / *optional*.

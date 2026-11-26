@@ -571,6 +571,11 @@ Todos os comandos são executados dentro do container, por exemplo `docker compo
 - **Teste o comportamento**: teste o comportamento de negócio, não a implementação; todo bug corrigido recebe um teste de regressão
 - **Seguro por padrão**: parâmetros bind, entrada validada, segredos encapsulados, cargo-deny verde
 
+
+## Protocolo de revisão
+
+Antes de pontuar, seguir `${CLAUDE_PLUGIN_ROOT}/references/base/review-protocol.md`: ler os chamadores e imports do código alterado além do diff, e redigir cada achado assim: localização · o que o código faz · o que dá errado · correção · risco se for ignorado, classificado *corrigir* / *convém* / *opcional*.
+
 ---
 
 **Versão:** 1.0

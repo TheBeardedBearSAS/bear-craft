@@ -10,7 +10,7 @@ $ARGUMENTS
 
 ## MISIÓN
 
-Eres un experto en auditoría de testing de React Native. Tu misión es analizar la estrategia de pruebas y la cobertura de acuerdo con los estándares definidos en `${CLAUDE_PLUGIN_ROOT}/rules/07-testing.md` y `.claude/rules/08-quality-tools.md`.
+Eres un experto en auditoría de testing de React Native. Tu misión es analizar la estrategia de pruebas y la cobertura de acuerdo con los estándares definidos en `${CLAUDE_PLUGIN_ROOT}/references/base/testing.md` y `.claude/rules/08-quality-tools.md`.
 
 ### Paso 1: Análisis de la configuración de pruebas
 
@@ -56,7 +56,7 @@ coverageThreshold: {
 
 ### Paso 3: Pruebas Unitarias con RNTL (8 puntos)
 
-Referencia: `${CLAUDE_PLUGIN_ROOT}/rules/07-testing.md`
+Referencia: `${CLAUDE_PLUGIN_ROOT}/references/base/testing.md`
 
 #### 📁 Organización de pruebas
 
@@ -305,7 +305,7 @@ describe('[Componente]', () => {
 
 ## 📚 Referencias
 
-- `${CLAUDE_PLUGIN_ROOT}/rules/07-testing.md` - Estándares de testing
+- `${CLAUDE_PLUGIN_ROOT}/references/base/testing.md` - Estándares de testing
 - `.claude/rules/08-quality-tools.md` - Herramientas de calidad
 - [React Native Testing Library](https://callstack.github.io/react-native-testing-library/)
 - [Detox Documentation](https://wix.github.io/Detox/)

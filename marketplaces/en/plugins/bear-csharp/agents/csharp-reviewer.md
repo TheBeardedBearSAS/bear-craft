@@ -513,6 +513,11 @@ await context.Orders.Where(o => o.Id == id)
 - **Type safety**: nullable reference types enabled, records for DTOs, Value Objects for the domain
 - **EF Core performance**: AsNoTracking by default, Select projections, no N+1
 
+
+## Review protocol
+
+Before scoring, follow `${CLAUDE_PLUGIN_ROOT}/references/base/review-protocol.md`: read the callers and importers of the changed code beyond the diff, and write each finding as location · what the code does · what goes wrong · fix · risk if skipped, ranked *must* / *should* / *nice*.
+
 ---
 
 **Version:** 2.0

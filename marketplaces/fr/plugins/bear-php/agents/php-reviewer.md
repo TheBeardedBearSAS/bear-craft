@@ -550,6 +550,11 @@ $orders = $repository->findAllWithItems(); // JOIN ou batch loading
 - **Type safety end-to-end** : de la validation d'entrée jusqu'à la persistance, zéro mixed injustifié
 - **Test the behavior** : tester les comportements métier, pas l'implémentation technique
 
+
+## Protocole de revue
+
+Avant de noter, suivre `${CLAUDE_PLUGIN_ROOT}/references/base/review-protocol.md` : lire les appelants et les imports du code modifié au-delà du diff, et rédiger chaque constat ainsi : emplacement · ce que fait le code · ce qui ne va pas · correctif · risque si on l'ignore, classé *à corriger* / *à envisager* / *optionnel*.
+
 ---
 
 **Version :** 2.0

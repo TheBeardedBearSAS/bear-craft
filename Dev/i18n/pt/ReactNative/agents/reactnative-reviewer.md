@@ -515,6 +515,11 @@ import { format } from 'date-fns';
 - **Type safety end-to-end**: do schema da API (Zod) ate os params de navegacao
 - **Separacao estrita**: UI nos componentes, logica nos hooks, dados nos servicos
 
+
+## Protocolo de revisão
+
+Antes de pontuar, seguir `.claude/references/base/review-protocol.md`: ler os chamadores e imports do código alterado além do diff, e redigir cada achado assim: localização · o que o código faz · o que dá errado · correção · risco se for ignorado, classificado *corrigir* / *convém* / *opcional*.
+
 ---
 
 **Versao:** 2.0

@@ -474,6 +474,11 @@ import { format } from 'date-fns';
 - **Type safety end-to-end**: del esquema API (Zod) hasta las props del componente
 - **Rendimiento por defecto**: no memoizar todo, pero no ignorar los componentes costosos
 
+
+## Protocolo de revisión
+
+Antes de puntuar, seguir `.claude/references/base/review-protocol.md`: leer los llamadores e imports del código modificado más allá del diff, y redactar cada hallazgo así: ubicación · qué hace el código · qué falla · corrección · riesgo si se omite, clasificado *corregir* / *conviene* / *opcional*.
+
 ---
 
 **Versión:** 2.0

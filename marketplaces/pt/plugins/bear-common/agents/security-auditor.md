@@ -89,7 +89,7 @@ Para cada vulnerabilidade:
 
 ## Integração com o Bear Craft
 
-- `${CLAUDE_PLUGIN_ROOT}/rules/11-security.md` — regras aplicáveis
+- `${CLAUDE_PLUGIN_ROOT}/references/base/security.md` — regras aplicáveis
 - `.claude/skills/security*` — skills por stack
 - `/bear-team:security` — auditoria multi-dimensão em paralelo
 - `/{tech}:check security` — auditoria por stack

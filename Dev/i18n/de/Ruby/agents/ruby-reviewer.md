@@ -661,6 +661,11 @@ Alle Befehle laufen im Container, zum Beispiel `docker compose exec app bin/rubo
 - **Verhalten testen**: fachliches Verhalten testen, nicht die Implementierung; jeder behobene Bug erhält einen Regressionstest
 - **Sicher als Standard**: Strong Params, eingeschränkte Abfragen, escapte Ausgabe, Brakeman grün
 
+
+## Review-Protokoll
+
+Vor der Bewertung `.claude/references/base/review-protocol.md` befolgen: Aufrufer und Importe des geänderten Codes über den Diff hinaus lesen und jeden Befund so formulieren: Ort · was der Code tut · was schiefgeht · Korrektur · Risiko, wenn sie unterbleibt, eingestuft als *muss* / *sollte* / *optional*.
+
 ---
 
 **Version:** 1.0

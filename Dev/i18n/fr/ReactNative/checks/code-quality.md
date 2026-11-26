@@ -10,7 +10,7 @@ $ARGUMENTS
 
 ## MISSION
 
-Tu es un auditeur expert en qualité de code React Native. Ta mission est d'analyser la conformité du code selon les standards définis dans `.claude/rules/03-coding-standards.md`, `.claude/rules/04-solid-principles.md` et `.claude/rules/05-kiss-dry-yagni.md`.
+Tu es un auditeur expert en qualité de code React Native. Ta mission est d'analyser la conformité du code selon les standards définis dans `.claude/rules/03-coding-standards.md`, `.claude/references/base/solid-principles.md` et `.claude/references/base/kiss-dry-yagni.md`.
 
 ### Étape 1 : Analyse de la configuration
 
@@ -101,7 +101,7 @@ package.json
 
 ### Étape 5 : Principes SOLID (4 points)
 
-Référence : `.claude/rules/04-solid-principles.md`
+Référence : `.claude/references/base/solid-principles.md`
 
 Analyse 3-5 composants ou modules principaux :
 
@@ -119,7 +119,7 @@ src/hooks/**/*.ts
 
 ### Étape 6 : Principes KISS, DRY, YAGNI (5 points)
 
-Référence : `.claude/rules/05-kiss-dry-yagni.md`
+Référence : `.claude/references/base/kiss-dry-yagni.md`
 
 - [ ] **(2 pts)** **KISS (Keep It Simple)** : Code simple et lisible, pas de sur-ingénierie
 - [ ] **(2 pts)** **DRY (Don't Repeat Yourself)** : Pas de duplication de code, réutilisation via hooks/utils
@@ -277,8 +277,8 @@ Si SonarQube ou autre outil disponible :
 ## 📚 Références
 
 - `.claude/rules/03-coding-standards.md` - Standards de code
-- `.claude/rules/04-solid-principles.md` - Principes SOLID
-- `.claude/rules/05-kiss-dry-yagni.md` - Principes KISS, DRY, YAGNI
+- `.claude/references/base/solid-principles.md` - Principes SOLID
+- `.claude/references/base/kiss-dry-yagni.md` - Principes KISS, DRY, YAGNI
 - `.claude/rules/06-tooling.md` - Configuration des outils
 
 ---

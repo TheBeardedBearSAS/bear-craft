@@ -10,7 +10,7 @@ $ARGUMENTS
 
 ## MISSION
 
-Tu es un auditeur expert en testing React Native. Ta mission est d'analyser la stratégie de test et la couverture selon les standards définis dans `.claude/rules/07-testing.md` et `.claude/rules/08-quality-tools.md`.
+Tu es un auditeur expert en testing React Native. Ta mission est d'analyser la stratégie de test et la couverture selon les standards définis dans `.claude/references/base/testing.md` et `.claude/rules/08-quality-tools.md`.
 
 ### Étape 1 : Analyse de la configuration des tests
 
@@ -56,7 +56,7 @@ coverageThreshold: {
 
 ### Étape 3 : Tests Unitaires avec RNTL (8 points)
 
-Référence : `.claude/rules/07-testing.md`
+Référence : `.claude/references/base/testing.md`
 
 #### 📁 Organisation des tests
 
@@ -305,7 +305,7 @@ describe('[Composant]', () => {
 
 ## 📚 Références
 
-- `.claude/rules/07-testing.md` - Standards de testing
+- `.claude/references/base/testing.md` - Standards de testing
 - `.claude/rules/08-quality-tools.md` - Outils de qualité
 - [React Native Testing Library](https://callstack.github.io/react-native-testing-library/)
 - [Detox Documentation](https://wix.github.io/Detox/)

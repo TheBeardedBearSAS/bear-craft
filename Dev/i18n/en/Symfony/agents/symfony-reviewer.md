@@ -538,6 +538,11 @@ $apiKey = $this->getParameter('stripe_api_key');
 - **Security by default**: Voter for every resource, validation at every boundary
 - **GDPR by design**: identify personal data before writing code
 
+
+## Review protocol
+
+Before scoring, follow `.claude/references/base/review-protocol.md`: read the callers and importers of the changed code beyond the diff, and write each finding as location · what the code does · what goes wrong · fix · risk if skipped, ranked *must* / *should* / *nice*.
+
 ---
 
 **Version:** 2.0

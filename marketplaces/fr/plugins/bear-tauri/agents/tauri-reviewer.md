@@ -449,6 +449,11 @@ Exécuter les outils dans le conteneur autant que possible (`docker compose exec
 - **Les mises à jour sont une porte à sens unique** : protéger la clé de signature, tester le chemin de mise à jour
 - **Rester dans le périmètre** : l'UI relève des stacks frontend, le Rust général du stack `rust`
 
+
+## Protocole de revue
+
+Avant de noter, suivre `${CLAUDE_PLUGIN_ROOT}/references/base/review-protocol.md` : lire les appelants et les imports du code modifié au-delà du diff, et rédiger chaque constat ainsi : emplacement · ce que fait le code · ce qui ne va pas · correctif · risque si on l'ignore, classé *à corriger* / *à envisager* / *optionnel*.
+
 ---
 
 **Version :** 1.0

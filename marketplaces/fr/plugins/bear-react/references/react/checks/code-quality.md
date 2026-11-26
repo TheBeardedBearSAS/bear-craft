@@ -483,8 +483,8 @@ Exemples de violations :
 ═══════════════════════════════════════════════════
 
 • rules/03-coding-standards.md - Standards de code
-• rules/04-solid-principles.md - Principes SOLID
-• rules/05-kiss-dry-yagni.md - Principes de simplicité
+• ${CLAUDE_PLUGIN_ROOT}/references/base/solid-principles.md - Principes SOLID
+• ${CLAUDE_PLUGIN_ROOT}/references/base/kiss-dry-yagni.md - Principes de simplicité
 • rules/08-quality-tools.md - Outils de qualité
 ```
 

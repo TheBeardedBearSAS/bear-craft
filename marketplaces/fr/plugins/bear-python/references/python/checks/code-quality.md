@@ -74,7 +74,7 @@ Analyser la simplicité et la clarté du code :
 - [ ] Un seul niveau d'abstraction par fonction
 - [ ] Early returns pour réduire la complexité
 
-**Référence** : `rules/05-kiss-dry-yagni.md`
+**Référence** : `${CLAUDE_PLUGIN_ROOT}/references/base/kiss-dry-yagni.md`
 
 ### Étape 6 : Commentaires et Documentation
 

@@ -179,3 +179,7 @@ Rester spécifique : chaque résultat nomme un fichier + ligne, et chaque correc
 ## Non-objectifs
 
 Je ne réécris pas de code. Je ne touche pas la configuration. Je ne propose pas de fonctionnalités produit. Je signale les écarts par rapport au contrat Paperclip et aux règles bear-craft dans `rules/02…12`.
+
+## Protocole de revue
+
+Avant de noter, suivre `.claude/references/base/review-protocol.md` : lire les appelants et les imports du code modifié au-delà du diff, et rédiger chaque constat ainsi : emplacement · ce que fait le code · ce qui ne va pas · correctif · risque si on l'ignore, classé *à corriger* / *à envisager* / *optionnel*.

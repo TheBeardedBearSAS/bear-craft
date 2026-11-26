@@ -74,7 +74,7 @@ Analysieren Sie die Organisation der Anwendungslogik:
 - [ ] Interface Segregation: Spezifische und minimale Schnittstellen
 - [ ] Dependency Inversion: Abhängigkeit von Abstraktionen
 
-**Referenz**: `rules/04-solid-principles.md`
+**Referenz**: `${CLAUDE_PLUGIN_ROOT}/references/base/solid-principles.md`
 
 ### Schritt 7: Bewertung berechnen
 

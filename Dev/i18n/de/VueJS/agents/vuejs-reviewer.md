@@ -693,6 +693,11 @@ const routes = [
 - **Feinkörnige Reaktivität**: shallowRef für große Collections, computed für Ableitungen
 - **Lazy-first**: Routen und schwere Komponenten werden bei Bedarf geladen
 
+
+## Review-Protokoll
+
+Vor der Bewertung `.claude/references/base/review-protocol.md` befolgen: Aufrufer und Importe des geänderten Codes über den Diff hinaus lesen und jeden Befund so formulieren: Ort · was der Code tut · was schiefgeht · Korrektur · Risiko, wenn sie unterbleibt, eingestuft als *muss* / *sollte* / *optional*.
+
 ---
 
 **Version:** 2.2

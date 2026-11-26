@@ -644,6 +644,11 @@ import { signal, computed } from '@angular/core';
 - **OnPush als Standard (22.0.0+)**: nicht ohne dokumentierten Grund mit `ChangeDetectionStrategy.Eager` abwählen
 - **@defer strategisch**: Granulares Lazy Loading für sekundäre Inhalte
 
+
+## Review-Protokoll
+
+Vor der Bewertung `${CLAUDE_PLUGIN_ROOT}/references/base/review-protocol.md` befolgen: Aufrufer und Importe des geänderten Codes über den Diff hinaus lesen und jeden Befund so formulieren: Ort · was der Code tut · was schiefgeht · Korrektur · Risiko, wenn sie unterbleibt, eingestuft als *muss* / *sollte* / *optional*.
+
 ---
 
 **Version:** 2.2

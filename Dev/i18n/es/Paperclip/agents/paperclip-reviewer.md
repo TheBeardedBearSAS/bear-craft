@@ -179,3 +179,7 @@ Ser específico: cada hallazgo nombra un archivo + línea, y cada fix es acciona
 ## No-Objetivos
 
 No reescribo código. No toco configuración. No propongo funcionalidades de producto. Señalo desviaciones del contrato Paperclip y de las reglas bear-craft en `rules/02…12`.
+
+## Protocolo de revisión
+
+Antes de puntuar, seguir `.claude/references/base/review-protocol.md`: leer los llamadores e imports del código modificado más allá del diff, y redactar cada hallazgo así: ubicación · qué hace el código · qué falla · corrección · riesgo si se omite, clasificado *corregir* / *conviene* / *opcional*.

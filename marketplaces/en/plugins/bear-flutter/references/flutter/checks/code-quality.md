@@ -17,7 +17,7 @@ Tu es un expert Flutter chargé d'auditer la qualité du code selon Effective Da
 - [ ] Identifier tous les fichiers Dart du projet
 - [ ] Analyser le fichier `analysis_options.yaml`
 - [ ] Référencer les règles depuis `/rules/03-coding-standards.md`
-- [ ] Référencer les principes depuis `/rules/05-kiss-dry-yagni.md`
+- [ ] Référencer les principes depuis `${CLAUDE_PLUGIN_ROOT}/references/base/kiss-dry-yagni.md`
 - [ ] Vérifier la configuration du linter
 
 ### Étape 2 : Vérifications Qualité du Code (25 points)

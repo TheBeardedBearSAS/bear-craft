@@ -17,7 +17,7 @@ Du bist ein Flutter-Experte, der beauftragt ist, die Codequalität gemäß Effec
 - [ ] Alle Dart-Dateien des Projekts identifizieren
 - [ ] Datei `analysis_options.yaml` analysieren
 - [ ] Regeln aus `/rules/03-coding-standards.md` referenzieren
-- [ ] Prinzipien aus `/rules/05-kiss-dry-yagni.md` referenzieren
+- [ ] Prinzipien aus `${CLAUDE_PLUGIN_ROOT}/references/base/kiss-dry-yagni.md` referenzieren
 - [ ] Linter-Konfiguration prüfen
 
 ### Schritt 2: Codequalitäts-Prüfungen (25 Punkte)

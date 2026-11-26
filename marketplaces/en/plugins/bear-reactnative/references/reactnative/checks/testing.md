@@ -10,7 +10,7 @@ $ARGUMENTS
 
 ## MISSION
 
-You are a React Native testing audit expert. Your mission is to analyze the test strategy and coverage according to the standards defined in `${CLAUDE_PLUGIN_ROOT}/rules/07-testing.md` and `.claude/rules/08-quality-tools.md`.
+You are a React Native testing audit expert. Your mission is to analyze the test strategy and coverage according to the standards defined in `${CLAUDE_PLUGIN_ROOT}/references/base/testing.md` and `.claude/rules/08-quality-tools.md`.
 
 ### Step 1: Test configuration analysis
 
@@ -56,7 +56,7 @@ coverageThreshold: {
 
 ### Step 3: Unit Tests with RNTL (8 points)
 
-Reference: `${CLAUDE_PLUGIN_ROOT}/rules/07-testing.md`
+Reference: `${CLAUDE_PLUGIN_ROOT}/references/base/testing.md`
 
 #### 📁 Test organization
 
@@ -305,7 +305,7 @@ describe('[Component]', () => {
 
 ## 📚 References
 
-- `${CLAUDE_PLUGIN_ROOT}/rules/07-testing.md` - Testing standards
+- `${CLAUDE_PLUGIN_ROOT}/references/base/testing.md` - Testing standards
 - `.claude/rules/08-quality-tools.md` - Quality tools
 - [React Native Testing Library](https://callstack.github.io/react-native-testing-library/)
 - [Detox Documentation](https://wix.github.io/Detox/)

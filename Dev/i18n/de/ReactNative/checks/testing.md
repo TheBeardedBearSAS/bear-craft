@@ -10,7 +10,7 @@ $ARGUMENTS
 
 ## MISSION
 
-Sie sind ein Experte für React Native Testing-Audits. Ihre Aufgabe ist es, die Teststrategie und -abdeckung gemäß den Standards in `.claude/rules/07-testing.md` und `.claude/rules/08-quality-tools.md` zu analysieren.
+Sie sind ein Experte für React Native Testing-Audits. Ihre Aufgabe ist es, die Teststrategie und -abdeckung gemäß den Standards in `.claude/references/base/testing.md` und `.claude/rules/08-quality-tools.md` zu analysieren.
 
 ### Schritt 1: Testkonfigurationsanalyse
 
@@ -56,7 +56,7 @@ coverageThreshold: {
 
 ### Schritt 3: Unit-Tests mit RNTL (8 Punkte)
 
-Referenz: `.claude/rules/07-testing.md`
+Referenz: `.claude/references/base/testing.md`
 
 #### 📁 Testorganisation
 
@@ -305,7 +305,7 @@ describe('[Komponente]', () => {
 
 ## 📚 Referenzen
 
-- `.claude/rules/07-testing.md` - Testing-Standards
+- `.claude/references/base/testing.md` - Testing-Standards
 - `.claude/rules/08-quality-tools.md` - Quality-Tools
 - [React Native Testing Library](https://callstack.github.io/react-native-testing-library/)
 - [Detox Documentation](https://wix.github.io/Detox/)

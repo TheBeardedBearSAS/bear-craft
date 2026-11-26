@@ -101,7 +101,7 @@ Priorizar: ahorro elevado × esfuerzo bajo × riesgo bajo.
 
 - `@devops-engineer` — infraestructura
 - `@performance-auditor` — balance rendimiento vs coste
-- `.claude/rules/12-context-management.md` — optimización de tokens en Claude Code
+- `.claude/references/base/context-management.md` — optimización de tokens en Claude Code
 - `/bear-common:setup-rtk` — RTK 60-90% de ahorro en tokens
 - Skill `atomic-tasks` — subagente fresco = menos tokens
 

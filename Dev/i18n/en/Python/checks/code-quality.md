@@ -74,7 +74,7 @@ Analyze code simplicity and clarity:
 - [ ] Single level of abstraction per function
 - [ ] Early returns to reduce complexity
 
-**Reference**: `rules/05-kiss-dry-yagni.md`
+**Reference**: `.claude/references/base/kiss-dry-yagni.md`
 
 ### Step 6: Comments and Documentation
 

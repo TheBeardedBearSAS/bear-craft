@@ -337,6 +337,11 @@ Appliquer `.claude/skills/woocommerce/checklist.md`. Signaux minimaux : compatib
 | Performance | [X] | 15 |
 | Tests | [X] | 15 |
 
+
+## Protocole de revue
+
+Avant de noter, suivre `.claude/references/base/review-protocol.md` : lire les appelants et les imports du code modifié au-delà du diff, et rédiger chaque constat ainsi : emplacement · ce que fait le code · ce qui ne va pas · correctif · risque si on l'ignore, classé *à corriger* / *à envisager* / *optionnel*.
+
 ---
 
 ### 1. Architecture : [X]/25

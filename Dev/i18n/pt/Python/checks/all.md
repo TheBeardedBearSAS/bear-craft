@@ -227,10 +227,10 @@ REFERÊNCIAS:
 
 Arquitetura       : rules/02-architecture.md
 Padrões Código    : rules/03-coding-standards.md
-SOLID             : rules/04-solid-principles.md
-KISS/DRY/YAGNI    : rules/05-kiss-dry-yagni.md
+SOLID             : .claude/references/base/solid-principles.md
+KISS/DRY/YAGNI    : .claude/references/base/kiss-dry-yagni.md
 Ferramentas       : rules/06-tooling.md
-Testes            : rules/07-testing.md
+Testes            : .claude/references/base/testing.md
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 

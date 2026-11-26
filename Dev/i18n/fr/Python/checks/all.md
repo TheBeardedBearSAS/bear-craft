@@ -324,10 +324,10 @@ MOIS 2-3 (Moyen terme) :
 
 Architecture     : rules/02-architecture.md
 Coding Standards : rules/03-coding-standards.md
-SOLID            : rules/04-solid-principles.md
-KISS/DRY/YAGNI   : rules/05-kiss-dry-yagni.md
+SOLID            : .claude/references/base/solid-principles.md
+KISS/DRY/YAGNI   : .claude/references/base/kiss-dry-yagni.md
 Tooling          : rules/06-tooling.md
-Testing          : rules/07-testing.md
+Testing          : .claude/references/base/testing.md
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 

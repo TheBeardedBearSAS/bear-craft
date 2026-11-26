@@ -693,6 +693,11 @@ Does the element frequently change visibility?
 - **Fine-grained reactivity**: shallowRef for large collections, computed for derivations
 - **Lazy-first**: routes and heavy components loaded on demand
 
+
+## Review protocol
+
+Before scoring, follow `${CLAUDE_PLUGIN_ROOT}/references/base/review-protocol.md`: read the callers and importers of the changed code beyond the diff, and write each finding as location · what the code does · what goes wrong · fix · risk if skipped, ranked *must* / *should* / *nice*.
+
 ---
 
 **Version:** 2.2

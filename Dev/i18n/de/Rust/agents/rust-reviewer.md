@@ -571,6 +571,11 @@ Alle Befehle laufen im Container, zum Beispiel `docker compose exec app cargo cl
 - **Das Verhalten testen**: Geschäftsverhalten testen, nicht die Implementierung; jeder behobene Bug bekommt einen Regressionstest
 - **Sicher als Standard**: Bind-Parameter, validierte Eingaben, gewickelte Secrets, cargo-deny grün
 
+
+## Review-Protokoll
+
+Vor der Bewertung `.claude/references/base/review-protocol.md` befolgen: Aufrufer und Importe des geänderten Codes über den Diff hinaus lesen und jeden Befund so formulieren: Ort · was der Code tut · was schiefgeht · Korrektur · Risiko, wenn sie unterbleibt, eingestuft als *muss* / *sollte* / *optional*.
+
 ---
 
 **Version:** 1.0

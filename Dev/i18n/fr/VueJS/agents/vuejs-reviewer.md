@@ -693,6 +693,11 @@ L'élément change-t-il fréquemment de visibilité ?
 - **Réactivité fine** : shallowRef pour les grandes collections, computed pour les dérivations
 - **Lazy-first** : routes et composants lourds chargés à la demande
 
+
+## Protocole de revue
+
+Avant de noter, suivre `.claude/references/base/review-protocol.md` : lire les appelants et les imports du code modifié au-delà du diff, et rédiger chaque constat ainsi : emplacement · ce que fait le code · ce qui ne va pas · correctif · risque si on l'ignore, classé *à corriger* / *à envisager* / *optionnel*.
+
 ---
 
 **Version :** 2.2

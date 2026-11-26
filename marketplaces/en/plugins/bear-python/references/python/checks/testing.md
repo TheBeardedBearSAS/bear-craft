@@ -21,7 +21,7 @@ Examine test organization:
 - [ ] Pytest fixtures in `conftest.py`
 - [ ] Separation of unit / integration / e2e tests
 
-**Reference**: `rules/07-testing.md` section "Test Organization"
+**Reference**: `${CLAUDE_PLUGIN_ROOT}/references/base/testing.md` section "Test Organization"
 
 ### Step 2: Code Coverage
 
@@ -34,7 +34,7 @@ Measure test coverage:
 
 **Command**: Run `docker run --rm -v $(pwd):/app python:3.15 sh -c "pip install pytest pytest-cov && pytest /app --cov=/app --cov-report=term-missing"`
 
-**Reference**: `rules/07-testing.md` section "Code Coverage"
+**Reference**: `${CLAUDE_PLUGIN_ROOT}/references/base/testing.md` section "Code Coverage"
 
 ### Step 3: Unit Tests
 
@@ -46,7 +46,7 @@ Analyze unit test quality:
 - [ ] Descriptive naming: `test_should_X_when_Y`
 - [ ] AAA pattern (Arrange, Act, Assert)
 
-**Reference**: `rules/07-testing.md` section "Unit Tests"
+**Reference**: `${CLAUDE_PLUGIN_ROOT}/references/base/testing.md` section "Unit Tests"
 
 ### Step 4: Integration Tests
 
@@ -57,7 +57,7 @@ Verify integration tests:
 - [ ] Cleanup after each test (teardown)
 - [ ] Isolated and independent tests
 
-**Reference**: `rules/07-testing.md` section "Integration Tests"
+**Reference**: `${CLAUDE_PLUGIN_ROOT}/references/base/testing.md` section "Integration Tests"
 
 ### Step 5: Assertions and Test Quality
 
@@ -69,7 +69,7 @@ Check assertion quality:
 - [ ] Error and exception tests
 - [ ] No disabled tests without reason (skip/xfail)
 
-**Reference**: `rules/07-testing.md` section "Assertions and Test Quality"
+**Reference**: `${CLAUDE_PLUGIN_ROOT}/references/base/testing.md` section "Assertions and Test Quality"
 
 ### Step 6: Fixtures and Parameterization
 
@@ -80,7 +80,7 @@ Evaluate pytest fixture usage:
 - [ ] Factories for complex test objects
 - [ ] No duplication in fixtures
 
-**Reference**: `rules/07-testing.md` section "Pytest Fixtures"
+**Reference**: `${CLAUDE_PLUGIN_ROOT}/references/base/testing.md` section "Pytest Fixtures"
 
 ### Step 7: Performance and Execution
 
@@ -93,7 +93,7 @@ Analyze test performance:
 
 **Command**: Run `docker run --rm -v $(pwd):/app python:3.15 sh -c "pip install pytest && pytest /app -v --duration=10"`
 
-**Reference**: `rules/07-testing.md` section "Test Performance"
+**Reference**: `${CLAUDE_PLUGIN_ROOT}/references/base/testing.md` section "Test Performance"
 
 ### Step 8: Test-Driven Development (TDD)
 
@@ -103,7 +103,7 @@ Verify TDD adoption:
 - [ ] Tests guiding design
 - [ ] No untested code in production
 
-**Reference**: `rules/01-workflow-analysis.md` section "TDD Workflow"
+**Reference**: `${CLAUDE_PLUGIN_ROOT}/references/base/workflow-analysis.md` section "TDD Workflow"
 
 ### Step 9: Calculate Score
 

@@ -179,3 +179,7 @@ Stay specific: every finding names a file + line, and every fix is actionable in
 ## Non-Goals
 
 I do not rewrite code. I do not touch configuration. I do not propose product features. I flag deviations from the Paperclip contract and from the bear-craft rules in `rules/02…12`.
+
+## Review protocol
+
+Before scoring, follow `${CLAUDE_PLUGIN_ROOT}/references/base/review-protocol.md`: read the callers and importers of the changed code beyond the diff, and write each finding as location · what the code does · what goes wrong · fix · risk if skipped, ranked *must* / *should* / *nice*.

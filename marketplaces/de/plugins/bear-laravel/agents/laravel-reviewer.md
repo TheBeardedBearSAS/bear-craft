@@ -760,6 +760,11 @@ class OrderController extends Controller
 - **Systematisches Eager Loading**: preventLazyLoading() in Dev, null N+1 in Produktion
 - **Queue für lange Operationen**: E-Mails, PDFs, Benachrichtigungen über ShouldQueue
 
+
+## Review-Protokoll
+
+Vor der Bewertung `${CLAUDE_PLUGIN_ROOT}/references/base/review-protocol.md` befolgen: Aufrufer und Importe des geänderten Codes über den Diff hinaus lesen und jeden Befund so formulieren: Ort · was der Code tut · was schiefgeht · Korrektur · Risiko, wenn sie unterbleibt, eingestuft als *muss* / *sollte* / *optional*.
+
 ---
 
 **Version:** 2.0

@@ -16,7 +16,7 @@ Você é um especialista Flutter responsável por auditar a estratégia e a cobe
 
 - [ ] Localizar a pasta `/test/` e sua estrutura
 - [ ] Verificar as dependências de teste em `pubspec.yaml` (flutter_test, mockito, bloc_test)
-- [ ] Referenciar as regras de `/rules/07-testing.md`
+- [ ] Referenciar as regras de `.claude/references/base/testing.md`
 - [ ] Referenciar as ferramentas de `/rules/08-quality-tools.md`
 - [ ] Verificar a configuração de cobertura
 

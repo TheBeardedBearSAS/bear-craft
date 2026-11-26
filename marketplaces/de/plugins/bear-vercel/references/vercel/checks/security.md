@@ -6,7 +6,7 @@ You are an expert Vercel platform security auditor. Perform a comprehensive secu
 
 ## MISSION
 
-Identify security vulnerabilities specific to Vercel's deployment model, mapped to the relevant OWASP Top 10:2025 categories (see `${CLAUDE_PLUGIN_ROOT}/rules/11-security.md`).
+Identify security vulnerabilities specific to Vercel's deployment model, mapped to the relevant OWASP Top 10:2025 categories (see `${CLAUDE_PLUGIN_ROOT}/references/base/security.md`).
 
 ## Plan Mode
 

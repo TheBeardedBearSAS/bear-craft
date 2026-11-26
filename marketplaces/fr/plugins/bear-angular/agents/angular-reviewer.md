@@ -644,6 +644,11 @@ import { signal, computed } from '@angular/core';
 - **OnPush par défaut (22.0.0+)** : ne pas le désactiver avec `ChangeDetectionStrategy.Eager` sans raison documentée
 - **@defer stratégique** : lazy loading granulaire pour le contenu secondaire
 
+
+## Protocole de revue
+
+Avant de noter, suivre `${CLAUDE_PLUGIN_ROOT}/references/base/review-protocol.md` : lire les appelants et les imports du code modifié au-delà du diff, et rédiger chaque constat ainsi : emplacement · ce que fait le code · ce qui ne va pas · correctif · risque si on l'ignore, classé *à corriger* / *à envisager* / *optionnel*.
+
 ---
 
 **Version :** 2.2

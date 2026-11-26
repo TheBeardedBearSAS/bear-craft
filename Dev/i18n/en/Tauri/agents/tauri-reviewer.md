@@ -449,6 +449,11 @@ Run tooling in the container where possible (`docker compose exec app ...`); GUI
 - **Updates are a one-way door**: protect the signing key, test the update path
 - **Stay in scope**: UI belongs to the frontend stacks, general Rust to the `rust` stack
 
+
+## Review protocol
+
+Before scoring, follow `.claude/references/base/review-protocol.md`: read the callers and importers of the changed code beyond the diff, and write each finding as location · what the code does · what goes wrong · fix · risk if skipped, ranked *must* / *should* / *nice*.
+
 ---
 
 **Version:** 1.0

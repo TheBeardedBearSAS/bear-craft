@@ -816,6 +816,11 @@ describe('api/cron/daily', () => {
 - **Test the contract, not just the happy path**: every guarded handler needs an auth-failure test
 - **Framework-agnostic scope**: never evaluate Next.js-specific routing/rendering/data-fetching — that belongs to the framework's own stack
 
+
+## Review protocol
+
+Before scoring, follow `${CLAUDE_PLUGIN_ROOT}/references/base/review-protocol.md`: read the callers and importers of the changed code beyond the diff, and write each finding as location · what the code does · what goes wrong · fix · risk if skipped, ranked *must* / *should* / *nice*.
+
 ---
 
 **Version:** 1.0

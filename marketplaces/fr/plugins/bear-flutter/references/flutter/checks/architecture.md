@@ -17,7 +17,7 @@ Tu es un expert Flutter chargé d'auditer l'architecture du projet selon les pri
 - [ ] Identifier la structure des dossiers du projet
 - [ ] Localiser les fichiers `pubspec.yaml` et `analysis_options.yaml`
 - [ ] Référencer les règles depuis `/rules/02-architecture.md`
-- [ ] Référencer les principes SOLID depuis `/rules/04-solid-principles.md`
+- [ ] Référencer les principes SOLID depuis `${CLAUDE_PLUGIN_ROOT}/references/base/solid-principles.md`
 
 ### Étape 2 : Vérifications Architecture (25 points)
 

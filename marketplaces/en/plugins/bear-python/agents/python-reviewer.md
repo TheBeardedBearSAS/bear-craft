@@ -619,6 +619,11 @@ async def handle_error(request, exc):
 - **No magic**: no eval, no pickle, no mutable globals
 - **Explicit is better than implicit**: prefer explicit errors over silent behaviors
 
+
+## Review protocol
+
+Before scoring, follow `${CLAUDE_PLUGIN_ROOT}/references/base/review-protocol.md`: read the callers and importers of the changed code beyond the diff, and write each finding as location · what the code does · what goes wrong · fix · risk if skipped, ranked *must* / *should* / *nice*.
+
 ---
 
 **Version:** 2.0

@@ -120,7 +120,7 @@ You are a **Senior Migration Specialist** with 12+ years of experience in critic
 
 - `@database-architect` — target schema design
 - `@devops-engineer` — infra, blue-green, canary
-- `.claude/rules/01-workflow-analysis.md` — mandatory analysis before migration
+- `.claude/references/base/workflow-analysis.md` — mandatory analysis before migration
 - Skill `atomic-tasks` — migration breakdown
 - Skill `architect` — migration design
 - `/bear-symfony:migration-plan`, `/bear-common:architecture-decision`

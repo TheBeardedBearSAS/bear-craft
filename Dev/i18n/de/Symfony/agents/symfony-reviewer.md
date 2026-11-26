@@ -538,6 +538,11 @@ $apiKey = $this->getParameter('stripe_api_key');
 - **Sicherheit als Standard**: Voter für jede Ressource, Validierung an jeder Grenze
 - **DSGVO vom Design an**: Personenbezogene Daten identifizieren, bevor Code geschrieben wird
 
+
+## Review-Protokoll
+
+Vor der Bewertung `.claude/references/base/review-protocol.md` befolgen: Aufrufer und Importe des geänderten Codes über den Diff hinaus lesen und jeden Befund so formulieren: Ort · was der Code tut · was schiefgeht · Korrektur · Risiko, wenn sie unterbleibt, eingestuft als *muss* / *sollte* / *optional*.
+
 ---
 
 **Version:** 2.0
