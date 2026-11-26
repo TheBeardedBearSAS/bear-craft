@@ -28,6 +28,10 @@ describe('Common rules loaded at launch stay within budget', () => {
       expect(total).toBeLessThanOrEqual(MAX_RULES_BYTES);
     });
 
+    it(`${lang}: ships the minimal-change rule (RFC-002, rule 24)`, () => {
+      expect(fs.existsSync(path.join(rulesDir(lang), '24-minimal-change.md'))).toBe(true);
+    });
+
     it(`${lang}: every rule points to a reference that ships in Common/references`, () => {
       for (const f of ruleFiles(lang)) {
         const content = fs.readFileSync(f, 'utf8');

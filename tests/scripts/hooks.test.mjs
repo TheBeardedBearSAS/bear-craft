@@ -22,6 +22,7 @@ const HOOK_SCRIPTS = [
   'protect-sensitive-files.sh',
   'output-size-hint.sh',
   'output-filter.sh',
+  'subagent-plan-rules.sh',
 ].map((s) => [s, path.join(BASE_HOOKS_DIR, s)]);
 
 const walk = (dir) =>

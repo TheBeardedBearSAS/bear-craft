@@ -66,7 +66,11 @@ Conséquence attendue : un gain en lignes **inférieur** à celui de Ponytail (n
 - Isolation : workspace temporaire, `CLAUDE_CONFIG_DIR` temporaire (pas de `~/.claude/CLAUDE.md` personnel). Le harness Ponytail coupe le chargement de `CLAUDE.md` : pour le bras Bear Craft, il faut l'**autoriser** et installer Bear Craft dans le workspace (`--hooks=default`).
 - Exécution dans Docker (Python + Claude CLI), clé API via `.env` non commitée.
 
-### Phase 1 — Règle « minimal-change » et sous-agents
+### Phase 1 — Règle « minimal-change » et sous-agents (réalisée 2026-11-26, branche `feat/minimal-change-rule`)
+
+Mesure préalable (sonde `subagent_probe.py`) : `general-purpose` et les agents personnalisés chargent déjà `.claude/rules/` ; `Explore` et `Plan` non.
+Le hook `SubagentStart` est donc limité à `Plan` (qui décide du périmètre) ; `Explore` est en lecture seule. Vérifié de bout en bout : `Plan` cite la règle 24 avec le hook, « NONE » sans.
+La règle 23 du dépôt n'est pas distribuée ; ses principes sont couverts par la règle 24.
 
 - Nouvelle règle `Dev/i18n/<lang>/Common/rules/24-minimal-change.md`, **≤ 4 Ko**, impérative (voir annexe A), 5 langues.
 - La règle 23 est fusionnée dedans (ses 3 principes) au lieu d'être distribuée telle quelle ; `.claude/rules/23-karpathy-principles.md` du dépôt pointe vers la nouvelle règle.
