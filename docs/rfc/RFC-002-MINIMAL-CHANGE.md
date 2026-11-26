@@ -110,6 +110,10 @@ lignes −31 % (−25 % hors tâches `tmpl-fe-datepicker` et `scope-rename`, con
 Ponytail : lignes −58 %, coût −32 %. **Objectif « aussi bien que Ponytail » non atteint sur la taille et le coût** ; atteint sur la correction, dépassé sur les tests.
 Détail : `bear-craft-bench/content/2026-11-26-phase4-final.md`.
 
+**Qualité des tests (mutation, hors ligne sur les mêmes workspaces, 11 tâches Python × 3 runs)** : bugs injectés attrapés par les tests de l'agent —
+Bear Craft candidat **81 %** [60..96], 10.1.2 80 %, Ponytail 43 %, sans config 41 % ; meilleur que Ponytail sur 7/11 tâches, pire sur 0 (p = 0,016).
+La refonte garde la qualité des tests intacte pour un coût par session divisé par 2,5. Détail : `bear-craft-bench/content/2026-11-26-test-quality.md`.
+
 #### Plan initial
 
 - Rejouer le benchmark **en un seul run** avec 4 bras (`baseline`, `ponytail`, `bearcraft-10`, `bearcraft-next`) pour neutraliser la dérive du modèle.
