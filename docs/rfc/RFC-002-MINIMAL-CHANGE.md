@@ -103,7 +103,14 @@ Reporté : les agents d'audit et `checks/*.md` citent les règles comme checklis
 - **Carte** : `session-init.sh` ajoute une liste compacte (≤ 2 Ko) des composants/helpers/services et dépendances installées ; budget 3 s, échec silencieux, désactivable (`BEAR_MAP=0`).
 - **Revue** : les 11 reviewers et `/bear-gate:check` lisent le code touché hors diff (appelants, imports) et structurent chaque constat : *ce que fait le code / ce qui casse / correctif / risque si ignoré*, classés « à corriger / à envisager / optionnel ».
 
-### Phase 4 — Mesure finale et publication
+### Phase 4 — Mesure finale (réalisée 2026-11-26)
+
+240 sessions (20 tâches × 4 configurations × 3 runs, un seul run). Candidat (phases 1-3) contre sans config : coût **+51 %** (10.1.2 : +300 %), 0,263 $/session contre 0,646 $ (**−59 %**),
+lignes −31 % (−25 % hors tâches `tmpl-fe-datepicker` et `scope-rename`, contre −24 % pour 10.1.2), contrôles cachés 27/27 (10.1.2 : 25/27), tests écrits 77 %.
+Ponytail : lignes −58 %, coût −32 %. **Objectif « aussi bien que Ponytail » non atteint sur la taille et le coût** ; atteint sur la correction, dépassé sur les tests.
+Détail : `bear-craft-bench/content/2026-11-26-phase4-final.md`.
+
+#### Plan initial
 
 - Rejouer le benchmark **en un seul run** avec 4 bras (`baseline`, `ponytail`, `bearcraft-10`, `bearcraft-next`) pour neutraliser la dérive du modèle.
 - Publier `docs/benchmarks/2026-12-minimal-change.md` : méthode, tableaux par tâche, limites. Aucune promesse marketing non mesurée.
